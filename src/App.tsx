@@ -1,8 +1,14 @@
 import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import Home from './views/Home';
+import Search from './views/Search';
 
 function App() {
   return (
-    <h1>Hello world</h1>
+    <Routes>
+      <Route path='/' element={<Home />} />
+      <Route path='/search' element={<Search />}></Route>
+    </Routes>
   );
 }
 
