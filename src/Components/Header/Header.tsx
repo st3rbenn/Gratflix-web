@@ -23,7 +23,7 @@ export function Header() {
       } else {
         // eslint-disable-next-line no-constant-condition
         window.history.replaceState(null, typeof null == null ? '' : '', '/home');
-        Navigation('/');
+        Navigation('/Browse');
       }
     }
   };

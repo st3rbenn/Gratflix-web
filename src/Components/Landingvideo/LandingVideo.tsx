@@ -9,7 +9,7 @@ export const LandingVideo = () => {
     <Box {...(section as ChakraProps)}>
       <Box position='absolute' zIndex={1000} w='100%' height='100%'></Box>
       <video src={Trailer} style={Blur} muted playsInline autoPlay loop controls />
-      <Stack justifyContent='center' position='absolute' top='50%' left='5%'>
+      <Stack justifyContent='center' position='absolute' top='50%' left='4%'>
         <Img w='25%' mb={7} src={currentMovieLogo} />
         <Flex alignItems='center' gap={6}>
           <Button
