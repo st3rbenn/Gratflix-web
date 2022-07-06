@@ -26,9 +26,9 @@ export const MovieModal = (props: props) => {
       <ModalContent bgColor='rgb(20, 20, 20)' color='white' position='relative'>
         <ModalCloseButton />
         <AspectRatio ratio={16 / 9}>
-          <video src={Trailer} style={Blur} muted playsInline autoPlay loop />
+          {/* <video src={Trailer} style={Blur} muted playsInline autoPlay loop /> */}
         </AspectRatio>
-        <Grid pr={20} pl={20} pb={10} pt={10} alignItems={'center'} gap={4}>
+        <Grid pr={20} pl={20} pb={10} pt={10} alignItems='center' gap={4}>
           <Flex alignItems='center' mb={5} gap={6}>
             <Heading fontSize='xl'>{data}</Heading>
           </Flex>

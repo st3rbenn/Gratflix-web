@@ -1,10 +1,10 @@
 import { Box, ChakraProps, Container } from '@chakra-ui/react';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { LandingVideo } from '../Components/Landingvideo/LandingVideo';
 
 function Home() {
   return (
-    <Box position={'relative'}>
+    <Box position='relative'>
       <LandingVideo />
       <Box {...(swiperContainerSettings as ChakraProps)}>
         <Container {...(GalerieSettings as ChakraProps)}>
