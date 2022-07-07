@@ -3,12 +3,14 @@ import { Box, Button, ChakraProps, Flex, Img, Stack, Text } from '@chakra-ui/rea
 import { BiErrorCircle, BiRightArrow } from 'react-icons/bi';
 import Trailer from '../../assets/Spider-Man_Homecoming.mp4';
 import currentMovieLogo from '../../assets/img/spiderman-logo.jpg';
+import styles from './LandingVideo.module.css';
 
 export const LandingVideo = () => {
   return (
-    <Box {...(section as ChakraProps)}>
-      <Box position='absolute' zIndex={1000} w='100%' height='100%'></Box>
-      <video src={Trailer} style={Blur} muted playsInline autoPlay loop controls />
+    <Box className={styles.section}>
+      <div className={styles.blockClick}>
+        <video src={Trailer} style={Blur} muted playsInline autoPlay loop controls />
+      </div>
       <Stack justifyContent='center' position='absolute' top='50%' left='4%'>
         <Img w='25%' mb={7} src={currentMovieLogo} />
         <Flex alignItems='center' gap={6}>
@@ -30,13 +32,9 @@ export const LandingVideo = () => {
   );
 };
 
-const section = {
-  as: 'section',
-  w: '100%',
-  h: '100%',
-  position: 'relative',
-  zIndex: 100,
-};
+// const section = {
+//   as: 'section',
+// };
 
 const Blur = {
   filter: 'contrast(88%) brightness(72%)',
