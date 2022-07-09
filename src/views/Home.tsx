@@ -1,11 +1,35 @@
+import React, { useEffect, useState } from 'react';
 import { Box, ChakraProps, Container } from '@chakra-ui/react';
-import React from 'react';
 import { LandingVideo } from '../Components/Landingvideo/LandingVideo';
+import { components } from '../api/typings/api';
+import { fetcher } from '../api/fetcher';
 
 function Home() {
+  const [landing, setLanding] = useState([] as components['schemas']['LandingResponse']);
+
+  const result = async () => {
+    const getLanding = fetcher.path('/landing').method('get').create();
+
+    const queryLanding = {
+      populate: 'trailer',
+      'populate[0]': 'logo',
+    };
+    const { data: landingResult } = await getLanding(queryLanding);
+    setLanding(landingResult as components['schemas']['LandingResponse']);
+  };
+
+  useEffect(() => {
+    result();
+  }, []);
+
+  console.log(landing.data?.attributes?.trailer?.data?.attributes?.url);
+
   return (
     <Box position='relative'>
-      <LandingVideo />
+      <LandingVideo
+        trailer={landing.data?.attributes?.trailer?.data?.attributes?.url as string}
+        logo={landing.data?.attributes?.logo?.data?.attributes?.url as string}
+      />
       <Box {...(swiperContainerSettings as ChakraProps)}>
         <Container {...(GalerieSettings as ChakraProps)}>
           {/* <Galerie list={1} listTitle={'Tendances actuelles'}/> */}
