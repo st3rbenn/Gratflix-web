@@ -8,3 +8,16 @@
   position: relative;
   z-index: 100;
 }
+
+.blur {
+  filter: 'contrast(88%) brightness(72%)';
+}
+
+.button {
+  color: 'rgb(255, 255, 255)';
+  justify-content: 'center';
+  align-items: 'center';
+  margin-top: '0 !important';
+  height: '10%';
+  width: '15%';
+}
