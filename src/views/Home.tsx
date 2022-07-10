@@ -22,14 +22,9 @@ function Home() {
     result();
   }, []);
 
-  console.log(landing.data?.attributes?.trailer?.data?.attributes?.url);
-
   return (
     <Box position='relative'>
-      <LandingVideo
-        trailer={landing.data?.attributes?.trailer?.data?.attributes?.url as string}
-        logo={landing.data?.attributes?.logo?.data?.attributes?.url as string}
-      />
+      <LandingVideo landing={landing} />
       <Box {...(swiperContainerSettings as ChakraProps)}>
         <Container {...(GalerieSettings as ChakraProps)}>
           {/* <Galerie list={1} listTitle={'Tendances actuelles'}/> */}
