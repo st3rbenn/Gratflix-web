@@ -1,6 +1,5 @@
 declare module '*.jpg' {
   const src: string;
-  // @ts-ignore
   export default src;
 }
 declare module '*.mp4' {
@@ -9,11 +8,9 @@ declare module '*.mp4' {
 }
 declare module '*.png' {
   const src: string;
-  // @ts-ignore
   export default src;
 }
 declare module '*.module.css' {
   const classes: { [key: string]: string };
-  // @ts-ignore
   export default classes;
 }

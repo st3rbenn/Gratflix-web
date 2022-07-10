@@ -23,7 +23,7 @@
   "rules": {
     "react/react-in-jsx-scope": "off",
     "camelcase": "error",
-    "quotes": ["warning", "single"],
+    "quotes": ["warn", "single"],
     "semi": ["error", "always"],
     "no-trailing-spaces": "error",
     "no-unused-vars": "warn",
