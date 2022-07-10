@@ -1,7 +1,7 @@
 import { Fetcher } from 'openapi-typescript-fetch';
 import { paths } from './typings/api';
 
-const baseUrl = 'https://strapi-5261.onrender.com/api' || 'http://localhost:1337/api';
+const baseUrl = 'https://api-gratflix.onrender.com/api' || 'http://localhost:3001/api';
 // declare fetcher for paths
 const fetcher = Fetcher.for<paths>();
 fetcher.configure({
