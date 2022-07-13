@@ -1,0 +1,16 @@
+body {
+  background-color: rgb(20, 20, 20) !important;
+}
+
+.swiperContainer {
+  box-shadow: 1px 0px 69px 140px rgb(20, 20, 20);
+  z-index: 100;
+  margin-left: 55px;
+  margin-right: 55px;
+  position: relative;
+}
+
+.galerie {
+  margin-bottom: 5px;
+  margin-top: 5px;
+}

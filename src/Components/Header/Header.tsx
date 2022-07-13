@@ -2,13 +2,13 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 import { Flex, Container, List, ListItem, Img, Input, Stack, Button } from '@chakra-ui/react';
 import Logo from '../../../src/assets/img/Logo.png';
 import { useNavigate, Link } from 'react-router-dom';
-import { CSSObject } from '@emotion/react';
 
 export function Header() {
+  const [scrollPosition, setScrollPosition] = useState(0);
+
   const Navigation = useNavigate();
   const pathNameUrl = window.location.pathname;
 
-  const [scrollPosition, setScrollPosition] = useState(0);
   const handleScroll = () => {
     const position = window.scrollY;
     setScrollPosition(position);
@@ -16,13 +16,11 @@ export function Header() {
 
   const handleWritting = (ev: ChangeEvent) => {
     if (ev.target instanceof HTMLInputElement) {
-      // eslint-disable-next-line no-constant-condition
-      window.history.replaceState(null, typeof null == null ? '' : '', `/search?q=${ev.target.value}`);
+      window.history.replaceState(null, `/search?q=${ev.target.value}`);
       if (ev.target.value.length > 0) {
         Navigation(`/search?q=${ev.target.value}`);
       } else {
-        // eslint-disable-next-line no-constant-condition
-        window.history.replaceState(null, typeof null == null ? '' : '', '/home');
+        window.history.replaceState(null, '/home');
         Navigation('/Browse');
       }
     }
@@ -54,7 +52,7 @@ export function Header() {
             ml={10}
             fontSize={pathNameUrl === '/browse' ? 'md' : ''}
             color={pathNameUrl === '/browse' ? 'gray.100' : 'gray.300'}
-            _hover={pathNameUrl === '/browse' ? ({ color: '' } as CSSObject) : ({ color: 'gray.300' } as CSSObject)}>
+            _hover={pathNameUrl === '/browse' ? { color: '' } : { color: 'gray.300' }}>
             <Link to='/browse'>Accueil</Link>
           </ListItem>
 
