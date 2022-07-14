@@ -1,33 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Container } from '@chakra-ui/react';
 import { LandingVideo } from '../Components/Landingvideo/LandingVideo';
-import { components } from '../api/typings/api';
-import { fetcher } from '../api/fetcher';
 import { Carousel } from '../Components/Carousel/Carousel';
 import styles from './GlobalStyle.module.css';
 
 function Home() {
-  const [landing, setLanding] = useState([] as components['schemas']['LandingResponse']);
-
-  const result = async () => {
-    const getLanding = fetcher.path('/landing').method('get').create();
-
-    const queryLanding = {
-      populate: 'trailer',
-      'populate[0]': 'logo',
-    };
-    const { data: landingResult } = await getLanding(queryLanding);
-    setLanding(landingResult as components['schemas']['LandingResponse']);
-  };
-
-  useEffect(() => {
-    result();
-  }, []);
   //https://api-gratflix.onrender.com/api/movies?filters[category]=7&populate=category
 
+  console.log(process.env);
+
   return (
-    <Box position='relative'>
-      <LandingVideo landing={landing} />
+    <Box position='relative' as='main'>
+      <LandingVideo />
       <Box className={styles.swiperContainer} as='section'>
         <Container className={styles.galerie} as='article' style={{ maxWidth: 'container.xxl' }}>
           <Carousel category={7} listTitle={'Super-Hero'} />
