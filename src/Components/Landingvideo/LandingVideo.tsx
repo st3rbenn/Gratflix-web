@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Button, ChakraProps, Flex, Img, Stack } from '@chakra-ui/react';
+import { Box, Button, Flex, Img, Stack, Text } from '@chakra-ui/react';
 import { BiErrorCircle, BiRightArrow } from 'react-icons/bi';
 import styles from './LandingVideo.module.css';
 import { components } from 'src/src/api/typings/api';
@@ -8,44 +8,38 @@ interface props {
   landing: components['schemas']['LandingResponse'];
 }
 
-export const LandingVideo = (props: props) => {
-  const trailer = props?.landing?.data?.attributes?.trailer?.data?.attributes?.url;
-  const logo = props?.landing?.data?.attributes?.logo?.data?.attributes?.url;
+export const LandingVideo = ({ landing }: props) => {
+  const trailer = landing?.data?.attributes?.trailer?.data?.attributes?.url;
+  const logo = landing?.data?.attributes?.logo?.data?.attributes?.url;
+
+  const Blur = {
+    filter: 'contrast(88%) brightness(72%)',
+  };
   return (
-    <Box {...(section as ChakraProps)} className={styles.section}>
-      <div className={styles.blockClick}>
-        <video
-          src={'https://api-gratflix.onrender.com' + trailer}
-          className={styles.blur}
-          muted
-          playsInline
-          autoPlay
-          loop
-          controls
-        />
-      </div>
-      <Stack justifyContent='center' position='absolute' top='50%' left='4%'>
-        <Img w='25%' mb={7} src={'https://api-gratflix.onrender.com' + logo} />
+    <Box as='section' className={styles.landingContainer}>
+      <video
+        src={`https://api-gratflix.onrender.com${trailer}`}
+        style={Blur}
+        className={styles.blockClick}
+        muted
+        playsInline
+        autoPlay
+        loop
+        controls
+      />
+      <Stack className={styles.stackContainer}>
+        <Img w='25%' src={`https://api-gratflix.onrender.com${logo}`} mb={7} />
         <Flex alignItems='center' gap={6}>
-          <Button
-            className={styles.button}
-            variant='outline'
-            height='10%'
-            width='15%'
-            onClick={() => console.log('regardez le film')}>
-            {/* <Text p={3}>Regarder</Text> */}
-            <BiRightArrow size={'20%'} />
+          <Button variant='outline' className={styles.BtnStyle} color='white' _hover={Blur}>
+            <Text p={5}>Regarder</Text>
+            <BiRightArrow size='100%' />
           </Button>
-          <Button className={styles.button} variant='outline' onClick={() => console.log('en savoir plus')}>
-            {/* <Text p={3}>Plus d'infos</Text> */}
-            <BiErrorCircle size='20%' />
+          <Button variant='outline' className={styles.BtnStyle} color='white' _hover={Blur}>
+            <Text p={5}>Plus d'infos</Text>
+            <BiErrorCircle size='100%' />
           </Button>
         </Flex>
       </Stack>
     </Box>
   );
-};
-
-const section = {
-  as: 'section',
 };
