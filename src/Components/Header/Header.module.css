@@ -1,0 +1,38 @@
+@keyframes FadeIn {
+  from {
+    background-image: none;
+    background-color: transparent;
+  }
+  to {
+    background-image: linear-gradient(to bottom,rgba(0,0,0,.7) 10%,rgba(0,0,0,0));
+    background-Color: rgb(20, 20, 20);
+  }
+}
+
+.HeaderFade{
+  background-image: linear-gradient(to bottom,rgba(0,0,0,.7) 10%,rgba(0,0,0,0));
+  background-Color: rgb(20, 20, 20);
+  animation: FadeIn 500ms ease-in-out;
+}
+
+@keyframes FadeOut {
+  from {
+    background-image: linear-gradient(to bottom,rgba(0,0,0,.7) 10%,rgba(0,0,0,0));
+    background-Color: rgb(20, 20, 20);
+  }
+  to {
+    background-image: none;
+    background-color: transparent;
+  }
+}
+
+.HeaderFadeOut {
+  animation: FadeOut 500ms ease-in-out;
+}
+
+.headerContainer {
+  position: fixed;
+  padding-bottom: 6px;
+  padding-top: 8px;
+  z-index: 100000;
+}

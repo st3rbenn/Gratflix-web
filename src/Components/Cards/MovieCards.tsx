@@ -10,7 +10,7 @@ interface MovieCardProps {
 
 export default function MovieCard({ movie }: MovieCardProps) {
   return (
-    <Box {...(boxSettings as SwiperSlideProps)}>
+    <Box className={styles.boxSettings} as='article'>
       <Image
         src={`https://api-gratflix.onrender.com${movie?.attributes?.poster?.data?.attributes?.url}`}
         alt={movie?.attributes?.title}
@@ -19,15 +19,3 @@ export default function MovieCard({ movie }: MovieCardProps) {
     </Box>
   );
 }
-
-const boxSettings = {
-  borderRadius: 'lg',
-  position: 'relative',
-  cursor: 'pointer',
-  width: 'max-content',
-  borderStyle: 'none',
-  as: 'article',
-  ml: 2,
-  mr: 2,
-  mt: 5,
-};

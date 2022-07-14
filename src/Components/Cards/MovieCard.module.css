@@ -24,3 +24,13 @@ const unBlur = {
   transition:'all 0.3s ease-in-out',
   zIndex: '-1',
 } */
+
+.boxSettings {
+  position: relative;
+  cursor: pointer;
+  width: max-content;
+  border-style: none;
+  margin-left: 4px;
+  margin-right: 4px;
+  margin-top: 10px;
+}

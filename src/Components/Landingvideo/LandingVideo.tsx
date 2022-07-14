@@ -1,16 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Button, Flex, Img, Stack, Text } from '@chakra-ui/react';
 import { BiErrorCircle, BiRightArrow } from 'react-icons/bi';
 import styles from './LandingVideo.module.css';
-import { components } from 'src/src/api/typings/api';
+import { components } from '../../api/typings/api';
+import { fetcher } from '../../api/fetcher';
 
-interface props {
-  landing: components['schemas']['LandingResponse'];
-}
+export const LandingVideo = () => {
+  const [landing, setLanding] = useState([] as components['schemas']['LandingResponse']);
 
-export const LandingVideo = ({ landing }: props) => {
+  const result = async () => {
+    const getLanding = fetcher.path('/landing').method('get').create();
+
+    const queryLanding = {
+      populate: 'trailer',
+      'populate[0]': 'logo',
+      'populate[1]': 'Poster',
+    };
+    const { data: landingResult } = await getLanding(queryLanding);
+    setLanding(landingResult as components['schemas']['LandingResponse']);
+  };
+
+  useEffect(() => {
+    result();
+  }, []);
+
   const trailer = landing?.data?.attributes?.trailer?.data?.attributes?.url;
   const logo = landing?.data?.attributes?.logo?.data?.attributes?.url;
+  const poster = landing?.data?.attributes?.Poster?.data?.attributes?.url;
+  console.log(poster);
 
   const Blur = {
     filter: 'contrast(88%) brightness(72%)',
@@ -18,6 +35,8 @@ export const LandingVideo = ({ landing }: props) => {
   return (
     <Box as='section' className={styles.landingContainer}>
       <video
+        onAnimationEnd={(ev) => console.log(ev)}
+        poster={`https://api-gratflix.onrender.com${poster}`}
         src={`https://api-gratflix.onrender.com${trailer}`}
         style={Blur}
         className={styles.blockClick}
@@ -28,13 +47,13 @@ export const LandingVideo = ({ landing }: props) => {
         controls
       />
       <Stack className={styles.stackContainer}>
-        <Img w='25%' src={`https://api-gratflix.onrender.com${logo}`} mb={7} />
+        <Img w='80%' src={`https://api-gratflix.onrender.com${logo}`} mb={7} />
         <Flex alignItems='center' gap={6}>
-          <Button variant='outline' className={styles.BtnStyle} color='white' _hover={Blur}>
+          <Button variant='outline' className={styles.BtnStyle} color='white' w='max-content' _hover={Blur}>
             <Text p={5}>Regarder</Text>
             <BiRightArrow size='100%' />
           </Button>
-          <Button variant='outline' className={styles.BtnStyle} color='white' _hover={Blur}>
+          <Button variant='outline' className={styles.BtnStyle} color='white' w='max-content' _hover={Blur}>
             <Text p={5}>Plus d'infos</Text>
             <BiErrorCircle size='100%' />
           </Button>

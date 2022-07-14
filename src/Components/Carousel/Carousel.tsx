@@ -1,9 +1,13 @@
-import React, { MutableRefObject, useEffect, useRef, useState } from 'react';
-import { Swiper, SwiperProps, SwiperSlide } from 'swiper/react';
+import React, { useEffect, useRef, useState } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import { Heading, Flex } from '@chakra-ui/react';
 import { fetcher } from '../../api/fetcher';
 import { components } from '../../api/typings/api';
 import MovieCard from '../Cards/MovieCards';
+
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
 interface CarouselProps {
   category: number;
@@ -12,7 +16,6 @@ interface CarouselProps {
 
 export function Carousel({ category, listTitle }: CarouselProps) {
   const [movies, setMovies] = useState([] as components['schemas']['MovieListResponse']);
-  const swiper = useRef();
 
   const getMovies = async () => {
     const getMovie = fetcher.path('/movies').method('get').create();
@@ -32,15 +35,10 @@ export function Carousel({ category, listTitle }: CarouselProps) {
   }, []);
   return (
     <>
-      <Heading size='md' mt={7} ml={3}>
+      <Heading size='md' mt={7} ml={3} color='white'>
         {listTitle}
       </Heading>
-      <Swiper
-        breakpoints={breakpoint}
-        pagination={{ clickable: true }}
-        slidesPerView='auto'
-        preloadImages={true}
-        lazy={true}>
+      <Swiper pagination={{ clickable: true }} slidesPerView='auto' preloadImages={true} lazy={true}>
         {/* <Flex {...settingsArrow} left={5} onClick={() => swiper.current.swiper.slidePrev()} _hover={{ bgColor: 'blackAlpha.400' }}>
             <MdArrowBackIos size={50}/>
         </Flex>
@@ -58,30 +56,6 @@ export function Carousel({ category, listTitle }: CarouselProps) {
     </>
   );
 }
-
-const breakpoint = {
-  375: {
-    slidesPerView: 1,
-  },
-  400: {
-    slidesPerView: 2,
-  },
-  520: {
-    slidesPerView: 3,
-  },
-  630: {
-    slidesPerView: 4,
-  },
-  900: {
-    slidesPerView: 5,
-  },
-  1200: {
-    slidesPerView: 6,
-  },
-  1350: {
-    slidesPerView: 8,
-  },
-};
 
 const settingsArrow = {
   variant: 'ghost',

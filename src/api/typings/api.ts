@@ -1152,6 +1152,149 @@ export interface components {
                     };
                   };
                 };
+                Synopsis?: string;
+                bigposter?: {
+                  data?: {
+                    id?: string;
+                    attributes?: {
+                      name?: string;
+                      alternativeText?: string;
+                      caption?: string;
+                      width?: number;
+                      height?: number;
+                      formats?: unknown;
+                      hash?: string;
+                      ext?: string;
+                      mime?: string;
+                      /** Format: float */
+                      size?: number;
+                      url?: string;
+                      previewUrl?: string;
+                      provider?: string;
+                      provider_metadata?: unknown;
+                      related?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        }[];
+                      };
+                      /** Format: date-time */
+                      createdAt?: string;
+                      /** Format: date-time */
+                      updatedAt?: string;
+                      createdBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: {
+                            firstname?: string;
+                            lastname?: string;
+                            username?: string;
+                            /** Format: email */
+                            email?: string;
+                            resetPasswordToken?: string;
+                            registrationToken?: string;
+                            isActive?: boolean;
+                            roles?: {
+                              data?: {
+                                id?: string;
+                                attributes?: {
+                                  name?: string;
+                                  code?: string;
+                                  description?: string;
+                                  users?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    }[];
+                                  };
+                                  permissions?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: {
+                                        action?: string;
+                                        subject?: string;
+                                        properties?: unknown;
+                                        conditions?: unknown;
+                                        role?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                        /** Format: date-time */
+                                        createdAt?: string;
+                                        /** Format: date-time */
+                                        updatedAt?: string;
+                                        createdBy?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                        updatedBy?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                      };
+                                    }[];
+                                  };
+                                  /** Format: date-time */
+                                  createdAt?: string;
+                                  /** Format: date-time */
+                                  updatedAt?: string;
+                                  createdBy?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    };
+                                  };
+                                  updatedBy?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    };
+                                  };
+                                };
+                              }[];
+                            };
+                            blocked?: boolean;
+                            preferedLanguage?: string;
+                            /** Format: date-time */
+                            createdAt?: string;
+                            /** Format: date-time */
+                            updatedAt?: string;
+                            createdBy?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              };
+                            };
+                            updatedBy?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              };
+                            };
+                          };
+                        };
+                      };
+                      updatedBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        };
+                      };
+                    };
+                  };
+                };
                 /** Format: date-time */
                 createdAt?: string;
                 /** Format: date-time */
@@ -1665,6 +1808,149 @@ export interface components {
                   };
                 };
                 Logo?: {
+                  data?: {
+                    id?: string;
+                    attributes?: {
+                      name?: string;
+                      alternativeText?: string;
+                      caption?: string;
+                      width?: number;
+                      height?: number;
+                      formats?: unknown;
+                      hash?: string;
+                      ext?: string;
+                      mime?: string;
+                      /** Format: float */
+                      size?: number;
+                      url?: string;
+                      previewUrl?: string;
+                      provider?: string;
+                      provider_metadata?: unknown;
+                      related?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        }[];
+                      };
+                      /** Format: date-time */
+                      createdAt?: string;
+                      /** Format: date-time */
+                      updatedAt?: string;
+                      createdBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: {
+                            firstname?: string;
+                            lastname?: string;
+                            username?: string;
+                            /** Format: email */
+                            email?: string;
+                            resetPasswordToken?: string;
+                            registrationToken?: string;
+                            isActive?: boolean;
+                            roles?: {
+                              data?: {
+                                id?: string;
+                                attributes?: {
+                                  name?: string;
+                                  code?: string;
+                                  description?: string;
+                                  users?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    }[];
+                                  };
+                                  permissions?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: {
+                                        action?: string;
+                                        subject?: string;
+                                        properties?: unknown;
+                                        conditions?: unknown;
+                                        role?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                        /** Format: date-time */
+                                        createdAt?: string;
+                                        /** Format: date-time */
+                                        updatedAt?: string;
+                                        createdBy?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                        updatedBy?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                      };
+                                    }[];
+                                  };
+                                  /** Format: date-time */
+                                  createdAt?: string;
+                                  /** Format: date-time */
+                                  updatedAt?: string;
+                                  createdBy?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    };
+                                  };
+                                  updatedBy?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    };
+                                  };
+                                };
+                              }[];
+                            };
+                            blocked?: boolean;
+                            preferedLanguage?: string;
+                            /** Format: date-time */
+                            createdAt?: string;
+                            /** Format: date-time */
+                            updatedAt?: string;
+                            createdBy?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              };
+                            };
+                            updatedBy?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              };
+                            };
+                          };
+                        };
+                      };
+                      updatedBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        };
+                      };
+                    };
+                  };
+                };
+                Synopsis?: string;
+                bigposter?: {
                   data?: {
                     id?: string;
                     attributes?: {
@@ -2440,6 +2726,143 @@ export interface components {
                 };
               };
             };
+            Synopsis?: string;
+            bigposter?: {
+              data?: {
+                id?: string;
+                attributes?: {
+                  name?: string;
+                  alternativeText?: string;
+                  caption?: string;
+                  width?: number;
+                  height?: number;
+                  formats?: unknown;
+                  hash?: string;
+                  ext?: string;
+                  mime?: string;
+                  /** Format: float */
+                  size?: number;
+                  url?: string;
+                  previewUrl?: string;
+                  provider?: string;
+                  provider_metadata?: unknown;
+                  related?: {
+                    data?: {
+                      id?: string;
+                      attributes?: { [key: string]: unknown };
+                    }[];
+                  };
+                  /** Format: date-time */
+                  createdAt?: string;
+                  /** Format: date-time */
+                  updatedAt?: string;
+                  createdBy?: {
+                    data?: {
+                      id?: string;
+                      attributes?: {
+                        firstname?: string;
+                        lastname?: string;
+                        username?: string;
+                        /** Format: email */
+                        email?: string;
+                        resetPasswordToken?: string;
+                        registrationToken?: string;
+                        isActive?: boolean;
+                        roles?: {
+                          data?: {
+                            id?: string;
+                            attributes?: {
+                              name?: string;
+                              code?: string;
+                              description?: string;
+                              users?: {
+                                data?: {
+                                  id?: string;
+                                  attributes?: { [key: string]: unknown };
+                                }[];
+                              };
+                              permissions?: {
+                                data?: {
+                                  id?: string;
+                                  attributes?: {
+                                    action?: string;
+                                    subject?: string;
+                                    properties?: unknown;
+                                    conditions?: unknown;
+                                    role?: {
+                                      data?: {
+                                        id?: string;
+                                        attributes?: { [key: string]: unknown };
+                                      };
+                                    };
+                                    /** Format: date-time */
+                                    createdAt?: string;
+                                    /** Format: date-time */
+                                    updatedAt?: string;
+                                    createdBy?: {
+                                      data?: {
+                                        id?: string;
+                                        attributes?: { [key: string]: unknown };
+                                      };
+                                    };
+                                    updatedBy?: {
+                                      data?: {
+                                        id?: string;
+                                        attributes?: { [key: string]: unknown };
+                                      };
+                                    };
+                                  };
+                                }[];
+                              };
+                              /** Format: date-time */
+                              createdAt?: string;
+                              /** Format: date-time */
+                              updatedAt?: string;
+                              createdBy?: {
+                                data?: {
+                                  id?: string;
+                                  attributes?: { [key: string]: unknown };
+                                };
+                              };
+                              updatedBy?: {
+                                data?: {
+                                  id?: string;
+                                  attributes?: { [key: string]: unknown };
+                                };
+                              };
+                            };
+                          }[];
+                        };
+                        blocked?: boolean;
+                        preferedLanguage?: string;
+                        /** Format: date-time */
+                        createdAt?: string;
+                        /** Format: date-time */
+                        updatedAt?: string;
+                        createdBy?: {
+                          data?: {
+                            id?: string;
+                            attributes?: { [key: string]: unknown };
+                          };
+                        };
+                        updatedBy?: {
+                          data?: {
+                            id?: string;
+                            attributes?: { [key: string]: unknown };
+                          };
+                        };
+                      };
+                    };
+                  };
+                  updatedBy?: {
+                    data?: {
+                      id?: string;
+                      attributes?: { [key: string]: unknown };
+                    };
+                  };
+                };
+              };
+            };
             /** Format: date-time */
             createdAt?: string;
             /** Format: date-time */
@@ -2944,6 +3367,149 @@ export interface components {
                   };
                 };
                 Logo?: {
+                  data?: {
+                    id?: string;
+                    attributes?: {
+                      name?: string;
+                      alternativeText?: string;
+                      caption?: string;
+                      width?: number;
+                      height?: number;
+                      formats?: unknown;
+                      hash?: string;
+                      ext?: string;
+                      mime?: string;
+                      /** Format: float */
+                      size?: number;
+                      url?: string;
+                      previewUrl?: string;
+                      provider?: string;
+                      provider_metadata?: unknown;
+                      related?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        }[];
+                      };
+                      /** Format: date-time */
+                      createdAt?: string;
+                      /** Format: date-time */
+                      updatedAt?: string;
+                      createdBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: {
+                            firstname?: string;
+                            lastname?: string;
+                            username?: string;
+                            /** Format: email */
+                            email?: string;
+                            resetPasswordToken?: string;
+                            registrationToken?: string;
+                            isActive?: boolean;
+                            roles?: {
+                              data?: {
+                                id?: string;
+                                attributes?: {
+                                  name?: string;
+                                  code?: string;
+                                  description?: string;
+                                  users?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    }[];
+                                  };
+                                  permissions?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: {
+                                        action?: string;
+                                        subject?: string;
+                                        properties?: unknown;
+                                        conditions?: unknown;
+                                        role?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                        /** Format: date-time */
+                                        createdAt?: string;
+                                        /** Format: date-time */
+                                        updatedAt?: string;
+                                        createdBy?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                        updatedBy?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                      };
+                                    }[];
+                                  };
+                                  /** Format: date-time */
+                                  createdAt?: string;
+                                  /** Format: date-time */
+                                  updatedAt?: string;
+                                  createdBy?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    };
+                                  };
+                                  updatedBy?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    };
+                                  };
+                                };
+                              }[];
+                            };
+                            blocked?: boolean;
+                            preferedLanguage?: string;
+                            /** Format: date-time */
+                            createdAt?: string;
+                            /** Format: date-time */
+                            updatedAt?: string;
+                            createdBy?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              };
+                            };
+                            updatedBy?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              };
+                            };
+                          };
+                        };
+                      };
+                      updatedBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        };
+                      };
+                    };
+                  };
+                };
+                Synopsis?: string;
+                bigposter?: {
                   data?: {
                     id?: string;
                     attributes?: {
@@ -3740,6 +4306,149 @@ export interface components {
                     };
                   };
                 };
+                Synopsis?: string;
+                bigposter?: {
+                  data?: {
+                    id?: string;
+                    attributes?: {
+                      name?: string;
+                      alternativeText?: string;
+                      caption?: string;
+                      width?: number;
+                      height?: number;
+                      formats?: unknown;
+                      hash?: string;
+                      ext?: string;
+                      mime?: string;
+                      /** Format: float */
+                      size?: number;
+                      url?: string;
+                      previewUrl?: string;
+                      provider?: string;
+                      provider_metadata?: unknown;
+                      related?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        }[];
+                      };
+                      /** Format: date-time */
+                      createdAt?: string;
+                      /** Format: date-time */
+                      updatedAt?: string;
+                      createdBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: {
+                            firstname?: string;
+                            lastname?: string;
+                            username?: string;
+                            /** Format: email */
+                            email?: string;
+                            resetPasswordToken?: string;
+                            registrationToken?: string;
+                            isActive?: boolean;
+                            roles?: {
+                              data?: {
+                                id?: string;
+                                attributes?: {
+                                  name?: string;
+                                  code?: string;
+                                  description?: string;
+                                  users?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    }[];
+                                  };
+                                  permissions?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: {
+                                        action?: string;
+                                        subject?: string;
+                                        properties?: unknown;
+                                        conditions?: unknown;
+                                        role?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                        /** Format: date-time */
+                                        createdAt?: string;
+                                        /** Format: date-time */
+                                        updatedAt?: string;
+                                        createdBy?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                        updatedBy?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                      };
+                                    }[];
+                                  };
+                                  /** Format: date-time */
+                                  createdAt?: string;
+                                  /** Format: date-time */
+                                  updatedAt?: string;
+                                  createdBy?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    };
+                                  };
+                                  updatedBy?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    };
+                                  };
+                                };
+                              }[];
+                            };
+                            blocked?: boolean;
+                            preferedLanguage?: string;
+                            /** Format: date-time */
+                            createdAt?: string;
+                            /** Format: date-time */
+                            updatedAt?: string;
+                            createdBy?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              };
+                            };
+                            updatedBy?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              };
+                            };
+                          };
+                        };
+                      };
+                      updatedBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        };
+                      };
+                    };
+                  };
+                };
                 /** Format: date-time */
                 createdAt?: string;
                 /** Format: date-time */
@@ -3795,6 +4504,8 @@ export interface components {
         logo: number | string;
         url?: string;
         title: string;
+        /** @example string or id */
+        Poster: number | string;
       };
     };
     LandingListResponse: {
@@ -4399,6 +5110,149 @@ export interface components {
                     };
                   };
                 };
+                Synopsis?: string;
+                bigposter?: {
+                  data?: {
+                    id?: string;
+                    attributes?: {
+                      name?: string;
+                      alternativeText?: string;
+                      caption?: string;
+                      width?: number;
+                      height?: number;
+                      formats?: unknown;
+                      hash?: string;
+                      ext?: string;
+                      mime?: string;
+                      /** Format: float */
+                      size?: number;
+                      url?: string;
+                      previewUrl?: string;
+                      provider?: string;
+                      provider_metadata?: unknown;
+                      related?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        }[];
+                      };
+                      /** Format: date-time */
+                      createdAt?: string;
+                      /** Format: date-time */
+                      updatedAt?: string;
+                      createdBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: {
+                            firstname?: string;
+                            lastname?: string;
+                            username?: string;
+                            /** Format: email */
+                            email?: string;
+                            resetPasswordToken?: string;
+                            registrationToken?: string;
+                            isActive?: boolean;
+                            roles?: {
+                              data?: {
+                                id?: string;
+                                attributes?: {
+                                  name?: string;
+                                  code?: string;
+                                  description?: string;
+                                  users?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    }[];
+                                  };
+                                  permissions?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: {
+                                        action?: string;
+                                        subject?: string;
+                                        properties?: unknown;
+                                        conditions?: unknown;
+                                        role?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                        /** Format: date-time */
+                                        createdAt?: string;
+                                        /** Format: date-time */
+                                        updatedAt?: string;
+                                        createdBy?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                        updatedBy?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                      };
+                                    }[];
+                                  };
+                                  /** Format: date-time */
+                                  createdAt?: string;
+                                  /** Format: date-time */
+                                  updatedAt?: string;
+                                  createdBy?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    };
+                                  };
+                                  updatedBy?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    };
+                                  };
+                                };
+                              }[];
+                            };
+                            blocked?: boolean;
+                            preferedLanguage?: string;
+                            /** Format: date-time */
+                            createdAt?: string;
+                            /** Format: date-time */
+                            updatedAt?: string;
+                            createdBy?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              };
+                            };
+                            updatedBy?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              };
+                            };
+                          };
+                        };
+                      };
+                      updatedBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        };
+                      };
+                    };
+                  };
+                };
                 /** Format: date-time */
                 createdAt?: string;
                 /** Format: date-time */
@@ -4694,6 +5548,142 @@ export interface components {
           };
           url?: string;
           title?: string;
+          Poster?: {
+            data?: {
+              id?: string;
+              attributes?: {
+                name?: string;
+                alternativeText?: string;
+                caption?: string;
+                width?: number;
+                height?: number;
+                formats?: unknown;
+                hash?: string;
+                ext?: string;
+                mime?: string;
+                /** Format: float */
+                size?: number;
+                url?: string;
+                previewUrl?: string;
+                provider?: string;
+                provider_metadata?: unknown;
+                related?: {
+                  data?: {
+                    id?: string;
+                    attributes?: { [key: string]: unknown };
+                  }[];
+                };
+                /** Format: date-time */
+                createdAt?: string;
+                /** Format: date-time */
+                updatedAt?: string;
+                createdBy?: {
+                  data?: {
+                    id?: string;
+                    attributes?: {
+                      firstname?: string;
+                      lastname?: string;
+                      username?: string;
+                      /** Format: email */
+                      email?: string;
+                      resetPasswordToken?: string;
+                      registrationToken?: string;
+                      isActive?: boolean;
+                      roles?: {
+                        data?: {
+                          id?: string;
+                          attributes?: {
+                            name?: string;
+                            code?: string;
+                            description?: string;
+                            users?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              }[];
+                            };
+                            permissions?: {
+                              data?: {
+                                id?: string;
+                                attributes?: {
+                                  action?: string;
+                                  subject?: string;
+                                  properties?: unknown;
+                                  conditions?: unknown;
+                                  role?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    };
+                                  };
+                                  /** Format: date-time */
+                                  createdAt?: string;
+                                  /** Format: date-time */
+                                  updatedAt?: string;
+                                  createdBy?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    };
+                                  };
+                                  updatedBy?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    };
+                                  };
+                                };
+                              }[];
+                            };
+                            /** Format: date-time */
+                            createdAt?: string;
+                            /** Format: date-time */
+                            updatedAt?: string;
+                            createdBy?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              };
+                            };
+                            updatedBy?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              };
+                            };
+                          };
+                        }[];
+                      };
+                      blocked?: boolean;
+                      preferedLanguage?: string;
+                      /** Format: date-time */
+                      createdAt?: string;
+                      /** Format: date-time */
+                      updatedAt?: string;
+                      createdBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        };
+                      };
+                      updatedBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        };
+                      };
+                    };
+                  };
+                };
+                updatedBy?: {
+                  data?: {
+                    id?: string;
+                    attributes?: { [key: string]: unknown };
+                  };
+                };
+              };
+            };
+          };
           /** Format: date-time */
           createdAt?: string;
           /** Format: date-time */
@@ -5325,6 +6315,149 @@ export interface components {
                     };
                   };
                 };
+                Synopsis?: string;
+                bigposter?: {
+                  data?: {
+                    id?: string;
+                    attributes?: {
+                      name?: string;
+                      alternativeText?: string;
+                      caption?: string;
+                      width?: number;
+                      height?: number;
+                      formats?: unknown;
+                      hash?: string;
+                      ext?: string;
+                      mime?: string;
+                      /** Format: float */
+                      size?: number;
+                      url?: string;
+                      previewUrl?: string;
+                      provider?: string;
+                      provider_metadata?: unknown;
+                      related?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        }[];
+                      };
+                      /** Format: date-time */
+                      createdAt?: string;
+                      /** Format: date-time */
+                      updatedAt?: string;
+                      createdBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: {
+                            firstname?: string;
+                            lastname?: string;
+                            username?: string;
+                            /** Format: email */
+                            email?: string;
+                            resetPasswordToken?: string;
+                            registrationToken?: string;
+                            isActive?: boolean;
+                            roles?: {
+                              data?: {
+                                id?: string;
+                                attributes?: {
+                                  name?: string;
+                                  code?: string;
+                                  description?: string;
+                                  users?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    }[];
+                                  };
+                                  permissions?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: {
+                                        action?: string;
+                                        subject?: string;
+                                        properties?: unknown;
+                                        conditions?: unknown;
+                                        role?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                        /** Format: date-time */
+                                        createdAt?: string;
+                                        /** Format: date-time */
+                                        updatedAt?: string;
+                                        createdBy?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                        updatedBy?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                      };
+                                    }[];
+                                  };
+                                  /** Format: date-time */
+                                  createdAt?: string;
+                                  /** Format: date-time */
+                                  updatedAt?: string;
+                                  createdBy?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    };
+                                  };
+                                  updatedBy?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    };
+                                  };
+                                };
+                              }[];
+                            };
+                            blocked?: boolean;
+                            preferedLanguage?: string;
+                            /** Format: date-time */
+                            createdAt?: string;
+                            /** Format: date-time */
+                            updatedAt?: string;
+                            createdBy?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              };
+                            };
+                            updatedBy?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              };
+                            };
+                          };
+                        };
+                      };
+                      updatedBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        };
+                      };
+                    };
+                  };
+                };
                 /** Format: date-time */
                 createdAt?: string;
                 /** Format: date-time */
@@ -5620,6 +6753,142 @@ export interface components {
           };
           url?: string;
           title?: string;
+          Poster?: {
+            data?: {
+              id?: string;
+              attributes?: {
+                name?: string;
+                alternativeText?: string;
+                caption?: string;
+                width?: number;
+                height?: number;
+                formats?: unknown;
+                hash?: string;
+                ext?: string;
+                mime?: string;
+                /** Format: float */
+                size?: number;
+                url?: string;
+                previewUrl?: string;
+                provider?: string;
+                provider_metadata?: unknown;
+                related?: {
+                  data?: {
+                    id?: string;
+                    attributes?: { [key: string]: unknown };
+                  }[];
+                };
+                /** Format: date-time */
+                createdAt?: string;
+                /** Format: date-time */
+                updatedAt?: string;
+                createdBy?: {
+                  data?: {
+                    id?: string;
+                    attributes?: {
+                      firstname?: string;
+                      lastname?: string;
+                      username?: string;
+                      /** Format: email */
+                      email?: string;
+                      resetPasswordToken?: string;
+                      registrationToken?: string;
+                      isActive?: boolean;
+                      roles?: {
+                        data?: {
+                          id?: string;
+                          attributes?: {
+                            name?: string;
+                            code?: string;
+                            description?: string;
+                            users?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              }[];
+                            };
+                            permissions?: {
+                              data?: {
+                                id?: string;
+                                attributes?: {
+                                  action?: string;
+                                  subject?: string;
+                                  properties?: unknown;
+                                  conditions?: unknown;
+                                  role?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    };
+                                  };
+                                  /** Format: date-time */
+                                  createdAt?: string;
+                                  /** Format: date-time */
+                                  updatedAt?: string;
+                                  createdBy?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    };
+                                  };
+                                  updatedBy?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    };
+                                  };
+                                };
+                              }[];
+                            };
+                            /** Format: date-time */
+                            createdAt?: string;
+                            /** Format: date-time */
+                            updatedAt?: string;
+                            createdBy?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              };
+                            };
+                            updatedBy?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              };
+                            };
+                          };
+                        }[];
+                      };
+                      blocked?: boolean;
+                      preferedLanguage?: string;
+                      /** Format: date-time */
+                      createdAt?: string;
+                      /** Format: date-time */
+                      updatedAt?: string;
+                      createdBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        };
+                      };
+                      updatedBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        };
+                      };
+                    };
+                  };
+                };
+                updatedBy?: {
+                  data?: {
+                    id?: string;
+                    attributes?: { [key: string]: unknown };
+                  };
+                };
+              };
+            };
+          };
           /** Format: date-time */
           createdAt?: string;
           /** Format: date-time */
@@ -5657,6 +6926,9 @@ export interface components {
         category?: number | string;
         /** @example string or id */
         Logo?: number | string;
+        Synopsis?: string;
+        /** @example string or id */
+        bigposter: number | string;
       };
     };
     MovieListResponse: {
@@ -6537,6 +7809,155 @@ export interface components {
                           };
                         };
                       };
+                      Synopsis?: string;
+                      bigposter?: {
+                        data?: {
+                          id?: string;
+                          attributes?: {
+                            name?: string;
+                            alternativeText?: string;
+                            caption?: string;
+                            width?: number;
+                            height?: number;
+                            formats?: unknown;
+                            hash?: string;
+                            ext?: string;
+                            mime?: string;
+                            /** Format: float */
+                            size?: number;
+                            url?: string;
+                            previewUrl?: string;
+                            provider?: string;
+                            provider_metadata?: unknown;
+                            related?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              }[];
+                            };
+                            /** Format: date-time */
+                            createdAt?: string;
+                            /** Format: date-time */
+                            updatedAt?: string;
+                            createdBy?: {
+                              data?: {
+                                id?: string;
+                                attributes?: {
+                                  firstname?: string;
+                                  lastname?: string;
+                                  username?: string;
+                                  /** Format: email */
+                                  email?: string;
+                                  resetPasswordToken?: string;
+                                  registrationToken?: string;
+                                  isActive?: boolean;
+                                  roles?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: {
+                                        name?: string;
+                                        code?: string;
+                                        description?: string;
+                                        users?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          }[];
+                                        };
+                                        permissions?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              action?: string;
+                                              subject?: string;
+                                              properties?: unknown;
+                                              conditions?: unknown;
+                                              role?: {
+                                                data?: {
+                                                  id?: string;
+                                                  attributes?: {
+                                                    [key: string]: unknown;
+                                                  };
+                                                };
+                                              };
+                                              /** Format: date-time */
+                                              createdAt?: string;
+                                              /** Format: date-time */
+                                              updatedAt?: string;
+                                              createdBy?: {
+                                                data?: {
+                                                  id?: string;
+                                                  attributes?: {
+                                                    [key: string]: unknown;
+                                                  };
+                                                };
+                                              };
+                                              updatedBy?: {
+                                                data?: {
+                                                  id?: string;
+                                                  attributes?: {
+                                                    [key: string]: unknown;
+                                                  };
+                                                };
+                                              };
+                                            };
+                                          }[];
+                                        };
+                                        /** Format: date-time */
+                                        createdAt?: string;
+                                        /** Format: date-time */
+                                        updatedAt?: string;
+                                        createdBy?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                        updatedBy?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                      };
+                                    }[];
+                                  };
+                                  blocked?: boolean;
+                                  preferedLanguage?: string;
+                                  /** Format: date-time */
+                                  createdAt?: string;
+                                  /** Format: date-time */
+                                  updatedAt?: string;
+                                  createdBy?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    };
+                                  };
+                                  updatedBy?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    };
+                                  };
+                                };
+                              };
+                            };
+                            updatedBy?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              };
+                            };
+                          };
+                        };
+                      };
                       /** Format: date-time */
                       createdAt?: string;
                       /** Format: date-time */
@@ -6588,6 +8009,143 @@ export interface components {
             };
           };
           Logo?: {
+            data?: {
+              id?: string;
+              attributes?: {
+                name?: string;
+                alternativeText?: string;
+                caption?: string;
+                width?: number;
+                height?: number;
+                formats?: unknown;
+                hash?: string;
+                ext?: string;
+                mime?: string;
+                /** Format: float */
+                size?: number;
+                url?: string;
+                previewUrl?: string;
+                provider?: string;
+                provider_metadata?: unknown;
+                related?: {
+                  data?: {
+                    id?: string;
+                    attributes?: { [key: string]: unknown };
+                  }[];
+                };
+                /** Format: date-time */
+                createdAt?: string;
+                /** Format: date-time */
+                updatedAt?: string;
+                createdBy?: {
+                  data?: {
+                    id?: string;
+                    attributes?: {
+                      firstname?: string;
+                      lastname?: string;
+                      username?: string;
+                      /** Format: email */
+                      email?: string;
+                      resetPasswordToken?: string;
+                      registrationToken?: string;
+                      isActive?: boolean;
+                      roles?: {
+                        data?: {
+                          id?: string;
+                          attributes?: {
+                            name?: string;
+                            code?: string;
+                            description?: string;
+                            users?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              }[];
+                            };
+                            permissions?: {
+                              data?: {
+                                id?: string;
+                                attributes?: {
+                                  action?: string;
+                                  subject?: string;
+                                  properties?: unknown;
+                                  conditions?: unknown;
+                                  role?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    };
+                                  };
+                                  /** Format: date-time */
+                                  createdAt?: string;
+                                  /** Format: date-time */
+                                  updatedAt?: string;
+                                  createdBy?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    };
+                                  };
+                                  updatedBy?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    };
+                                  };
+                                };
+                              }[];
+                            };
+                            /** Format: date-time */
+                            createdAt?: string;
+                            /** Format: date-time */
+                            updatedAt?: string;
+                            createdBy?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              };
+                            };
+                            updatedBy?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              };
+                            };
+                          };
+                        }[];
+                      };
+                      blocked?: boolean;
+                      preferedLanguage?: string;
+                      /** Format: date-time */
+                      createdAt?: string;
+                      /** Format: date-time */
+                      updatedAt?: string;
+                      createdBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        };
+                      };
+                      updatedBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        };
+                      };
+                    };
+                  };
+                };
+                updatedBy?: {
+                  data?: {
+                    id?: string;
+                    attributes?: { [key: string]: unknown };
+                  };
+                };
+              };
+            };
+          };
+          Synopsis?: string;
+          bigposter?: {
             data?: {
               id?: string;
               attributes?: {
@@ -7630,6 +9188,155 @@ export interface components {
                           };
                         };
                       };
+                      Synopsis?: string;
+                      bigposter?: {
+                        data?: {
+                          id?: string;
+                          attributes?: {
+                            name?: string;
+                            alternativeText?: string;
+                            caption?: string;
+                            width?: number;
+                            height?: number;
+                            formats?: unknown;
+                            hash?: string;
+                            ext?: string;
+                            mime?: string;
+                            /** Format: float */
+                            size?: number;
+                            url?: string;
+                            previewUrl?: string;
+                            provider?: string;
+                            provider_metadata?: unknown;
+                            related?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              }[];
+                            };
+                            /** Format: date-time */
+                            createdAt?: string;
+                            /** Format: date-time */
+                            updatedAt?: string;
+                            createdBy?: {
+                              data?: {
+                                id?: string;
+                                attributes?: {
+                                  firstname?: string;
+                                  lastname?: string;
+                                  username?: string;
+                                  /** Format: email */
+                                  email?: string;
+                                  resetPasswordToken?: string;
+                                  registrationToken?: string;
+                                  isActive?: boolean;
+                                  roles?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: {
+                                        name?: string;
+                                        code?: string;
+                                        description?: string;
+                                        users?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          }[];
+                                        };
+                                        permissions?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              action?: string;
+                                              subject?: string;
+                                              properties?: unknown;
+                                              conditions?: unknown;
+                                              role?: {
+                                                data?: {
+                                                  id?: string;
+                                                  attributes?: {
+                                                    [key: string]: unknown;
+                                                  };
+                                                };
+                                              };
+                                              /** Format: date-time */
+                                              createdAt?: string;
+                                              /** Format: date-time */
+                                              updatedAt?: string;
+                                              createdBy?: {
+                                                data?: {
+                                                  id?: string;
+                                                  attributes?: {
+                                                    [key: string]: unknown;
+                                                  };
+                                                };
+                                              };
+                                              updatedBy?: {
+                                                data?: {
+                                                  id?: string;
+                                                  attributes?: {
+                                                    [key: string]: unknown;
+                                                  };
+                                                };
+                                              };
+                                            };
+                                          }[];
+                                        };
+                                        /** Format: date-time */
+                                        createdAt?: string;
+                                        /** Format: date-time */
+                                        updatedAt?: string;
+                                        createdBy?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                        updatedBy?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                      };
+                                    }[];
+                                  };
+                                  blocked?: boolean;
+                                  preferedLanguage?: string;
+                                  /** Format: date-time */
+                                  createdAt?: string;
+                                  /** Format: date-time */
+                                  updatedAt?: string;
+                                  createdBy?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    };
+                                  };
+                                  updatedBy?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    };
+                                  };
+                                };
+                              };
+                            };
+                            updatedBy?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              };
+                            };
+                          };
+                        };
+                      };
                       /** Format: date-time */
                       createdAt?: string;
                       /** Format: date-time */
@@ -7681,6 +9388,143 @@ export interface components {
             };
           };
           Logo?: {
+            data?: {
+              id?: string;
+              attributes?: {
+                name?: string;
+                alternativeText?: string;
+                caption?: string;
+                width?: number;
+                height?: number;
+                formats?: unknown;
+                hash?: string;
+                ext?: string;
+                mime?: string;
+                /** Format: float */
+                size?: number;
+                url?: string;
+                previewUrl?: string;
+                provider?: string;
+                provider_metadata?: unknown;
+                related?: {
+                  data?: {
+                    id?: string;
+                    attributes?: { [key: string]: unknown };
+                  }[];
+                };
+                /** Format: date-time */
+                createdAt?: string;
+                /** Format: date-time */
+                updatedAt?: string;
+                createdBy?: {
+                  data?: {
+                    id?: string;
+                    attributes?: {
+                      firstname?: string;
+                      lastname?: string;
+                      username?: string;
+                      /** Format: email */
+                      email?: string;
+                      resetPasswordToken?: string;
+                      registrationToken?: string;
+                      isActive?: boolean;
+                      roles?: {
+                        data?: {
+                          id?: string;
+                          attributes?: {
+                            name?: string;
+                            code?: string;
+                            description?: string;
+                            users?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              }[];
+                            };
+                            permissions?: {
+                              data?: {
+                                id?: string;
+                                attributes?: {
+                                  action?: string;
+                                  subject?: string;
+                                  properties?: unknown;
+                                  conditions?: unknown;
+                                  role?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    };
+                                  };
+                                  /** Format: date-time */
+                                  createdAt?: string;
+                                  /** Format: date-time */
+                                  updatedAt?: string;
+                                  createdBy?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    };
+                                  };
+                                  updatedBy?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    };
+                                  };
+                                };
+                              }[];
+                            };
+                            /** Format: date-time */
+                            createdAt?: string;
+                            /** Format: date-time */
+                            updatedAt?: string;
+                            createdBy?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              };
+                            };
+                            updatedBy?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              };
+                            };
+                          };
+                        }[];
+                      };
+                      blocked?: boolean;
+                      preferedLanguage?: string;
+                      /** Format: date-time */
+                      createdAt?: string;
+                      /** Format: date-time */
+                      updatedAt?: string;
+                      createdBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        };
+                      };
+                      updatedBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        };
+                      };
+                    };
+                  };
+                };
+                updatedBy?: {
+                  data?: {
+                    id?: string;
+                    attributes?: { [key: string]: unknown };
+                  };
+                };
+              };
+            };
+          };
+          Synopsis?: string;
+          bigposter?: {
             data?: {
               id?: string;
               attributes?: {
