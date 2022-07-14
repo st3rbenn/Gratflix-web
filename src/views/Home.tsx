@@ -3,6 +3,7 @@ import { Box, Container } from '@chakra-ui/react';
 import { LandingVideo } from '../Components/Landingvideo/LandingVideo';
 import { components } from '../api/typings/api';
 import { fetcher } from '../api/fetcher';
+import { Carousel as galerie } from '../Components/Carousel/Carousel';
 import styles from './GlobalStyle.module.css';
 
 function Home() {
