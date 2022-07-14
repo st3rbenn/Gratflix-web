@@ -2,6 +2,7 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 import { Flex, Container, List, ListItem, Img, Input, Stack, Button } from '@chakra-ui/react';
 import Logo from './Logo.png';
 import { useNavigate, Link } from 'react-router-dom';
+import styles from './Header.module.css';
 
 export function Header() {
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -38,7 +39,7 @@ export function Header() {
       pt={4}
       position='fixed'
       zIndex={100000}
-      className={scrollPosition > 50 ? 'HeaderFade' : ''}
+      className={`${styles.headerContainer} ${scrollPosition > 0 ? styles.HeaderFade : styles.HeaderFadeOut}`}
       color='white'>
       <Flex as='nav' alignItems='center' ml='50px' mr='55px' justifyContent='space-between'>
         <List display='flex' gap={5} alignItems='center' fontWeight={600} fontSize='sm'>

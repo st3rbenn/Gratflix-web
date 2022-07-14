@@ -11,6 +11,13 @@ interface props {
 export const LandingVideo = ({ landing }: props) => {
   const trailer = landing?.data?.attributes?.trailer?.data?.attributes?.url;
   const logo = landing?.data?.attributes?.logo?.data?.attributes?.url;
+  const poster = landing?.data?.attributes?.Poster?.data?.attributes?.url;
+
+  const [isPlaying, setIsPlaying] = React.useState(false);
+
+  const handlePlay = () => {
+    setIsPlaying(true);
+  };
 
   const Blur = {
     filter: 'contrast(88%) brightness(72%)',
@@ -18,6 +25,7 @@ export const LandingVideo = ({ landing }: props) => {
   return (
     <Box as='section' className={styles.landingContainer}>
       <video
+        onAnimationEnd={(ev) => console.log(ev)}
         src={`https://api-gratflix.onrender.com${trailer}`}
         style={Blur}
         className={styles.blockClick}
