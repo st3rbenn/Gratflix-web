@@ -3,6 +3,7 @@ import { Box, Container } from '@chakra-ui/react';
 import { LandingVideo } from '../Components/Landingvideo/LandingVideo';
 import { components } from '../api/typings/api';
 import { fetcher } from '../api/fetcher';
+import { Carousel } from '../Components/Carousel/Carousel';
 import styles from './GlobalStyle.module.css';
 
 function Home() {
@@ -29,7 +30,7 @@ function Home() {
       <LandingVideo landing={landing} />
       <Box className={styles.swiperContainer} as='section'>
         <Container className={styles.galerie} as='article' style={{ maxWidth: 'container.xxl' }}>
-          {/* <Galerie list={1} listTitle={'Tendances actuelles'}/> */}
+          <Carousel category={7} listTitle={'test'} />
         </Container>
         <Container className={styles.galerie} as='article'>
           {/* <Galerie list={6} listTitle={'Sélectionnés pour vous'}/> */}

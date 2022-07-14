@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { Flex, Container, List, ListItem, Img, Input, Stack, Button } from '@chakra-ui/react';
-import Logo from '../../../src/assets/img/Logo.png';
+import Logo from './Logo.png';
 import { useNavigate, Link } from 'react-router-dom';
 
 export function Header() {
