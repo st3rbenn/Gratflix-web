@@ -27,7 +27,6 @@ export const LandingVideo = () => {
   const trailer = landing?.data?.attributes?.trailer?.data?.attributes?.url;
   const logo = landing?.data?.attributes?.logo?.data?.attributes?.url;
   const poster = landing?.data?.attributes?.Poster?.data?.attributes?.url;
-  console.log(poster);
 
   const Blur = {
     filter: 'contrast(88%) brightness(72%)',
@@ -47,7 +46,7 @@ export const LandingVideo = () => {
         controls
       />
       <Stack className={styles.stackContainer}>
-        <Img w='80%' src={logo} mb={7} />
+        <Img w='45%' src={logo} mb={7} />
         <Flex alignItems='center' gap={6}>
           <Button variant='outline' className={styles.BtnStyle} color='white' w='max-content' _hover={Blur}>
             <Text p={5}>Regarder</Text>

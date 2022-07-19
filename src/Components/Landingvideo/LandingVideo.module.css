@@ -1,5 +1,6 @@
 .blockClick {
   pointer-events: none;
+  margin-bottom: 100px;
 }
 
 .landingContainer {
@@ -11,10 +12,12 @@
 
 .stackContainer {
   position: absolute;
-  top: 50%;
+  top: 35%;
   left: 5%;
   width: min-content;
   justify-content: center;
+  width: 36%;
+  height: auto;
 }
 
 .btnStyle {

@@ -11,11 +11,7 @@ interface MovieCardProps {
 export default function MovieCard({ movie }: MovieCardProps) {
   return (
     <Box className={styles.boxSettings} as='article'>
-      <Image
-        src={`https://api-gratflix.onrender.com${movie?.attributes?.poster?.data?.attributes?.url}`}
-        alt={movie?.attributes?.title}
-        w={210}
-      />
+      <Image src={movie?.attributes?.poster?.data?.attributes?.url} alt={movie?.attributes?.title} w={210} />
     </Box>
   );
 }

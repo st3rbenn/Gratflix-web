@@ -10,7 +10,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 interface CarouselProps {
-  category: number;
+  category: string;
   listTitle: string;
 }
 
