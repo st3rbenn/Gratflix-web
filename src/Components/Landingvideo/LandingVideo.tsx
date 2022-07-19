@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Button, Flex, Img, Stack, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, Img, Stack, Text, useDisclosure } from '@chakra-ui/react';
 import { BiErrorCircle, BiRightArrow } from 'react-icons/bi';
 import styles from './LandingVideo.module.css';
 import { components } from '../../api/typings/api';
 import { fetcher } from '../../api/fetcher';
+import { MovieModal } from '../Modals/MovieModal';
 
 export const LandingVideo = () => {
   const [landing, setLanding] = useState([] as components['schemas']['LandingResponse']);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const result = async () => {
     const getLanding = fetcher.path('/landing').method('get').create();
@@ -52,12 +54,19 @@ export const LandingVideo = () => {
             <Text p={5}>Regarder</Text>
             <BiRightArrow size='100%' />
           </Button>
-          <Button variant='outline' className={styles.BtnStyle} color='white' w='max-content' _hover={Blur}>
+          <Button
+            variant='outline'
+            className={styles.BtnStyle}
+            color='white'
+            w='max-content'
+            _hover={Blur}
+            onClick={onOpen}>
             <Text p={5}>Plus d'infos</Text>
             <BiErrorCircle size='100%' />
           </Button>
         </Flex>
       </Stack>
+      <MovieModal landing={landing} isOpen={isOpen} onClose={onClose} />
     </Box>
   );
 };

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Text, Flex, Box, Image } from '@chakra-ui/react';
+import { Box, Image, useDisclosure } from '@chakra-ui/react';
 import { components } from 'src/src/api/typings/api';
+import { MovieModal } from '../Modals/MovieModal';
 import styles from './MovieCard.module.css';
 
 interface MovieCardProps {
@@ -10,17 +11,22 @@ interface MovieCardProps {
 
 export default function MovieCard({ movie }: MovieCardProps) {
   const [hover, setHover] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <Box className={styles.boxSettings} as='article'>
-      <Image
-        src={movie?.attributes?.poster?.data?.attributes?.url}
-        alt={movie?.attributes?.title}
-        w={210}
-        style={hover ? Blur : unBlur}
-        onMouseEnter={() => setHover(true)}
-        onMouseLeave={() => setHover(false)}
-      />
-    </Box>
+    <>
+      <Box className={styles.boxSettings} as='article'>
+        <Image
+          src={movie?.attributes?.poster?.data?.attributes?.url}
+          alt={movie?.attributes?.title}
+          w={210}
+          style={hover ? Blur : unBlur}
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
+          onClick={onOpen}
+        />
+      </Box>
+      <MovieModal data={movie} isOpen={isOpen} onClose={onClose} />
+    </>
   );
 }
 

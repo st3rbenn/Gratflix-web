@@ -27,12 +27,14 @@ export function Carousel({ category, listTitle }: CarouselProps) {
           'filter[order]': 'publishedAt:desc',
           'filter[limit]': '6',
           populate: 'poster',
+          'populate[0]': 'bigposter',
         };
       }
     } else {
       queryMovie = {
         populate: 'category',
         'populate[0]': 'poster',
+        'populate[1]': 'bigposter',
         'filters[category]': category,
       };
     }
