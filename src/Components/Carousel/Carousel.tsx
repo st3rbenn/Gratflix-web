@@ -10,21 +10,32 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 interface CarouselProps {
-  category: string;
+  category: number | string;
   listTitle: string;
 }
 
 export function Carousel({ category, listTitle }: CarouselProps) {
   const [movies, setMovies] = useState([] as components['schemas']['MovieListResponse']);
+  const [hover, setHover] = useState(false);
 
   const getMovies = async () => {
     const getMovie = fetcher.path('/movies').method('get').create();
-
-    const queryMovie = {
-      populate: 'category',
-      'populate[0]': 'poster',
-      'filters[category]': category,
-    };
+    let queryMovie: object = {};
+    if (typeof category === 'string') {
+      if (category === 'recent') {
+        queryMovie = {
+          'filter[order]': 'publishedAt:desc',
+          'filter[limit]': '6',
+          populate: 'poster',
+        };
+      }
+    } else {
+      queryMovie = {
+        populate: 'category',
+        'populate[0]': 'poster',
+        'filters[category]': category,
+      };
+    }
 
     const { data: moviesArray } = await getMovie(queryMovie);
     setMovies(moviesArray);
@@ -57,12 +68,12 @@ export function Carousel({ category, listTitle }: CarouselProps) {
   );
 }
 
-const settingsArrow = {
-  variant: 'ghost',
-  colorscheme: 'whiteAlpha',
-  position: 'absolute',
-  top: '40%',
-  zIndex: '1',
-  transition: 'all 150ms ease-in-out',
-  cursor: 'pointer',
-};
+// const settingsArrow = {
+//   variant: 'ghost',
+//   colorscheme: 'whiteAlpha',
+//   position: 'absolute',
+//   top: '40%',
+//   zIndex: '1',
+//   transition: 'all 150ms ease-in-out',
+//   cursor: 'pointer',
+// };
