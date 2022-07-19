@@ -36,8 +36,8 @@ export const LandingVideo = () => {
     <Box as='section' className={styles.landingContainer}>
       <video
         onAnimationEnd={(ev) => console.log(ev)}
-        poster={`https://api-gratflix.onrender.com${poster}`}
-        src={`https://api-gratflix.onrender.com${trailer}`}
+        poster={poster}
+        src={trailer}
         style={Blur}
         className={styles.blockClick}
         muted
@@ -47,7 +47,7 @@ export const LandingVideo = () => {
         controls
       />
       <Stack className={styles.stackContainer}>
-        <Img w='80%' src={`https://api-gratflix.onrender.com${logo}`} mb={7} />
+        <Img w='80%' src={logo} mb={7} />
         <Flex alignItems='center' gap={6}>
           <Button variant='outline' className={styles.BtnStyle} color='white' w='max-content' _hover={Blur}>
             <Text p={5}>Regarder</Text>
