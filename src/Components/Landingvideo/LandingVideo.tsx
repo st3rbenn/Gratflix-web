@@ -45,7 +45,6 @@ export const LandingVideo = () => {
         playsInline
         autoPlay
         loop
-        controls
       />
       <Stack className={styles.stackContainer}>
         <Img w='45%' src={logo} mb={7} />

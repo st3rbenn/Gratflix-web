@@ -51,6 +51,10 @@ export function Carousel({ category }: CarouselProps) {
     if (typeof category === 'string') {
       if (category === 'recent') {
         setListTitle('Récemment ajoutés');
+      } else if (category === 'trending') {
+        setListTitle('Les plus populaires');
+      } else if (category === 'for you') {
+        setListTitle('Pour vous');
       }
     } else {
       const title = movies?.data?.[0]?.attributes?.category?.data?.attributes?.categorie as string;
