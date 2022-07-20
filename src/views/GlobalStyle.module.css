@@ -1,11 +1,9 @@
 body {
-  background-color: rgb(20, 20, 20) !important;
+  background-color: #181818 !important;
   scroll-behavior: auto;
 }
 
 .swiperContainer {
-  box-shadow: 1px 0px 27px 140px rgb(20, 20, 20);
-  z-index: 100;
   margin-left: 55px;
   margin-right: 55px;
   position: relative;

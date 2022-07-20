@@ -35,17 +35,20 @@ export const LandingVideo = () => {
   };
   return (
     <Box as='section' className={styles.landingContainer}>
-      <video
-        onAnimationEnd={(ev) => console.log(ev)}
-        poster={poster}
-        src={trailer}
-        style={{ filter: 'contrast(88%) brightness(72%)', width: '100%', height: '100%' }}
-        className={styles.blockClick}
-        muted
-        playsInline
-        autoPlay
-        loop
-      />
+      <Box position='relative'>
+        <Box className={styles.image} style={{ zIndex: 1 }}></Box>
+        <video
+          onAnimationEnd={(ev) => console.log(ev)}
+          poster={poster}
+          src={trailer}
+          style={{ filter: 'contrast(88%) brightness(72%)', width: '100%', height: '100%' }}
+          className={styles.blockClick}
+          muted
+          playsInline
+          autoPlay
+          loop
+        />
+      </Box>
       <Stack className={styles.stackContainer}>
         <Img w='45%' src={logo} mb={7} />
         <Flex alignItems='center' gap={6}>
