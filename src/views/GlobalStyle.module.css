@@ -6,7 +6,10 @@ body {
 .swiperContainer {
   margin-left: 55px;
   margin-right: 55px;
-  position: relative;
+  position: absolute;
+  max-width: 92.3612%;
+  top: 75%;
+  z-index: 100;
 }
 
 .galerie {
