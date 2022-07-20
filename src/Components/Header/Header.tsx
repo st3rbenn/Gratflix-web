@@ -38,7 +38,7 @@ export function Header() {
       pb={3}
       pt={4}
       position='fixed'
-      zIndex={100000}
+      zIndex={1000}
       className={`${styles.headerContainer} ${scrollPosition > 0 ? styles.HeaderFade : styles.HeaderFadeOut}`}
       color='white'>
       <Flex as='nav' alignItems='center' ml='50px' mr='55px' justifyContent='space-between'>

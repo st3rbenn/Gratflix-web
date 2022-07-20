@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react';
 import { Box, Container } from '@chakra-ui/react';
 import { LandingVideo } from '../Components/Landingvideo/LandingVideo';
 import { Carousel } from '../Components/Carousel/Carousel';
