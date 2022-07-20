@@ -9,10 +9,10 @@ function Home() {
       <LandingVideo />
       <Box className={styles.swiperContainer} as='section'>
         <Container className={styles.galerie} as='article' style={{ maxWidth: 'container.xxl' }}>
-          <Carousel category='recent' listTitle='Ajoutés récemments' />
+          <Carousel category='recent' />
         </Container>
         <Container className={styles.galerie} as='article'>
-          <Carousel category={2} listTitle='Fantastic' />
+          <Carousel category={2} />
         </Container>
         <Container className={styles.galerie} as='article' mb={50}>
           {/* <Galerie list={7} listTitle={'oe'}/> */}
