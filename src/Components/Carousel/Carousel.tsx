@@ -24,10 +24,10 @@ export function Carousel({ category }: CarouselProps) {
     if (typeof category === 'string') {
       if (category === 'recent') {
         queryMovie = {
-          'filter[order]': 'publishedAt:desc',
-          'filter[limit]': '6',
           populate: 'poster',
+          sort: 'publishedAt:desc',
           'populate[0]': 'bigposter',
+          'pagination[pageSize]': 12,
         };
       }
     } else {
@@ -36,6 +36,7 @@ export function Carousel({ category }: CarouselProps) {
         'populate[0]': 'poster',
         'populate[1]': 'bigposter',
         'filters[category]': category,
+        'pagination[pageSize]': 12,
       };
     }
 
@@ -59,7 +60,6 @@ export function Carousel({ category }: CarouselProps) {
     } else {
       const title = movies?.data?.[0]?.attributes?.category?.data?.attributes?.categorie as string;
       setListTitle(title);
-      // console.log(movies?.data?.[0]?.attributes?.category?.data?.attributes?.categorie as string);
     }
   }, [movies]);
   return (
