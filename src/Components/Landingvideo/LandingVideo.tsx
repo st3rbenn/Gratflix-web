@@ -32,8 +32,6 @@ export const LandingVideo = () => {
 
   const Blur = {
     filter: 'contrast(88%) brightness(72%)',
-    width: '100%',
-    height: '100%',
   };
   return (
     <Box as='section' className={styles.landingContainer}>
@@ -41,7 +39,7 @@ export const LandingVideo = () => {
         onAnimationEnd={(ev) => console.log(ev)}
         poster={poster}
         src={trailer}
-        style={Blur}
+        style={{ filter: 'contrast(88%) brightness(72%)', width: '100%', height: '100%' }}
         className={styles.blockClick}
         muted
         playsInline
