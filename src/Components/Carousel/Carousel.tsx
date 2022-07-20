@@ -11,12 +11,12 @@ import 'swiper/css/navigation';
 
 interface CarouselProps {
   category: number | string;
-  listTitle: string;
 }
 
-export function Carousel({ category, listTitle }: CarouselProps) {
+export function Carousel({ category }: CarouselProps) {
   const [movies, setMovies] = useState([] as components['schemas']['MovieListResponse']);
   const [hover, setHover] = useState(false);
+  const [listTitle, setListTitle] = useState<string>('...loading');
 
   const getMovies = async () => {
     const getMovie = fetcher.path('/movies').method('get').create();
@@ -46,6 +46,18 @@ export function Carousel({ category, listTitle }: CarouselProps) {
   useEffect(() => {
     getMovies();
   }, []);
+
+  useEffect(() => {
+    if (typeof category === 'string') {
+      if (category === 'recent') {
+        setListTitle('Récemment ajoutés');
+      }
+    } else {
+      const title = movies?.data?.[0]?.attributes?.category?.data?.attributes?.categorie as string;
+      setListTitle(title);
+      // console.log(movies?.data?.[0]?.attributes?.category?.data?.attributes?.categorie as string);
+    }
+  }, [movies]);
   return (
     <>
       <Heading size='md' mt={7} ml={3} color='white'>
