@@ -26,7 +26,7 @@
     "cross-env": "^7.0.3"
   },
   "scripts": {
-    "start": "NODE_OPTIONS='--inspect' react-scripts start",
+    "start": "cross-env NODE_OPTIONS='--inspect' react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
