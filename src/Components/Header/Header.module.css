@@ -5,20 +5,20 @@
   }
   to {
     background-image: linear-gradient(to bottom,rgba(0,0,0,.7) 10%,rgba(0,0,0,0));
-    background-Color: rgb(20, 20, 20);
+    background-Color: #181818;
   }
 }
 
 .HeaderFade{
   background-image: linear-gradient(to bottom,rgba(0,0,0,.7) 10%,rgba(0,0,0,0));
-  background-Color: rgb(20, 20, 20);
+  background-Color: #181818;
   animation: FadeIn 500ms ease-in-out;
 }
 
 @keyframes FadeOut {
   from {
     background-image: linear-gradient(to bottom,rgba(0,0,0,.7) 10%,rgba(0,0,0,0));
-    background-Color: rgb(20, 20, 20);
+    background-Color: #181818;
   }
   to {
     background-image: none;
