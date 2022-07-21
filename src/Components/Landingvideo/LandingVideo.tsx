@@ -14,9 +14,11 @@ export const LandingVideo = () => {
     const getLanding = fetcher.path('/landing').method('get').create();
 
     const queryLanding = {
-      populate: 'trailer',
-      'populate[0]': 'logo',
-      'populate[1]': 'Poster',
+      populate: 'movie',
+      'populate[1]': 'movie.Logo',
+      'populate[2]': 'movie.bigPoster',
+      'populate[3]': 'movie.poster',
+      'populate[4]': 'movie.trailer',
     };
     const { data: landingResult } = await getLanding(queryLanding);
     setLanding(landingResult as components['schemas']['LandingResponse']);
@@ -24,11 +26,18 @@ export const LandingVideo = () => {
 
   useEffect(() => {
     result();
+    console.log(landing?.data?.attributes?.movie?.data?.attributes?.Logo?.data?.attributes);
   }, []);
 
-  const trailer = landing?.data?.attributes?.trailer?.data?.attributes?.url;
-  const logo = landing?.data?.attributes?.logo?.data?.attributes?.url;
-  const poster = landing?.data?.attributes?.Poster?.data?.attributes?.url;
+  const trailer = `${process.env.REACT_APP_GRATFLIX_UPLOAD_PROVIDER}${
+    landing?.data?.attributes?.movie?.data?.attributes?.trailer?.data?.attributes?.url?.split('/')[3]
+  }`;
+  const logo = `${process.env.REACT_APP_GRATFLIX_UPLOAD_PROVIDER}${
+    landing?.data?.attributes?.movie?.data?.attributes?.Logo?.data?.attributes?.url?.split('/')[3]
+  }`;
+  const poster = `${process.env.REACT_APP_GRATFLIX_UPLOAD_PROVIDER}${
+    landing?.data?.attributes?.movie?.data?.attributes?.poster?.data?.attributes?.url?.split('/')[3]
+  }`;
 
   const Blur = {
     filter: 'contrast(88%) brightness(72%)',
@@ -41,7 +50,7 @@ export const LandingVideo = () => {
           onAnimationEnd={(ev) => console.log(ev)}
           poster={poster}
           src={trailer}
-          style={{ filter: 'contrast(88%) brightness(72%)', width: '100%', height: '100%' }}
+          style={{ width: 'auto', height: 'auto' }}
           className={styles.blockClick}
           muted
           playsInline

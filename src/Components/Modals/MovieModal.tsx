@@ -26,8 +26,7 @@ interface props {
 
 export const MovieModal = (props: props) => {
   const { isOpen, onClose, data, landing } = props;
-  const poster =
-    data?.attributes?.bigposter?.data?.attributes?.url || landing?.data?.attributes?.Poster?.data?.attributes?.url;
+  const poster = data?.attributes?.bigposter?.data?.attributes?.url;
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -48,25 +47,32 @@ export const MovieModal = (props: props) => {
           <Image src={poster} />
         </Box>
         <Grid pr={20} pl={20} pb={10} pt={10} alignItems='center' gap={4}>
-          <Flex alignItems='flex-start' mb={5} gap={6} flexDir='column'>
-            <Heading fontSize='lg'>
-              A propos de{' '}
-              <span style={{ fontWeight: 'bold' }}>{data?.attributes?.title || landing?.data?.attributes?.title}</span>
-            </Heading>
+          <Flex alignItems='flex-start' mb={5} gap={6} flexDir='column' maxW='50%'>
+            <Heading fontSize='lg'>{data?.attributes?.title}</Heading>
             <Text textAlign='left' fontSize='12px' fontWeight='bold'>
               {data?.attributes?.Synopsis?.slice(0, 300) + '...'}
             </Text>
           </Flex>
-          <Button
-            variant='outline'
-            className={styles.BtnStyle}
-            color='white'
-            w='max-content'
-            _hover={Blur}
-            style={{ zIndex: 'auto' }}>
-            <Text p={5}>Regarder</Text>
-            <BiRightArrow size='100%' />
-          </Button>
+          <Flex>
+            <Button
+              variant='outline'
+              className={styles.BtnStyle}
+              color='white'
+              _hover={Blur}
+              style={{ zIndex: 'auto', width: '178px' }}>
+              <Text p={5}>Regarder</Text>
+              <BiRightArrow size='100%' />
+            </Button>
+            <Button
+              variant='outline'
+              className={styles.BtnStyle}
+              color='white'
+              _hover={Blur}
+              style={{ zIndex: 'auto', width: '178px' }}>
+              <Text p={5}>Partager</Text>
+              <BiRightArrow size='100%' />
+            </Button>
+          </Flex>
         </Grid>
       </ModalContent>
     </Modal>

@@ -17,6 +17,7 @@
   justify-content: center;
   width: 36%;
   height: auto;
+  z-index: 1;
 }
 
 .btnStyle {
