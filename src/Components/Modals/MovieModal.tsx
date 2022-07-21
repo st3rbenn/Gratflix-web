@@ -26,7 +26,9 @@ interface props {
 
 export const MovieModal = (props: props) => {
   const { isOpen, onClose, data, landing } = props;
-  const poster = data?.attributes?.bigposter?.data?.attributes?.url;
+  const poster =
+    data?.attributes?.bigposter?.data?.attributes?.url ||
+    landing?.data?.attributes?.movie?.data?.attributes?.bigposter?.data?.attributes?.url?.split('/')[3];
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

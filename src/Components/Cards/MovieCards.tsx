@@ -13,24 +13,24 @@ interface MovieCardProps {
 export default function MovieCard({ movie }: MovieCardProps) {
   const [hover, setHover] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  let i = 0;
+  // let i = 0;
 
   // const handleOver = debounce((ev) => {
   //   console.log(ev.isisDefaultPrevented);
   //   return onOpen();
   // }, 1500);
 
-  useEffect(() => {
-    while (hover) {
-      i++;
-    }
+  // useEffect(() => {
+  //   while (hover) {
+  //     i++;
+  //   }
 
-    if (i == 3) {
-      onOpen();
-    }
-  }, []);
+  //   if (i == 3) {
+  //     onOpen();
+  //   }
+  // }, []);
 
-  console.log(i);
+  // console.log(i);
 
   return (
     <>
