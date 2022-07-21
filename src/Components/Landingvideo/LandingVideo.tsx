@@ -1,5 +1,5 @@
 import React, { SyntheticEvent, useEffect, useState } from 'react';
-import { Box, Button, Flex, Image, Img, Stack, Text, useDisclosure } from '@chakra-ui/react';
+import { AspectRatio, Box, Button, Flex, Image, Img, Stack, Text, useDisclosure } from '@chakra-ui/react';
 import { BiErrorCircle, BiRightArrow } from 'react-icons/bi';
 import styles from './LandingVideo.module.css';
 import { components } from '../../api/typings/api';
@@ -53,33 +53,48 @@ export const LandingVideo = () => {
         {videoEnd ? (
           <>
             <Box className={styles.image} style={{ zIndex: 1 }}></Box>
-            <Image src={poster} className={styles.blockClick} />
+            <AspectRatio ratio={1.72}>
+              <Image
+                src={poster}
+                className={styles.blockClick}
+                style={{ width: '100%', height: '100%', filter: 'brightness(0.8) invert(0.12) opacity(1)' }}
+              />
+            </AspectRatio>
           </>
         ) : (
           <>
             <Box className={styles.image} style={{ zIndex: 1 }}></Box>
-            <video
-              poster={poster}
-              src={trailer}
-              style={{ width: 'auto', height: 'auto' }}
-              className={styles.blockClick}
-              muted
-              autoPlay
-              playsInline
-              onEnded={(ev) => handlePlay(ev)}
-            />
+            <AspectRatio ratio={1.72}>
+              <video
+                poster={poster}
+                src={trailer}
+                className={styles.blockClick}
+                muted
+                autoPlay
+                playsInline
+                style={{ filter: 'brightness(0.8) invert(0.12) opacity(1)' }}
+                onEnded={(ev) => handlePlay(ev)}
+              />
+            </AspectRatio>
           </>
         )}
       </Box>
       <Stack className={styles.stackContainer}>
-        <Img w='45%' src={logo} mb={7} />
+        <Img w='57%' src={logo} mb={7} />
         <Flex alignItems='center' gap={6}>
-          <Button variant='outline' className={styles.BtnStyle} color='white' w='max-content' _hover={Blur}>
+          <Button
+            variant='solid'
+            bgColor='#181818'
+            className={styles.BtnStyle}
+            color='white'
+            w='max-content'
+            _hover={Blur}>
             <Text p={5}>Regarder</Text>
             <BiRightArrow size='100%' />
           </Button>
           <Button
-            variant='outline'
+            variant='solid'
+            bgColor='#181818'
             className={styles.BtnStyle}
             color='white'
             w='max-content'
