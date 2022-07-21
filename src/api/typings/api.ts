@@ -4,6 +4,15 @@
  */
 
 export interface paths {
+  "/actors": {
+    get: operations["get/actors"];
+    post: operations["post/actors"];
+  };
+  "/actors/{id}": {
+    get: operations["get/actors/{id}"];
+    put: operations["put/actors/{id}"];
+    delete: operations["delete/actors/{id}"];
+  };
   "/autors": {
     get: operations["get/autors"];
     post: operations["post/autors"];
@@ -543,17 +552,17 @@ export interface components {
         details?: { [key: string]: unknown };
       };
     };
-    AutorRequest: {
+    ActorRequest: {
       data: {
+        fullname: string;
         movies?: (number | string)[];
-        firstname?: string;
-        lastname?: string;
       };
     };
-    AutorListResponse: {
+    ActorListResponse: {
       data?: {
         id?: string;
         attributes?: {
+          fullname?: string;
           movies?: {
             data?: {
               id?: string;
@@ -855,8 +864,7 @@ export interface components {
                           attributes?: { [key: string]: unknown };
                         }[];
                       };
-                      firstname?: string;
-                      lastname?: string;
+                      fullname?: string;
                       /** Format: date-time */
                       createdAt?: string;
                       /** Format: date-time */
@@ -1295,6 +1303,38 @@ export interface components {
                     };
                   };
                 };
+                actors?: {
+                  data?: {
+                    id?: string;
+                    attributes?: {
+                      fullname?: string;
+                      movies?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        }[];
+                      };
+                      /** Format: date-time */
+                      createdAt?: string;
+                      /** Format: date-time */
+                      updatedAt?: string;
+                      /** Format: date-time */
+                      publishedAt?: string;
+                      createdBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        };
+                      };
+                      updatedBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        };
+                      };
+                    };
+                  }[];
+                };
                 /** Format: date-time */
                 createdAt?: string;
                 /** Format: date-time */
@@ -1316,8 +1356,1659 @@ export interface components {
               };
             }[];
           };
-          firstname?: string;
-          lastname?: string;
+          /** Format: date-time */
+          createdAt?: string;
+          /** Format: date-time */
+          updatedAt?: string;
+          /** Format: date-time */
+          publishedAt?: string;
+          createdBy?: {
+            data?: {
+              id?: string;
+              attributes?: { [key: string]: unknown };
+            };
+          };
+          updatedBy?: {
+            data?: {
+              id?: string;
+              attributes?: { [key: string]: unknown };
+            };
+          };
+        };
+      }[];
+      meta?: {
+        pagination?: {
+          page?: number;
+          pageSize?: number;
+          pageCount?: number;
+          total?: number;
+        };
+      };
+    };
+    ActorResponse: {
+      data?: {
+        id?: string;
+        attributes?: {
+          fullname?: string;
+          movies?: {
+            data?: {
+              id?: string;
+              attributes?: {
+                title?: string;
+                poster?: {
+                  data?: {
+                    id?: string;
+                    attributes?: {
+                      name?: string;
+                      alternativeText?: string;
+                      caption?: string;
+                      width?: number;
+                      height?: number;
+                      formats?: unknown;
+                      hash?: string;
+                      ext?: string;
+                      mime?: string;
+                      /** Format: float */
+                      size?: number;
+                      url?: string;
+                      previewUrl?: string;
+                      provider?: string;
+                      provider_metadata?: unknown;
+                      related?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        }[];
+                      };
+                      /** Format: date-time */
+                      createdAt?: string;
+                      /** Format: date-time */
+                      updatedAt?: string;
+                      createdBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: {
+                            firstname?: string;
+                            lastname?: string;
+                            username?: string;
+                            /** Format: email */
+                            email?: string;
+                            resetPasswordToken?: string;
+                            registrationToken?: string;
+                            isActive?: boolean;
+                            roles?: {
+                              data?: {
+                                id?: string;
+                                attributes?: {
+                                  name?: string;
+                                  code?: string;
+                                  description?: string;
+                                  users?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    }[];
+                                  };
+                                  permissions?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: {
+                                        action?: string;
+                                        subject?: string;
+                                        properties?: unknown;
+                                        conditions?: unknown;
+                                        role?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                        /** Format: date-time */
+                                        createdAt?: string;
+                                        /** Format: date-time */
+                                        updatedAt?: string;
+                                        createdBy?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                        updatedBy?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                      };
+                                    }[];
+                                  };
+                                  /** Format: date-time */
+                                  createdAt?: string;
+                                  /** Format: date-time */
+                                  updatedAt?: string;
+                                  createdBy?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    };
+                                  };
+                                  updatedBy?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    };
+                                  };
+                                };
+                              }[];
+                            };
+                            blocked?: boolean;
+                            preferedLanguage?: string;
+                            /** Format: date-time */
+                            createdAt?: string;
+                            /** Format: date-time */
+                            updatedAt?: string;
+                            createdBy?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              };
+                            };
+                            updatedBy?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              };
+                            };
+                          };
+                        };
+                      };
+                      updatedBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        };
+                      };
+                    };
+                  };
+                };
+                trailer?: {
+                  data?: {
+                    id?: string;
+                    attributes?: {
+                      name?: string;
+                      alternativeText?: string;
+                      caption?: string;
+                      width?: number;
+                      height?: number;
+                      formats?: unknown;
+                      hash?: string;
+                      ext?: string;
+                      mime?: string;
+                      /** Format: float */
+                      size?: number;
+                      url?: string;
+                      previewUrl?: string;
+                      provider?: string;
+                      provider_metadata?: unknown;
+                      related?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        }[];
+                      };
+                      /** Format: date-time */
+                      createdAt?: string;
+                      /** Format: date-time */
+                      updatedAt?: string;
+                      createdBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: {
+                            firstname?: string;
+                            lastname?: string;
+                            username?: string;
+                            /** Format: email */
+                            email?: string;
+                            resetPasswordToken?: string;
+                            registrationToken?: string;
+                            isActive?: boolean;
+                            roles?: {
+                              data?: {
+                                id?: string;
+                                attributes?: {
+                                  name?: string;
+                                  code?: string;
+                                  description?: string;
+                                  users?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    }[];
+                                  };
+                                  permissions?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: {
+                                        action?: string;
+                                        subject?: string;
+                                        properties?: unknown;
+                                        conditions?: unknown;
+                                        role?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                        /** Format: date-time */
+                                        createdAt?: string;
+                                        /** Format: date-time */
+                                        updatedAt?: string;
+                                        createdBy?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                        updatedBy?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                      };
+                                    }[];
+                                  };
+                                  /** Format: date-time */
+                                  createdAt?: string;
+                                  /** Format: date-time */
+                                  updatedAt?: string;
+                                  createdBy?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    };
+                                  };
+                                  updatedBy?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    };
+                                  };
+                                };
+                              }[];
+                            };
+                            blocked?: boolean;
+                            preferedLanguage?: string;
+                            /** Format: date-time */
+                            createdAt?: string;
+                            /** Format: date-time */
+                            updatedAt?: string;
+                            createdBy?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              };
+                            };
+                            updatedBy?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              };
+                            };
+                          };
+                        };
+                      };
+                      updatedBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        };
+                      };
+                    };
+                  };
+                };
+                URL?: string;
+                like?: number;
+                autor?: {
+                  data?: {
+                    id?: string;
+                    attributes?: {
+                      movies?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        }[];
+                      };
+                      fullname?: string;
+                      /** Format: date-time */
+                      createdAt?: string;
+                      /** Format: date-time */
+                      updatedAt?: string;
+                      /** Format: date-time */
+                      publishedAt?: string;
+                      createdBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: {
+                            firstname?: string;
+                            lastname?: string;
+                            username?: string;
+                            /** Format: email */
+                            email?: string;
+                            resetPasswordToken?: string;
+                            registrationToken?: string;
+                            isActive?: boolean;
+                            roles?: {
+                              data?: {
+                                id?: string;
+                                attributes?: {
+                                  name?: string;
+                                  code?: string;
+                                  description?: string;
+                                  users?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    }[];
+                                  };
+                                  permissions?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: {
+                                        action?: string;
+                                        subject?: string;
+                                        properties?: unknown;
+                                        conditions?: unknown;
+                                        role?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                        /** Format: date-time */
+                                        createdAt?: string;
+                                        /** Format: date-time */
+                                        updatedAt?: string;
+                                        createdBy?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                        updatedBy?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                      };
+                                    }[];
+                                  };
+                                  /** Format: date-time */
+                                  createdAt?: string;
+                                  /** Format: date-time */
+                                  updatedAt?: string;
+                                  createdBy?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    };
+                                  };
+                                  updatedBy?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    };
+                                  };
+                                };
+                              }[];
+                            };
+                            blocked?: boolean;
+                            preferedLanguage?: string;
+                            /** Format: date-time */
+                            createdAt?: string;
+                            /** Format: date-time */
+                            updatedAt?: string;
+                            createdBy?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              };
+                            };
+                            updatedBy?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              };
+                            };
+                          };
+                        };
+                      };
+                      updatedBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        };
+                      };
+                    };
+                  };
+                };
+                category?: {
+                  data?: {
+                    id?: string;
+                    attributes?: {
+                      categorie?: string;
+                      movies?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        }[];
+                      };
+                      /** Format: date-time */
+                      createdAt?: string;
+                      /** Format: date-time */
+                      updatedAt?: string;
+                      /** Format: date-time */
+                      publishedAt?: string;
+                      createdBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        };
+                      };
+                      updatedBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        };
+                      };
+                      localizations?: { [key: string]: unknown }[];
+                      locale?: string;
+                    };
+                  };
+                };
+                Logo?: {
+                  data?: {
+                    id?: string;
+                    attributes?: {
+                      name?: string;
+                      alternativeText?: string;
+                      caption?: string;
+                      width?: number;
+                      height?: number;
+                      formats?: unknown;
+                      hash?: string;
+                      ext?: string;
+                      mime?: string;
+                      /** Format: float */
+                      size?: number;
+                      url?: string;
+                      previewUrl?: string;
+                      provider?: string;
+                      provider_metadata?: unknown;
+                      related?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        }[];
+                      };
+                      /** Format: date-time */
+                      createdAt?: string;
+                      /** Format: date-time */
+                      updatedAt?: string;
+                      createdBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: {
+                            firstname?: string;
+                            lastname?: string;
+                            username?: string;
+                            /** Format: email */
+                            email?: string;
+                            resetPasswordToken?: string;
+                            registrationToken?: string;
+                            isActive?: boolean;
+                            roles?: {
+                              data?: {
+                                id?: string;
+                                attributes?: {
+                                  name?: string;
+                                  code?: string;
+                                  description?: string;
+                                  users?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    }[];
+                                  };
+                                  permissions?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: {
+                                        action?: string;
+                                        subject?: string;
+                                        properties?: unknown;
+                                        conditions?: unknown;
+                                        role?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                        /** Format: date-time */
+                                        createdAt?: string;
+                                        /** Format: date-time */
+                                        updatedAt?: string;
+                                        createdBy?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                        updatedBy?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                      };
+                                    }[];
+                                  };
+                                  /** Format: date-time */
+                                  createdAt?: string;
+                                  /** Format: date-time */
+                                  updatedAt?: string;
+                                  createdBy?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    };
+                                  };
+                                  updatedBy?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    };
+                                  };
+                                };
+                              }[];
+                            };
+                            blocked?: boolean;
+                            preferedLanguage?: string;
+                            /** Format: date-time */
+                            createdAt?: string;
+                            /** Format: date-time */
+                            updatedAt?: string;
+                            createdBy?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              };
+                            };
+                            updatedBy?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              };
+                            };
+                          };
+                        };
+                      };
+                      updatedBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        };
+                      };
+                    };
+                  };
+                };
+                Synopsis?: string;
+                bigposter?: {
+                  data?: {
+                    id?: string;
+                    attributes?: {
+                      name?: string;
+                      alternativeText?: string;
+                      caption?: string;
+                      width?: number;
+                      height?: number;
+                      formats?: unknown;
+                      hash?: string;
+                      ext?: string;
+                      mime?: string;
+                      /** Format: float */
+                      size?: number;
+                      url?: string;
+                      previewUrl?: string;
+                      provider?: string;
+                      provider_metadata?: unknown;
+                      related?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        }[];
+                      };
+                      /** Format: date-time */
+                      createdAt?: string;
+                      /** Format: date-time */
+                      updatedAt?: string;
+                      createdBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: {
+                            firstname?: string;
+                            lastname?: string;
+                            username?: string;
+                            /** Format: email */
+                            email?: string;
+                            resetPasswordToken?: string;
+                            registrationToken?: string;
+                            isActive?: boolean;
+                            roles?: {
+                              data?: {
+                                id?: string;
+                                attributes?: {
+                                  name?: string;
+                                  code?: string;
+                                  description?: string;
+                                  users?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    }[];
+                                  };
+                                  permissions?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: {
+                                        action?: string;
+                                        subject?: string;
+                                        properties?: unknown;
+                                        conditions?: unknown;
+                                        role?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                        /** Format: date-time */
+                                        createdAt?: string;
+                                        /** Format: date-time */
+                                        updatedAt?: string;
+                                        createdBy?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                        updatedBy?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                      };
+                                    }[];
+                                  };
+                                  /** Format: date-time */
+                                  createdAt?: string;
+                                  /** Format: date-time */
+                                  updatedAt?: string;
+                                  createdBy?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    };
+                                  };
+                                  updatedBy?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    };
+                                  };
+                                };
+                              }[];
+                            };
+                            blocked?: boolean;
+                            preferedLanguage?: string;
+                            /** Format: date-time */
+                            createdAt?: string;
+                            /** Format: date-time */
+                            updatedAt?: string;
+                            createdBy?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              };
+                            };
+                            updatedBy?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              };
+                            };
+                          };
+                        };
+                      };
+                      updatedBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        };
+                      };
+                    };
+                  };
+                };
+                actors?: {
+                  data?: {
+                    id?: string;
+                    attributes?: {
+                      fullname?: string;
+                      movies?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        }[];
+                      };
+                      /** Format: date-time */
+                      createdAt?: string;
+                      /** Format: date-time */
+                      updatedAt?: string;
+                      /** Format: date-time */
+                      publishedAt?: string;
+                      createdBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        };
+                      };
+                      updatedBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        };
+                      };
+                    };
+                  }[];
+                };
+                /** Format: date-time */
+                createdAt?: string;
+                /** Format: date-time */
+                updatedAt?: string;
+                /** Format: date-time */
+                publishedAt?: string;
+                createdBy?: {
+                  data?: {
+                    id?: string;
+                    attributes?: { [key: string]: unknown };
+                  };
+                };
+                updatedBy?: {
+                  data?: {
+                    id?: string;
+                    attributes?: { [key: string]: unknown };
+                  };
+                };
+              };
+            }[];
+          };
+          /** Format: date-time */
+          createdAt?: string;
+          /** Format: date-time */
+          updatedAt?: string;
+          /** Format: date-time */
+          publishedAt?: string;
+          createdBy?: {
+            data?: {
+              id?: string;
+              attributes?: { [key: string]: unknown };
+            };
+          };
+          updatedBy?: {
+            data?: {
+              id?: string;
+              attributes?: { [key: string]: unknown };
+            };
+          };
+        };
+      };
+      meta?: { [key: string]: unknown };
+    };
+    AutorRequest: {
+      data: {
+        movies?: (number | string)[];
+        fullname?: string;
+      };
+    };
+    AutorListResponse: {
+      data?: {
+        id?: string;
+        attributes?: {
+          movies?: {
+            data?: {
+              id?: string;
+              attributes?: {
+                title?: string;
+                poster?: {
+                  data?: {
+                    id?: string;
+                    attributes?: {
+                      name?: string;
+                      alternativeText?: string;
+                      caption?: string;
+                      width?: number;
+                      height?: number;
+                      formats?: unknown;
+                      hash?: string;
+                      ext?: string;
+                      mime?: string;
+                      /** Format: float */
+                      size?: number;
+                      url?: string;
+                      previewUrl?: string;
+                      provider?: string;
+                      provider_metadata?: unknown;
+                      related?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        }[];
+                      };
+                      /** Format: date-time */
+                      createdAt?: string;
+                      /** Format: date-time */
+                      updatedAt?: string;
+                      createdBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: {
+                            firstname?: string;
+                            lastname?: string;
+                            username?: string;
+                            /** Format: email */
+                            email?: string;
+                            resetPasswordToken?: string;
+                            registrationToken?: string;
+                            isActive?: boolean;
+                            roles?: {
+                              data?: {
+                                id?: string;
+                                attributes?: {
+                                  name?: string;
+                                  code?: string;
+                                  description?: string;
+                                  users?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    }[];
+                                  };
+                                  permissions?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: {
+                                        action?: string;
+                                        subject?: string;
+                                        properties?: unknown;
+                                        conditions?: unknown;
+                                        role?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                        /** Format: date-time */
+                                        createdAt?: string;
+                                        /** Format: date-time */
+                                        updatedAt?: string;
+                                        createdBy?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                        updatedBy?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                      };
+                                    }[];
+                                  };
+                                  /** Format: date-time */
+                                  createdAt?: string;
+                                  /** Format: date-time */
+                                  updatedAt?: string;
+                                  createdBy?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    };
+                                  };
+                                  updatedBy?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    };
+                                  };
+                                };
+                              }[];
+                            };
+                            blocked?: boolean;
+                            preferedLanguage?: string;
+                            /** Format: date-time */
+                            createdAt?: string;
+                            /** Format: date-time */
+                            updatedAt?: string;
+                            createdBy?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              };
+                            };
+                            updatedBy?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              };
+                            };
+                          };
+                        };
+                      };
+                      updatedBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        };
+                      };
+                    };
+                  };
+                };
+                trailer?: {
+                  data?: {
+                    id?: string;
+                    attributes?: {
+                      name?: string;
+                      alternativeText?: string;
+                      caption?: string;
+                      width?: number;
+                      height?: number;
+                      formats?: unknown;
+                      hash?: string;
+                      ext?: string;
+                      mime?: string;
+                      /** Format: float */
+                      size?: number;
+                      url?: string;
+                      previewUrl?: string;
+                      provider?: string;
+                      provider_metadata?: unknown;
+                      related?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        }[];
+                      };
+                      /** Format: date-time */
+                      createdAt?: string;
+                      /** Format: date-time */
+                      updatedAt?: string;
+                      createdBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: {
+                            firstname?: string;
+                            lastname?: string;
+                            username?: string;
+                            /** Format: email */
+                            email?: string;
+                            resetPasswordToken?: string;
+                            registrationToken?: string;
+                            isActive?: boolean;
+                            roles?: {
+                              data?: {
+                                id?: string;
+                                attributes?: {
+                                  name?: string;
+                                  code?: string;
+                                  description?: string;
+                                  users?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    }[];
+                                  };
+                                  permissions?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: {
+                                        action?: string;
+                                        subject?: string;
+                                        properties?: unknown;
+                                        conditions?: unknown;
+                                        role?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                        /** Format: date-time */
+                                        createdAt?: string;
+                                        /** Format: date-time */
+                                        updatedAt?: string;
+                                        createdBy?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                        updatedBy?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                      };
+                                    }[];
+                                  };
+                                  /** Format: date-time */
+                                  createdAt?: string;
+                                  /** Format: date-time */
+                                  updatedAt?: string;
+                                  createdBy?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    };
+                                  };
+                                  updatedBy?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    };
+                                  };
+                                };
+                              }[];
+                            };
+                            blocked?: boolean;
+                            preferedLanguage?: string;
+                            /** Format: date-time */
+                            createdAt?: string;
+                            /** Format: date-time */
+                            updatedAt?: string;
+                            createdBy?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              };
+                            };
+                            updatedBy?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              };
+                            };
+                          };
+                        };
+                      };
+                      updatedBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        };
+                      };
+                    };
+                  };
+                };
+                URL?: string;
+                like?: number;
+                autor?: {
+                  data?: {
+                    id?: string;
+                    attributes?: {
+                      movies?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        }[];
+                      };
+                      fullname?: string;
+                      /** Format: date-time */
+                      createdAt?: string;
+                      /** Format: date-time */
+                      updatedAt?: string;
+                      /** Format: date-time */
+                      publishedAt?: string;
+                      createdBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: {
+                            firstname?: string;
+                            lastname?: string;
+                            username?: string;
+                            /** Format: email */
+                            email?: string;
+                            resetPasswordToken?: string;
+                            registrationToken?: string;
+                            isActive?: boolean;
+                            roles?: {
+                              data?: {
+                                id?: string;
+                                attributes?: {
+                                  name?: string;
+                                  code?: string;
+                                  description?: string;
+                                  users?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    }[];
+                                  };
+                                  permissions?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: {
+                                        action?: string;
+                                        subject?: string;
+                                        properties?: unknown;
+                                        conditions?: unknown;
+                                        role?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                        /** Format: date-time */
+                                        createdAt?: string;
+                                        /** Format: date-time */
+                                        updatedAt?: string;
+                                        createdBy?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                        updatedBy?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                      };
+                                    }[];
+                                  };
+                                  /** Format: date-time */
+                                  createdAt?: string;
+                                  /** Format: date-time */
+                                  updatedAt?: string;
+                                  createdBy?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    };
+                                  };
+                                  updatedBy?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    };
+                                  };
+                                };
+                              }[];
+                            };
+                            blocked?: boolean;
+                            preferedLanguage?: string;
+                            /** Format: date-time */
+                            createdAt?: string;
+                            /** Format: date-time */
+                            updatedAt?: string;
+                            createdBy?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              };
+                            };
+                            updatedBy?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              };
+                            };
+                          };
+                        };
+                      };
+                      updatedBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        };
+                      };
+                    };
+                  };
+                };
+                category?: {
+                  data?: {
+                    id?: string;
+                    attributes?: {
+                      categorie?: string;
+                      movies?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        }[];
+                      };
+                      /** Format: date-time */
+                      createdAt?: string;
+                      /** Format: date-time */
+                      updatedAt?: string;
+                      /** Format: date-time */
+                      publishedAt?: string;
+                      createdBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        };
+                      };
+                      updatedBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        };
+                      };
+                      localizations?: { [key: string]: unknown }[];
+                      locale?: string;
+                    };
+                  };
+                };
+                Logo?: {
+                  data?: {
+                    id?: string;
+                    attributes?: {
+                      name?: string;
+                      alternativeText?: string;
+                      caption?: string;
+                      width?: number;
+                      height?: number;
+                      formats?: unknown;
+                      hash?: string;
+                      ext?: string;
+                      mime?: string;
+                      /** Format: float */
+                      size?: number;
+                      url?: string;
+                      previewUrl?: string;
+                      provider?: string;
+                      provider_metadata?: unknown;
+                      related?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        }[];
+                      };
+                      /** Format: date-time */
+                      createdAt?: string;
+                      /** Format: date-time */
+                      updatedAt?: string;
+                      createdBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: {
+                            firstname?: string;
+                            lastname?: string;
+                            username?: string;
+                            /** Format: email */
+                            email?: string;
+                            resetPasswordToken?: string;
+                            registrationToken?: string;
+                            isActive?: boolean;
+                            roles?: {
+                              data?: {
+                                id?: string;
+                                attributes?: {
+                                  name?: string;
+                                  code?: string;
+                                  description?: string;
+                                  users?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    }[];
+                                  };
+                                  permissions?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: {
+                                        action?: string;
+                                        subject?: string;
+                                        properties?: unknown;
+                                        conditions?: unknown;
+                                        role?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                        /** Format: date-time */
+                                        createdAt?: string;
+                                        /** Format: date-time */
+                                        updatedAt?: string;
+                                        createdBy?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                        updatedBy?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                      };
+                                    }[];
+                                  };
+                                  /** Format: date-time */
+                                  createdAt?: string;
+                                  /** Format: date-time */
+                                  updatedAt?: string;
+                                  createdBy?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    };
+                                  };
+                                  updatedBy?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    };
+                                  };
+                                };
+                              }[];
+                            };
+                            blocked?: boolean;
+                            preferedLanguage?: string;
+                            /** Format: date-time */
+                            createdAt?: string;
+                            /** Format: date-time */
+                            updatedAt?: string;
+                            createdBy?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              };
+                            };
+                            updatedBy?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              };
+                            };
+                          };
+                        };
+                      };
+                      updatedBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        };
+                      };
+                    };
+                  };
+                };
+                Synopsis?: string;
+                bigposter?: {
+                  data?: {
+                    id?: string;
+                    attributes?: {
+                      name?: string;
+                      alternativeText?: string;
+                      caption?: string;
+                      width?: number;
+                      height?: number;
+                      formats?: unknown;
+                      hash?: string;
+                      ext?: string;
+                      mime?: string;
+                      /** Format: float */
+                      size?: number;
+                      url?: string;
+                      previewUrl?: string;
+                      provider?: string;
+                      provider_metadata?: unknown;
+                      related?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        }[];
+                      };
+                      /** Format: date-time */
+                      createdAt?: string;
+                      /** Format: date-time */
+                      updatedAt?: string;
+                      createdBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: {
+                            firstname?: string;
+                            lastname?: string;
+                            username?: string;
+                            /** Format: email */
+                            email?: string;
+                            resetPasswordToken?: string;
+                            registrationToken?: string;
+                            isActive?: boolean;
+                            roles?: {
+                              data?: {
+                                id?: string;
+                                attributes?: {
+                                  name?: string;
+                                  code?: string;
+                                  description?: string;
+                                  users?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    }[];
+                                  };
+                                  permissions?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: {
+                                        action?: string;
+                                        subject?: string;
+                                        properties?: unknown;
+                                        conditions?: unknown;
+                                        role?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                        /** Format: date-time */
+                                        createdAt?: string;
+                                        /** Format: date-time */
+                                        updatedAt?: string;
+                                        createdBy?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                        updatedBy?: {
+                                          data?: {
+                                            id?: string;
+                                            attributes?: {
+                                              [key: string]: unknown;
+                                            };
+                                          };
+                                        };
+                                      };
+                                    }[];
+                                  };
+                                  /** Format: date-time */
+                                  createdAt?: string;
+                                  /** Format: date-time */
+                                  updatedAt?: string;
+                                  createdBy?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    };
+                                  };
+                                  updatedBy?: {
+                                    data?: {
+                                      id?: string;
+                                      attributes?: { [key: string]: unknown };
+                                    };
+                                  };
+                                };
+                              }[];
+                            };
+                            blocked?: boolean;
+                            preferedLanguage?: string;
+                            /** Format: date-time */
+                            createdAt?: string;
+                            /** Format: date-time */
+                            updatedAt?: string;
+                            createdBy?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              };
+                            };
+                            updatedBy?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              };
+                            };
+                          };
+                        };
+                      };
+                      updatedBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        };
+                      };
+                    };
+                  };
+                };
+                actors?: {
+                  data?: {
+                    id?: string;
+                    attributes?: {
+                      fullname?: string;
+                      movies?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        }[];
+                      };
+                      /** Format: date-time */
+                      createdAt?: string;
+                      /** Format: date-time */
+                      updatedAt?: string;
+                      /** Format: date-time */
+                      publishedAt?: string;
+                      createdBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        };
+                      };
+                      updatedBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        };
+                      };
+                    };
+                  }[];
+                };
+                /** Format: date-time */
+                createdAt?: string;
+                /** Format: date-time */
+                updatedAt?: string;
+                /** Format: date-time */
+                publishedAt?: string;
+                createdBy?: {
+                  data?: {
+                    id?: string;
+                    attributes?: { [key: string]: unknown };
+                  };
+                };
+                updatedBy?: {
+                  data?: {
+                    id?: string;
+                    attributes?: { [key: string]: unknown };
+                  };
+                };
+              };
+            }[];
+          };
+          fullname?: string;
           /** Format: date-time */
           createdAt?: string;
           /** Format: date-time */
@@ -1652,8 +3343,7 @@ export interface components {
                           attributes?: { [key: string]: unknown };
                         }[];
                       };
-                      firstname?: string;
-                      lastname?: string;
+                      fullname?: string;
                       /** Format: date-time */
                       createdAt?: string;
                       /** Format: date-time */
@@ -2092,6 +3782,38 @@ export interface components {
                     };
                   };
                 };
+                actors?: {
+                  data?: {
+                    id?: string;
+                    attributes?: {
+                      fullname?: string;
+                      movies?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        }[];
+                      };
+                      /** Format: date-time */
+                      createdAt?: string;
+                      /** Format: date-time */
+                      updatedAt?: string;
+                      /** Format: date-time */
+                      publishedAt?: string;
+                      createdBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        };
+                      };
+                      updatedBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        };
+                      };
+                    };
+                  }[];
+                };
                 /** Format: date-time */
                 createdAt?: string;
                 /** Format: date-time */
@@ -2113,8 +3835,7 @@ export interface components {
               };
             }[];
           };
-          firstname?: string;
-          lastname?: string;
+          fullname?: string;
           /** Format: date-time */
           createdAt?: string;
           /** Format: date-time */
@@ -2441,8 +4162,7 @@ export interface components {
                       attributes?: { [key: string]: unknown };
                     }[];
                   };
-                  firstname?: string;
-                  lastname?: string;
+                  fullname?: string;
                   /** Format: date-time */
                   createdAt?: string;
                   /** Format: date-time */
@@ -2863,6 +4583,38 @@ export interface components {
                 };
               };
             };
+            actors?: {
+              data?: {
+                id?: string;
+                attributes?: {
+                  fullname?: string;
+                  movies?: {
+                    data?: {
+                      id?: string;
+                      attributes?: { [key: string]: unknown };
+                    }[];
+                  };
+                  /** Format: date-time */
+                  createdAt?: string;
+                  /** Format: date-time */
+                  updatedAt?: string;
+                  /** Format: date-time */
+                  publishedAt?: string;
+                  createdBy?: {
+                    data?: {
+                      id?: string;
+                      attributes?: { [key: string]: unknown };
+                    };
+                  };
+                  updatedBy?: {
+                    data?: {
+                      id?: string;
+                      attributes?: { [key: string]: unknown };
+                    };
+                  };
+                };
+              }[];
+            };
             /** Format: date-time */
             createdAt?: string;
             /** Format: date-time */
@@ -3211,8 +4963,7 @@ export interface components {
                           attributes?: { [key: string]: unknown };
                         }[];
                       };
-                      firstname?: string;
-                      lastname?: string;
+                      fullname?: string;
                       /** Format: date-time */
                       createdAt?: string;
                       /** Format: date-time */
@@ -3650,6 +5401,38 @@ export interface components {
                       };
                     };
                   };
+                };
+                actors?: {
+                  data?: {
+                    id?: string;
+                    attributes?: {
+                      fullname?: string;
+                      movies?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        }[];
+                      };
+                      /** Format: date-time */
+                      createdAt?: string;
+                      /** Format: date-time */
+                      updatedAt?: string;
+                      /** Format: date-time */
+                      publishedAt?: string;
+                      createdBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        };
+                      };
+                      updatedBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        };
+                      };
+                    };
+                  }[];
                 };
                 /** Format: date-time */
                 createdAt?: string;
@@ -4009,8 +5792,7 @@ export interface components {
                           attributes?: { [key: string]: unknown };
                         }[];
                       };
-                      firstname?: string;
-                      lastname?: string;
+                      fullname?: string;
                       /** Format: date-time */
                       createdAt?: string;
                       /** Format: date-time */
@@ -4449,6 +6231,38 @@ export interface components {
                     };
                   };
                 };
+                actors?: {
+                  data?: {
+                    id?: string;
+                    attributes?: {
+                      fullname?: string;
+                      movies?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        }[];
+                      };
+                      /** Format: date-time */
+                      createdAt?: string;
+                      /** Format: date-time */
+                      updatedAt?: string;
+                      /** Format: date-time */
+                      publishedAt?: string;
+                      createdBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        };
+                      };
+                      updatedBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        };
+                      };
+                    };
+                  }[];
+                };
                 /** Format: date-time */
                 createdAt?: string;
                 /** Format: date-time */
@@ -4498,14 +6312,6 @@ export interface components {
       data: {
         /** @example string or id */
         movie?: number | string;
-        /** @example string or id */
-        trailer: number | string;
-        /** @example string or id */
-        logo: number | string;
-        url?: string;
-        title: string;
-        /** @example string or id */
-        Poster: number | string;
       };
     };
     LandingListResponse: {
@@ -4813,8 +6619,7 @@ export interface components {
                           attributes?: { [key: string]: unknown };
                         }[];
                       };
-                      firstname?: string;
-                      lastname?: string;
+                      fullname?: string;
                       /** Format: date-time */
                       createdAt?: string;
                       /** Format: date-time */
@@ -5253,6 +7058,38 @@ export interface components {
                     };
                   };
                 };
+                actors?: {
+                  data?: {
+                    id?: string;
+                    attributes?: {
+                      fullname?: string;
+                      movies?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        }[];
+                      };
+                      /** Format: date-time */
+                      createdAt?: string;
+                      /** Format: date-time */
+                      updatedAt?: string;
+                      /** Format: date-time */
+                      publishedAt?: string;
+                      createdBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        };
+                      };
+                      updatedBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        };
+                      };
+                    };
+                  }[];
+                };
                 /** Format: date-time */
                 createdAt?: string;
                 /** Format: date-time */
@@ -5263,416 +7100,6 @@ export interface components {
                   data?: {
                     id?: string;
                     attributes?: { [key: string]: unknown };
-                  };
-                };
-                updatedBy?: {
-                  data?: {
-                    id?: string;
-                    attributes?: { [key: string]: unknown };
-                  };
-                };
-              };
-            };
-          };
-          trailer?: {
-            data?: {
-              id?: string;
-              attributes?: {
-                name?: string;
-                alternativeText?: string;
-                caption?: string;
-                width?: number;
-                height?: number;
-                formats?: unknown;
-                hash?: string;
-                ext?: string;
-                mime?: string;
-                /** Format: float */
-                size?: number;
-                url?: string;
-                previewUrl?: string;
-                provider?: string;
-                provider_metadata?: unknown;
-                related?: {
-                  data?: {
-                    id?: string;
-                    attributes?: { [key: string]: unknown };
-                  }[];
-                };
-                /** Format: date-time */
-                createdAt?: string;
-                /** Format: date-time */
-                updatedAt?: string;
-                createdBy?: {
-                  data?: {
-                    id?: string;
-                    attributes?: {
-                      firstname?: string;
-                      lastname?: string;
-                      username?: string;
-                      /** Format: email */
-                      email?: string;
-                      resetPasswordToken?: string;
-                      registrationToken?: string;
-                      isActive?: boolean;
-                      roles?: {
-                        data?: {
-                          id?: string;
-                          attributes?: {
-                            name?: string;
-                            code?: string;
-                            description?: string;
-                            users?: {
-                              data?: {
-                                id?: string;
-                                attributes?: { [key: string]: unknown };
-                              }[];
-                            };
-                            permissions?: {
-                              data?: {
-                                id?: string;
-                                attributes?: {
-                                  action?: string;
-                                  subject?: string;
-                                  properties?: unknown;
-                                  conditions?: unknown;
-                                  role?: {
-                                    data?: {
-                                      id?: string;
-                                      attributes?: { [key: string]: unknown };
-                                    };
-                                  };
-                                  /** Format: date-time */
-                                  createdAt?: string;
-                                  /** Format: date-time */
-                                  updatedAt?: string;
-                                  createdBy?: {
-                                    data?: {
-                                      id?: string;
-                                      attributes?: { [key: string]: unknown };
-                                    };
-                                  };
-                                  updatedBy?: {
-                                    data?: {
-                                      id?: string;
-                                      attributes?: { [key: string]: unknown };
-                                    };
-                                  };
-                                };
-                              }[];
-                            };
-                            /** Format: date-time */
-                            createdAt?: string;
-                            /** Format: date-time */
-                            updatedAt?: string;
-                            createdBy?: {
-                              data?: {
-                                id?: string;
-                                attributes?: { [key: string]: unknown };
-                              };
-                            };
-                            updatedBy?: {
-                              data?: {
-                                id?: string;
-                                attributes?: { [key: string]: unknown };
-                              };
-                            };
-                          };
-                        }[];
-                      };
-                      blocked?: boolean;
-                      preferedLanguage?: string;
-                      /** Format: date-time */
-                      createdAt?: string;
-                      /** Format: date-time */
-                      updatedAt?: string;
-                      createdBy?: {
-                        data?: {
-                          id?: string;
-                          attributes?: { [key: string]: unknown };
-                        };
-                      };
-                      updatedBy?: {
-                        data?: {
-                          id?: string;
-                          attributes?: { [key: string]: unknown };
-                        };
-                      };
-                    };
-                  };
-                };
-                updatedBy?: {
-                  data?: {
-                    id?: string;
-                    attributes?: { [key: string]: unknown };
-                  };
-                };
-              };
-            };
-          };
-          logo?: {
-            data?: {
-              id?: string;
-              attributes?: {
-                name?: string;
-                alternativeText?: string;
-                caption?: string;
-                width?: number;
-                height?: number;
-                formats?: unknown;
-                hash?: string;
-                ext?: string;
-                mime?: string;
-                /** Format: float */
-                size?: number;
-                url?: string;
-                previewUrl?: string;
-                provider?: string;
-                provider_metadata?: unknown;
-                related?: {
-                  data?: {
-                    id?: string;
-                    attributes?: { [key: string]: unknown };
-                  }[];
-                };
-                /** Format: date-time */
-                createdAt?: string;
-                /** Format: date-time */
-                updatedAt?: string;
-                createdBy?: {
-                  data?: {
-                    id?: string;
-                    attributes?: {
-                      firstname?: string;
-                      lastname?: string;
-                      username?: string;
-                      /** Format: email */
-                      email?: string;
-                      resetPasswordToken?: string;
-                      registrationToken?: string;
-                      isActive?: boolean;
-                      roles?: {
-                        data?: {
-                          id?: string;
-                          attributes?: {
-                            name?: string;
-                            code?: string;
-                            description?: string;
-                            users?: {
-                              data?: {
-                                id?: string;
-                                attributes?: { [key: string]: unknown };
-                              }[];
-                            };
-                            permissions?: {
-                              data?: {
-                                id?: string;
-                                attributes?: {
-                                  action?: string;
-                                  subject?: string;
-                                  properties?: unknown;
-                                  conditions?: unknown;
-                                  role?: {
-                                    data?: {
-                                      id?: string;
-                                      attributes?: { [key: string]: unknown };
-                                    };
-                                  };
-                                  /** Format: date-time */
-                                  createdAt?: string;
-                                  /** Format: date-time */
-                                  updatedAt?: string;
-                                  createdBy?: {
-                                    data?: {
-                                      id?: string;
-                                      attributes?: { [key: string]: unknown };
-                                    };
-                                  };
-                                  updatedBy?: {
-                                    data?: {
-                                      id?: string;
-                                      attributes?: { [key: string]: unknown };
-                                    };
-                                  };
-                                };
-                              }[];
-                            };
-                            /** Format: date-time */
-                            createdAt?: string;
-                            /** Format: date-time */
-                            updatedAt?: string;
-                            createdBy?: {
-                              data?: {
-                                id?: string;
-                                attributes?: { [key: string]: unknown };
-                              };
-                            };
-                            updatedBy?: {
-                              data?: {
-                                id?: string;
-                                attributes?: { [key: string]: unknown };
-                              };
-                            };
-                          };
-                        }[];
-                      };
-                      blocked?: boolean;
-                      preferedLanguage?: string;
-                      /** Format: date-time */
-                      createdAt?: string;
-                      /** Format: date-time */
-                      updatedAt?: string;
-                      createdBy?: {
-                        data?: {
-                          id?: string;
-                          attributes?: { [key: string]: unknown };
-                        };
-                      };
-                      updatedBy?: {
-                        data?: {
-                          id?: string;
-                          attributes?: { [key: string]: unknown };
-                        };
-                      };
-                    };
-                  };
-                };
-                updatedBy?: {
-                  data?: {
-                    id?: string;
-                    attributes?: { [key: string]: unknown };
-                  };
-                };
-              };
-            };
-          };
-          url?: string;
-          title?: string;
-          Poster?: {
-            data?: {
-              id?: string;
-              attributes?: {
-                name?: string;
-                alternativeText?: string;
-                caption?: string;
-                width?: number;
-                height?: number;
-                formats?: unknown;
-                hash?: string;
-                ext?: string;
-                mime?: string;
-                /** Format: float */
-                size?: number;
-                url?: string;
-                previewUrl?: string;
-                provider?: string;
-                provider_metadata?: unknown;
-                related?: {
-                  data?: {
-                    id?: string;
-                    attributes?: { [key: string]: unknown };
-                  }[];
-                };
-                /** Format: date-time */
-                createdAt?: string;
-                /** Format: date-time */
-                updatedAt?: string;
-                createdBy?: {
-                  data?: {
-                    id?: string;
-                    attributes?: {
-                      firstname?: string;
-                      lastname?: string;
-                      username?: string;
-                      /** Format: email */
-                      email?: string;
-                      resetPasswordToken?: string;
-                      registrationToken?: string;
-                      isActive?: boolean;
-                      roles?: {
-                        data?: {
-                          id?: string;
-                          attributes?: {
-                            name?: string;
-                            code?: string;
-                            description?: string;
-                            users?: {
-                              data?: {
-                                id?: string;
-                                attributes?: { [key: string]: unknown };
-                              }[];
-                            };
-                            permissions?: {
-                              data?: {
-                                id?: string;
-                                attributes?: {
-                                  action?: string;
-                                  subject?: string;
-                                  properties?: unknown;
-                                  conditions?: unknown;
-                                  role?: {
-                                    data?: {
-                                      id?: string;
-                                      attributes?: { [key: string]: unknown };
-                                    };
-                                  };
-                                  /** Format: date-time */
-                                  createdAt?: string;
-                                  /** Format: date-time */
-                                  updatedAt?: string;
-                                  createdBy?: {
-                                    data?: {
-                                      id?: string;
-                                      attributes?: { [key: string]: unknown };
-                                    };
-                                  };
-                                  updatedBy?: {
-                                    data?: {
-                                      id?: string;
-                                      attributes?: { [key: string]: unknown };
-                                    };
-                                  };
-                                };
-                              }[];
-                            };
-                            /** Format: date-time */
-                            createdAt?: string;
-                            /** Format: date-time */
-                            updatedAt?: string;
-                            createdBy?: {
-                              data?: {
-                                id?: string;
-                                attributes?: { [key: string]: unknown };
-                              };
-                            };
-                            updatedBy?: {
-                              data?: {
-                                id?: string;
-                                attributes?: { [key: string]: unknown };
-                              };
-                            };
-                          };
-                        }[];
-                      };
-                      blocked?: boolean;
-                      preferedLanguage?: string;
-                      /** Format: date-time */
-                      createdAt?: string;
-                      /** Format: date-time */
-                      updatedAt?: string;
-                      createdBy?: {
-                        data?: {
-                          id?: string;
-                          attributes?: { [key: string]: unknown };
-                        };
-                      };
-                      updatedBy?: {
-                        data?: {
-                          id?: string;
-                          attributes?: { [key: string]: unknown };
-                        };
-                      };
-                    };
                   };
                 };
                 updatedBy?: {
@@ -6018,8 +7445,7 @@ export interface components {
                           attributes?: { [key: string]: unknown };
                         }[];
                       };
-                      firstname?: string;
-                      lastname?: string;
+                      fullname?: string;
                       /** Format: date-time */
                       createdAt?: string;
                       /** Format: date-time */
@@ -6458,6 +7884,38 @@ export interface components {
                     };
                   };
                 };
+                actors?: {
+                  data?: {
+                    id?: string;
+                    attributes?: {
+                      fullname?: string;
+                      movies?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        }[];
+                      };
+                      /** Format: date-time */
+                      createdAt?: string;
+                      /** Format: date-time */
+                      updatedAt?: string;
+                      /** Format: date-time */
+                      publishedAt?: string;
+                      createdBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        };
+                      };
+                      updatedBy?: {
+                        data?: {
+                          id?: string;
+                          attributes?: { [key: string]: unknown };
+                        };
+                      };
+                    };
+                  }[];
+                };
                 /** Format: date-time */
                 createdAt?: string;
                 /** Format: date-time */
@@ -6468,416 +7926,6 @@ export interface components {
                   data?: {
                     id?: string;
                     attributes?: { [key: string]: unknown };
-                  };
-                };
-                updatedBy?: {
-                  data?: {
-                    id?: string;
-                    attributes?: { [key: string]: unknown };
-                  };
-                };
-              };
-            };
-          };
-          trailer?: {
-            data?: {
-              id?: string;
-              attributes?: {
-                name?: string;
-                alternativeText?: string;
-                caption?: string;
-                width?: number;
-                height?: number;
-                formats?: unknown;
-                hash?: string;
-                ext?: string;
-                mime?: string;
-                /** Format: float */
-                size?: number;
-                url?: string;
-                previewUrl?: string;
-                provider?: string;
-                provider_metadata?: unknown;
-                related?: {
-                  data?: {
-                    id?: string;
-                    attributes?: { [key: string]: unknown };
-                  }[];
-                };
-                /** Format: date-time */
-                createdAt?: string;
-                /** Format: date-time */
-                updatedAt?: string;
-                createdBy?: {
-                  data?: {
-                    id?: string;
-                    attributes?: {
-                      firstname?: string;
-                      lastname?: string;
-                      username?: string;
-                      /** Format: email */
-                      email?: string;
-                      resetPasswordToken?: string;
-                      registrationToken?: string;
-                      isActive?: boolean;
-                      roles?: {
-                        data?: {
-                          id?: string;
-                          attributes?: {
-                            name?: string;
-                            code?: string;
-                            description?: string;
-                            users?: {
-                              data?: {
-                                id?: string;
-                                attributes?: { [key: string]: unknown };
-                              }[];
-                            };
-                            permissions?: {
-                              data?: {
-                                id?: string;
-                                attributes?: {
-                                  action?: string;
-                                  subject?: string;
-                                  properties?: unknown;
-                                  conditions?: unknown;
-                                  role?: {
-                                    data?: {
-                                      id?: string;
-                                      attributes?: { [key: string]: unknown };
-                                    };
-                                  };
-                                  /** Format: date-time */
-                                  createdAt?: string;
-                                  /** Format: date-time */
-                                  updatedAt?: string;
-                                  createdBy?: {
-                                    data?: {
-                                      id?: string;
-                                      attributes?: { [key: string]: unknown };
-                                    };
-                                  };
-                                  updatedBy?: {
-                                    data?: {
-                                      id?: string;
-                                      attributes?: { [key: string]: unknown };
-                                    };
-                                  };
-                                };
-                              }[];
-                            };
-                            /** Format: date-time */
-                            createdAt?: string;
-                            /** Format: date-time */
-                            updatedAt?: string;
-                            createdBy?: {
-                              data?: {
-                                id?: string;
-                                attributes?: { [key: string]: unknown };
-                              };
-                            };
-                            updatedBy?: {
-                              data?: {
-                                id?: string;
-                                attributes?: { [key: string]: unknown };
-                              };
-                            };
-                          };
-                        }[];
-                      };
-                      blocked?: boolean;
-                      preferedLanguage?: string;
-                      /** Format: date-time */
-                      createdAt?: string;
-                      /** Format: date-time */
-                      updatedAt?: string;
-                      createdBy?: {
-                        data?: {
-                          id?: string;
-                          attributes?: { [key: string]: unknown };
-                        };
-                      };
-                      updatedBy?: {
-                        data?: {
-                          id?: string;
-                          attributes?: { [key: string]: unknown };
-                        };
-                      };
-                    };
-                  };
-                };
-                updatedBy?: {
-                  data?: {
-                    id?: string;
-                    attributes?: { [key: string]: unknown };
-                  };
-                };
-              };
-            };
-          };
-          logo?: {
-            data?: {
-              id?: string;
-              attributes?: {
-                name?: string;
-                alternativeText?: string;
-                caption?: string;
-                width?: number;
-                height?: number;
-                formats?: unknown;
-                hash?: string;
-                ext?: string;
-                mime?: string;
-                /** Format: float */
-                size?: number;
-                url?: string;
-                previewUrl?: string;
-                provider?: string;
-                provider_metadata?: unknown;
-                related?: {
-                  data?: {
-                    id?: string;
-                    attributes?: { [key: string]: unknown };
-                  }[];
-                };
-                /** Format: date-time */
-                createdAt?: string;
-                /** Format: date-time */
-                updatedAt?: string;
-                createdBy?: {
-                  data?: {
-                    id?: string;
-                    attributes?: {
-                      firstname?: string;
-                      lastname?: string;
-                      username?: string;
-                      /** Format: email */
-                      email?: string;
-                      resetPasswordToken?: string;
-                      registrationToken?: string;
-                      isActive?: boolean;
-                      roles?: {
-                        data?: {
-                          id?: string;
-                          attributes?: {
-                            name?: string;
-                            code?: string;
-                            description?: string;
-                            users?: {
-                              data?: {
-                                id?: string;
-                                attributes?: { [key: string]: unknown };
-                              }[];
-                            };
-                            permissions?: {
-                              data?: {
-                                id?: string;
-                                attributes?: {
-                                  action?: string;
-                                  subject?: string;
-                                  properties?: unknown;
-                                  conditions?: unknown;
-                                  role?: {
-                                    data?: {
-                                      id?: string;
-                                      attributes?: { [key: string]: unknown };
-                                    };
-                                  };
-                                  /** Format: date-time */
-                                  createdAt?: string;
-                                  /** Format: date-time */
-                                  updatedAt?: string;
-                                  createdBy?: {
-                                    data?: {
-                                      id?: string;
-                                      attributes?: { [key: string]: unknown };
-                                    };
-                                  };
-                                  updatedBy?: {
-                                    data?: {
-                                      id?: string;
-                                      attributes?: { [key: string]: unknown };
-                                    };
-                                  };
-                                };
-                              }[];
-                            };
-                            /** Format: date-time */
-                            createdAt?: string;
-                            /** Format: date-time */
-                            updatedAt?: string;
-                            createdBy?: {
-                              data?: {
-                                id?: string;
-                                attributes?: { [key: string]: unknown };
-                              };
-                            };
-                            updatedBy?: {
-                              data?: {
-                                id?: string;
-                                attributes?: { [key: string]: unknown };
-                              };
-                            };
-                          };
-                        }[];
-                      };
-                      blocked?: boolean;
-                      preferedLanguage?: string;
-                      /** Format: date-time */
-                      createdAt?: string;
-                      /** Format: date-time */
-                      updatedAt?: string;
-                      createdBy?: {
-                        data?: {
-                          id?: string;
-                          attributes?: { [key: string]: unknown };
-                        };
-                      };
-                      updatedBy?: {
-                        data?: {
-                          id?: string;
-                          attributes?: { [key: string]: unknown };
-                        };
-                      };
-                    };
-                  };
-                };
-                updatedBy?: {
-                  data?: {
-                    id?: string;
-                    attributes?: { [key: string]: unknown };
-                  };
-                };
-              };
-            };
-          };
-          url?: string;
-          title?: string;
-          Poster?: {
-            data?: {
-              id?: string;
-              attributes?: {
-                name?: string;
-                alternativeText?: string;
-                caption?: string;
-                width?: number;
-                height?: number;
-                formats?: unknown;
-                hash?: string;
-                ext?: string;
-                mime?: string;
-                /** Format: float */
-                size?: number;
-                url?: string;
-                previewUrl?: string;
-                provider?: string;
-                provider_metadata?: unknown;
-                related?: {
-                  data?: {
-                    id?: string;
-                    attributes?: { [key: string]: unknown };
-                  }[];
-                };
-                /** Format: date-time */
-                createdAt?: string;
-                /** Format: date-time */
-                updatedAt?: string;
-                createdBy?: {
-                  data?: {
-                    id?: string;
-                    attributes?: {
-                      firstname?: string;
-                      lastname?: string;
-                      username?: string;
-                      /** Format: email */
-                      email?: string;
-                      resetPasswordToken?: string;
-                      registrationToken?: string;
-                      isActive?: boolean;
-                      roles?: {
-                        data?: {
-                          id?: string;
-                          attributes?: {
-                            name?: string;
-                            code?: string;
-                            description?: string;
-                            users?: {
-                              data?: {
-                                id?: string;
-                                attributes?: { [key: string]: unknown };
-                              }[];
-                            };
-                            permissions?: {
-                              data?: {
-                                id?: string;
-                                attributes?: {
-                                  action?: string;
-                                  subject?: string;
-                                  properties?: unknown;
-                                  conditions?: unknown;
-                                  role?: {
-                                    data?: {
-                                      id?: string;
-                                      attributes?: { [key: string]: unknown };
-                                    };
-                                  };
-                                  /** Format: date-time */
-                                  createdAt?: string;
-                                  /** Format: date-time */
-                                  updatedAt?: string;
-                                  createdBy?: {
-                                    data?: {
-                                      id?: string;
-                                      attributes?: { [key: string]: unknown };
-                                    };
-                                  };
-                                  updatedBy?: {
-                                    data?: {
-                                      id?: string;
-                                      attributes?: { [key: string]: unknown };
-                                    };
-                                  };
-                                };
-                              }[];
-                            };
-                            /** Format: date-time */
-                            createdAt?: string;
-                            /** Format: date-time */
-                            updatedAt?: string;
-                            createdBy?: {
-                              data?: {
-                                id?: string;
-                                attributes?: { [key: string]: unknown };
-                              };
-                            };
-                            updatedBy?: {
-                              data?: {
-                                id?: string;
-                                attributes?: { [key: string]: unknown };
-                              };
-                            };
-                          };
-                        }[];
-                      };
-                      blocked?: boolean;
-                      preferedLanguage?: string;
-                      /** Format: date-time */
-                      createdAt?: string;
-                      /** Format: date-time */
-                      updatedAt?: string;
-                      createdBy?: {
-                        data?: {
-                          id?: string;
-                          attributes?: { [key: string]: unknown };
-                        };
-                      };
-                      updatedBy?: {
-                        data?: {
-                          id?: string;
-                          attributes?: { [key: string]: unknown };
-                        };
-                      };
-                    };
                   };
                 };
                 updatedBy?: {
@@ -6929,6 +7977,7 @@ export interface components {
         Synopsis?: string;
         /** @example string or id */
         bigposter: number | string;
+        actors?: (number | string)[];
       };
     };
     MovieListResponse: {
@@ -7958,6 +9007,38 @@ export interface components {
                           };
                         };
                       };
+                      actors?: {
+                        data?: {
+                          id?: string;
+                          attributes?: {
+                            fullname?: string;
+                            movies?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              }[];
+                            };
+                            /** Format: date-time */
+                            createdAt?: string;
+                            /** Format: date-time */
+                            updatedAt?: string;
+                            /** Format: date-time */
+                            publishedAt?: string;
+                            createdBy?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              };
+                            };
+                            updatedBy?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              };
+                            };
+                          };
+                        }[];
+                      };
                       /** Format: date-time */
                       createdAt?: string;
                       /** Format: date-time */
@@ -7979,8 +9060,7 @@ export interface components {
                     };
                   }[];
                 };
-                firstname?: string;
-                lastname?: string;
+                fullname?: string;
                 /** Format: date-time */
                 createdAt?: string;
                 /** Format: date-time */
@@ -8280,6 +9360,12 @@ export interface components {
                 };
               };
             };
+          };
+          actors?: {
+            data?: {
+              id?: string;
+              attributes?: { [key: string]: unknown };
+            }[];
           };
           /** Format: date-time */
           createdAt?: string;
@@ -9337,6 +10423,38 @@ export interface components {
                           };
                         };
                       };
+                      actors?: {
+                        data?: {
+                          id?: string;
+                          attributes?: {
+                            fullname?: string;
+                            movies?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              }[];
+                            };
+                            /** Format: date-time */
+                            createdAt?: string;
+                            /** Format: date-time */
+                            updatedAt?: string;
+                            /** Format: date-time */
+                            publishedAt?: string;
+                            createdBy?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              };
+                            };
+                            updatedBy?: {
+                              data?: {
+                                id?: string;
+                                attributes?: { [key: string]: unknown };
+                              };
+                            };
+                          };
+                        }[];
+                      };
                       /** Format: date-time */
                       createdAt?: string;
                       /** Format: date-time */
@@ -9358,8 +10476,7 @@ export interface components {
                     };
                   }[];
                 };
-                firstname?: string;
-                lastname?: string;
+                fullname?: string;
                 /** Format: date-time */
                 createdAt?: string;
                 /** Format: date-time */
@@ -9659,6 +10776,12 @@ export interface components {
                 };
               };
             };
+          };
+          actors?: {
+            data?: {
+              id?: string;
+              attributes?: { [key: string]: unknown };
+            }[];
           };
           /** Format: date-time */
           createdAt?: string;
@@ -11429,6 +12552,252 @@ export interface components {
 }
 
 export interface operations {
+  "get/actors": {
+    parameters: {
+      query: {
+        /** Sort by attributes ascending (asc) or descending (desc) */
+        sort?: string;
+        /** Retun page/pageSize (default: true) */
+        "pagination[withCount]"?: boolean;
+        /** Page number (default: 0) */
+        "pagination[page]"?: number;
+        /** Page size (default: 25) */
+        "pagination[pageSize]"?: number;
+        /** Offset value (default: 0) */
+        "pagination[start]"?: number;
+        /** Number of entities to return (default: 25) */
+        "pagination[limit]"?: number;
+        /** Fields to return (ex: title,author) */
+        fields?: string;
+        /** Relations to return */
+        populate?: string;
+      };
+    };
+    responses: {
+      /** OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["ActorListResponse"];
+        };
+      };
+      /** Bad Request */
+      400: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** Unauthorized */
+      401: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** Forbidden */
+      403: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** Not Found */
+      404: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** Internal Server Error */
+      500: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  "post/actors": {
+    parameters: {};
+    responses: {
+      /** OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["ActorResponse"];
+        };
+      };
+      /** Bad Request */
+      400: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** Unauthorized */
+      401: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** Forbidden */
+      403: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** Not Found */
+      404: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** Internal Server Error */
+      500: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["ActorRequest"];
+      };
+    };
+  };
+  "get/actors/{id}": {
+    parameters: {
+      path: {
+        id: string;
+      };
+    };
+    responses: {
+      /** OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["ActorResponse"];
+        };
+      };
+      /** Bad Request */
+      400: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** Unauthorized */
+      401: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** Forbidden */
+      403: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** Not Found */
+      404: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** Internal Server Error */
+      500: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  "put/actors/{id}": {
+    parameters: {
+      path: {
+        id: string;
+      };
+    };
+    responses: {
+      /** OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["ActorResponse"];
+        };
+      };
+      /** Bad Request */
+      400: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** Unauthorized */
+      401: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** Forbidden */
+      403: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** Not Found */
+      404: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** Internal Server Error */
+      500: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["ActorRequest"];
+      };
+    };
+  };
+  "delete/actors/{id}": {
+    parameters: {
+      path: {
+        id: string;
+      };
+    };
+    responses: {
+      /** OK */
+      200: {
+        content: {
+          "application/json": number;
+        };
+      };
+      /** Bad Request */
+      400: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** Unauthorized */
+      401: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** Forbidden */
+      403: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** Not Found */
+      404: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** Internal Server Error */
+      500: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
   "get/autors": {
     parameters: {
       query: {
