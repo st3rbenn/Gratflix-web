@@ -7,9 +7,19 @@ import { fetcher } from '../../api/fetcher';
 import { MovieModal } from '../Modals/MovieModal';
 
 export const LandingVideo = () => {
+  const [scrollPosition, setScrollPosition] = useState(0);
   const [landing, setLanding] = useState([] as components['schemas']['LandingResponse']);
   const [videoEnd, setVideoEnd] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const handleScroll = () => {
+    const position = window.scrollY;
+    setScrollPosition(position);
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll, { passive: true });
+  }, []);
 
   const result = async () => {
     const getLanding = fetcher.path('/landing').method('get').create();
@@ -50,21 +60,24 @@ export const LandingVideo = () => {
   return (
     <Box as='section' className={styles.landingContainer}>
       <Box position='relative'>
-        {videoEnd ? (
+        <Box className={styles.image} style={{ zIndex: 1 }}></Box>
+        {videoEnd || scrollPosition >= 450 ? (
           <>
-            <Box className={styles.image} style={{ zIndex: 1 }}></Box>
-            <AspectRatio ratio={1.72}>
+            <AspectRatio ratio={1.72} className={styles.ratio}>
               <Image
                 src={poster}
                 className={styles.blockClick}
-                style={{ width: '100%', height: '100%', filter: 'brightness(0.8) invert(0.12) opacity(1)' }}
+                style={{
+                  width: '100% !important',
+                  height: '72% !important',
+                  filter: 'brightness(0.8) invert(0.12) opacity(1)',
+                }}
               />
             </AspectRatio>
           </>
         ) : (
           <>
-            <Box className={styles.image} style={{ zIndex: 1 }}></Box>
-            <AspectRatio ratio={1.72}>
+            <AspectRatio ratio={1.72} className={styles.ratio}>
               <video
                 poster={poster}
                 src={trailer}
@@ -72,7 +85,11 @@ export const LandingVideo = () => {
                 muted
                 autoPlay
                 playsInline
-                style={{ filter: 'brightness(0.8) invert(0.12) opacity(1)' }}
+                style={{
+                  filter: 'brightness(0.8) invert(0.12) opacity(1)',
+                  width: '100% !important',
+                  height: '72% !important',
+                }}
                 onEnded={(ev) => handlePlay(ev)}
               />
             </AspectRatio>
