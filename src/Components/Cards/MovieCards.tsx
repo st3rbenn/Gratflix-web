@@ -34,7 +34,7 @@ export default function MovieCard({ movie }: MovieCardProps) {
 
   return (
     <>
-      <Box className={styles.boxSettings} as='article'>
+      <Box className={styles.boxSettings} as='article' onClick={() => onOpen()}>
         <Image
           src={`${process.env.REACT_APP_GRATFLIX_UPLOAD_PROVIDER}${
             movie?.attributes?.poster?.data?.attributes?.url?.split('/')[3]

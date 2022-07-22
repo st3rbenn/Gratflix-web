@@ -13,11 +13,10 @@
 
 .stackContainer {
   position: absolute;
-  top: 35%;
+  top: 30%;
   left: 5%;
-  width: min-content;
+  width: 23%;
   justify-content: center;
-  width: 36%;
   height: auto;
   z-index: 1;
 }

@@ -43,10 +43,7 @@ export function Carousel({ category }: CarouselProps) {
     const { data: moviesArray } = await getMovie(queryMovie);
     setMovies(moviesArray);
   };
-
-  useEffect(() => {
-    getMovies();
-  }, []);
+  getMovies();
 
   useEffect(() => {
     if (typeof category === 'string') {
@@ -74,13 +71,16 @@ export function Carousel({ category }: CarouselProps) {
         <Flex {...settingsArrow} right={5} onClick={() => swiper.current.swiper.slideNext()} _hover={{ bgColor: 'blackAlpha.400' }}>
             <MdArrowForwardIos size={50}/>
         </Flex> */}
-        {movies?.data?.map((movie: components['schemas']['MovieResponse']['data']) => (
-          <SwiperSlide key={movie?.id} style={{ width: 196.571 + 'px' }}>
-            <Flex justifyContent='center' alignItems='center'>
-              <MovieCard movie={movie} />
-            </Flex>
-          </SwiperSlide>
-        ))}
+        {movies?.data?.map((movie: components['schemas']['MovieResponse']['data']) => {
+          const w = movie?.attributes?.poster?.data?.attributes?.width;
+          return (
+            <SwiperSlide key={movie?.id} style={{ width: 196.571 + 'px' }}>
+              <Flex justifyContent='center' alignItems='center'>
+                <MovieCard movie={movie} />
+              </Flex>
+            </SwiperSlide>
+          );
+        })}
       </Swiper>
     </>
   );
