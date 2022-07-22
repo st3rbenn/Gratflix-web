@@ -26,10 +26,14 @@ interface props {
 
 export const MovieModal = (props: props) => {
   const { isOpen, onClose, data, landing } = props;
-  const poster =
-    data?.attributes?.bigposter?.data?.attributes?.url ||
-    landing?.data?.attributes?.movie?.data?.attributes?.bigposter?.data?.attributes?.url?.split('/')[3];
+  const homePoster = `${process.env.REACT_APP_GRATFLIX_UPLOAD_PROVIDER}${
+    data?.attributes?.bigposter?.data?.attributes?.url?.split('/')[3]
+  }`;
+  const landingPoster = `${process.env.REACT_APP_GRATFLIX_UPLOAD_PROVIDER}${
+    landing?.data?.attributes?.movie?.data?.attributes?.bigposter?.data?.attributes?.url?.split('/')[3]
+  }`;
   const ref = useRef<HTMLDivElement>(null);
+  console.log(landingPoster);
 
   useEffect(() => {
     if (ref.current) {
@@ -48,7 +52,7 @@ export const MovieModal = (props: props) => {
     }
   };
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size='3xl'>
+    <Modal isOpen={isOpen} onClose={onClose} size='5xl'>
       <ModalOverlay ref={ref} />
       <ModalContent bgColor='#181818' color='white' position='relative'>
         <ModalCloseButton zIndex={1000} />
@@ -57,7 +61,7 @@ export const MovieModal = (props: props) => {
         </AspectRatio> */}
         <Box position='relative'>
           <Box className={styles.image}></Box>
-          <Image src={poster} />
+          <Image src={homePoster || landingPoster} />
         </Box>
         <Grid as='section' className={styles.modalContainer}>
           <Flex alignItems='flex-start' mb={5} gap={6} flexDir='column' maxW='50%'>
