@@ -15,7 +15,7 @@ function Home() {
           <Carousel category={2} />
         </Container>
         <Container className={styles.galerie} as='article' mb={50}>
-          {/* <Galerie list={7} listTitle={'oe'}/> */}
+          <Carousel category={3} />
         </Container>
         <Container className={styles.galerie} as='article' mb={50}>
           {/* <Galerie list={2} listTitle={'oeoe'}/> */}
