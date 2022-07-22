@@ -97,7 +97,7 @@ export const LandingVideo = () => {
         )}
       </Box>
       <Stack className={styles.stackContainer}>
-        <Img w='57%' src={logo} mb={7} />
+        <Img w='100%' src={logo} mb={7} />
         <Flex alignItems='center' gap={6}>
           <Button
             variant='solid'

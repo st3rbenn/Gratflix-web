@@ -36,6 +36,17 @@ export const MovieModal = (props: props) => {
       ref.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [isOpen]);
+
+  const synopsis = () => {
+    if (data?.attributes?.Synopsis) {
+      return data?.attributes?.Synopsis;
+    } else if (landing?.data?.attributes?.movie?.data?.attributes?.Synopsis) {
+      return landing?.data?.attributes?.movie?.data?.attributes?.Synopsis;
+    } else {
+      // eslint-disable-next-line prettier/prettier
+      return 'quelqu\'un a déjà vu ce film ?';
+    }
+  };
   return (
     <Modal isOpen={isOpen} onClose={onClose} size='3xl'>
       <ModalOverlay ref={ref} />
@@ -48,11 +59,11 @@ export const MovieModal = (props: props) => {
           <Box className={styles.image}></Box>
           <Image src={poster} />
         </Box>
-        <Grid pr={20} pl={20} pb={10} pt={10} alignItems='center' gap={4}>
+        <Grid as='section' className={styles.modalContainer}>
           <Flex alignItems='flex-start' mb={5} gap={6} flexDir='column' maxW='50%'>
             <Heading fontSize='lg'>{data?.attributes?.title}</Heading>
             <Text textAlign='left' fontSize='12px' fontWeight='bold'>
-              {data?.attributes?.Synopsis?.slice(0, 300) + '...'}
+              {synopsis()}
             </Text>
           </Flex>
           <Flex>
@@ -61,7 +72,7 @@ export const MovieModal = (props: props) => {
               className={styles.BtnStyle}
               color='white'
               _hover={Blur}
-              style={{ zIndex: 'auto', width: '178px' }}>
+              style={{ zIndex: 'auto', maxWidth: '178px' }}>
               <Text p={5}>Regarder</Text>
               <BiRightArrow size='100%' />
             </Button>
@@ -70,7 +81,7 @@ export const MovieModal = (props: props) => {
               className={styles.BtnStyle}
               color='white'
               _hover={Blur}
-              style={{ zIndex: 'auto', width: '178px' }}>
+              style={{ zIndex: 'auto', maxWidth: '178px' }}>
               <Text p={5}>Partager</Text>
               <BiRightArrow size='100%' />
             </Button>
