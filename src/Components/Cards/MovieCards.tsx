@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Image } from '@chakra-ui/react';
+import { Image } from '@chakra-ui/react';
 import { components } from 'src/src/api/typings/api';
 import styles from './MovieCard.module.css';
 import { Link, Outlet, useLocation } from 'react-router-dom';

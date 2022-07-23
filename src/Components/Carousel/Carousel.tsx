@@ -15,7 +15,6 @@ interface CarouselProps {
 
 export function Carousel({ category }: CarouselProps) {
   const [movies, setMovies] = useState([] as components['schemas']['MovieListResponse']);
-  const [hover, setHover] = useState(false);
   const [listTitle, setListTitle] = useState<string>('...loading');
 
   const getMovies = async () => {
@@ -25,8 +24,11 @@ export function Carousel({ category }: CarouselProps) {
       if (category === 'recent') {
         queryMovie = {
           populate: 'poster',
-          sort: 'publishedAt:desc',
           'populate[0]': 'bigposter',
+          'populate[1]': 'category',
+          'populate[2]': 'logo',
+          'populate[3]': 'trailer',
+          sort: 'publishedAt:desc',
           'pagination[pageSize]': 12,
         };
       }
@@ -35,6 +37,8 @@ export function Carousel({ category }: CarouselProps) {
         populate: 'category',
         'populate[0]': 'poster',
         'populate[1]': 'bigposter',
+        'populate[2]': 'logo',
+        'populate[3]': 'trailer',
         'filters[category]': category,
         'pagination[pageSize]': 12,
       };
@@ -74,12 +78,6 @@ export function Carousel({ category }: CarouselProps) {
         preloadImages
         lazy
         breakpoints={{
-          375: {
-            slidesPerView: 1,
-          },
-          400: {
-            slidesPerView: 2,
-          },
           520: {
             slidesPerView: 3,
           },
@@ -119,13 +117,6 @@ export function Carousel({ category }: CarouselProps) {
     </>
   );
 }
-
-const swiperSettings = {
-  pagination: { clickable: true },
-  slidesPerView: 'auto',
-  preloadImages: false,
-  lazy: true,
-};
 
 // const settingsArrow = {
 //   variant: 'ghost',
