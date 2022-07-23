@@ -15,5 +15,5 @@ body {
 .galerie {
   margin-bottom: 5px;
   margin-top: 5px;
-  max-width: max-content !important;
+  max-width: 100% !important;
 }

@@ -67,7 +67,38 @@ export function Carousel({ category }: CarouselProps) {
       <Heading size='md' mt={7} ml={3} color='white'>
         {listTitle}
       </Heading>
-      <Swiper pagination={{ clickable: true }} slidesPerView='auto' preloadImages={true} lazy={true}>
+      <Swiper
+        spaceBetween={10}
+        style={{ position: 'relative' }}
+        slidesPerView='auto'
+        preloadImages
+        lazy
+        breakpoints={{
+          375: {
+            slidesPerView: 1,
+          },
+          400: {
+            slidesPerView: 2,
+          },
+          520: {
+            slidesPerView: 3,
+          },
+          630: {
+            slidesPerView: 4,
+          },
+          900: {
+            slidesPerView: 5,
+          },
+          1000: {
+            slidesPerView: 6,
+          },
+          1200: {
+            slidesPerView: 7,
+          },
+          1400: {
+            slidesPerView: 8,
+          },
+        }}>
         {/* <Flex {...settingsArrow} left={5} onClick={() => swiper.current.swiper.slidePrev()} _hover={{ bgColor: 'blackAlpha.400' }}>
             <MdArrowBackIos size={50}/>
         </Flex>
@@ -76,9 +107,8 @@ export function Carousel({ category }: CarouselProps) {
         </Flex> */}
         {movies &&
           movies?.data?.map((movie: components['schemas']['MovieResponse']['data']) => {
-            const w = movie?.attributes?.poster?.data?.attributes?.width;
             return (
-              <SwiperSlide key={movie?.id} style={{ width: 196.571 + 'px' }}>
+              <SwiperSlide key={movie?.id}>
                 <Flex justifyContent='center' alignItems='center'>
                   <MovieCard movie={movie} />
                 </Flex>
@@ -89,6 +119,13 @@ export function Carousel({ category }: CarouselProps) {
     </>
   );
 }
+
+const swiperSettings = {
+  pagination: { clickable: true },
+  slidesPerView: 'auto',
+  preloadImages: false,
+  lazy: true,
+};
 
 // const settingsArrow = {
 //   variant: 'ghost',
