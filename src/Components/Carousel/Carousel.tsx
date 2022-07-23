@@ -28,6 +28,7 @@ export function Carousel({ category }: CarouselProps) {
           'populate[1]': 'category',
           'populate[2]': 'Logo',
           'populate[3]': 'trailer',
+          'populate[4]': 'actors',
           sort: 'publishedAt:desc',
           'pagination[pageSize]': 12,
         };
@@ -39,6 +40,8 @@ export function Carousel({ category }: CarouselProps) {
         'populate[1]': 'bigposter',
         'populate[2]': 'Logo',
         'populate[3]': 'trailer',
+        'populate[4]': 'actors',
+        'populate[5]': 'category',
         'filters[category]': category,
         'pagination[pageSize]': 12,
       };

@@ -17,7 +17,7 @@ export default function MovieCard({ movie }: MovieCardProps) {
   return (
     <>
       <Link
-        to={`?movie=${movie?.attributes?.title}`}
+        to={`?movie=${movie?.attributes?.title?.split(' ').join('-')}`}
         state={{ background: location, movie }}
         className={styles.boxSettings}>
         <Image

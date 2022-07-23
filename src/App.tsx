@@ -15,7 +15,7 @@ function App() {
   return (
     <>
       <Routes location={background || location}>
-        <Route path='/' element={<Navigate to='/Browse' replace />} />
+        <Route path='*' element={<Navigate to='/Browse' replace />} />
         <Route path='/Browse' element={<Home />}>
           <Route path=':movie' element={<MovieModal isOpen={true} />} />
         </Route>
@@ -23,7 +23,7 @@ function App() {
       </Routes>
       {background && (
         <Routes>
-          <Route path=':movie' element={<MovieModal isOpen={true} data={movie} landing={landing} />} />
+          <Route path=':movie' element={<MovieModal isOpen={true} movie={movie} movieLanding={landing} />} />
         </Routes>
       )}
     </>

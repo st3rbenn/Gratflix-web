@@ -56,16 +56,18 @@ export function Header() {
             <Link to='/browse'>Accueil</Link>
           </ListItem>
 
-          <ListItem color='gray.500' _hover={{ color: 'white' }}>
-            <Link to='/search'>Films</Link>
+          <ListItem
+            fontSize={pathNameUrl === '/ma-liste' ? 'md' : ''}
+            color={pathNameUrl === '/ma-liste' ? 'gray.100' : 'gray.300'}
+            _hover={pathNameUrl === '/ma-liste' ? { color: '' } : { color: 'gray.300' }}>
+            <Link to='/ma-liste'>Ma liste</Link>
           </ListItem>
 
-          <ListItem color='gray.500' _hover={{ color: 'white' }}>
-            <Link to='/test'>Ma liste</Link>
-          </ListItem>
-
-          <ListItem color='gray.500' _hover={{ color: 'white' }}>
-            <Link to='/test2'>Catégories</Link>
+          <ListItem
+            fontSize={pathNameUrl === '/categorie' ? 'md' : ''}
+            color={pathNameUrl === '/categorie' ? 'gray.100' : 'gray.300'}
+            _hover={pathNameUrl === '/categorie' ? { color: '' } : { color: 'gray.300' }}>
+            <Link to='/categorie'>Catégories</Link>
           </ListItem>
         </List>
 
