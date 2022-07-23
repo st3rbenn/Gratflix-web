@@ -2,91 +2,137 @@ import {
   Box,
   Button,
   Flex,
-  Grid,
-  Heading,
   Image,
   Img,
   Modal,
   ModalCloseButton,
   ModalContent,
   ModalOverlay,
+  Spacer,
   Stack,
   Text,
 } from '@chakra-ui/react';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { BiRightArrow } from 'react-icons/bi';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { components } from 'src/src/api/typings/api';
 import styles from './modal.module.css';
 
 interface modalProps {
   isOpen: boolean;
   onClose?: () => void;
-  data?: components['schemas']['MovieResponse']['data'];
-  landing?: components['schemas']['LandingResponse']['data'];
+  movie?: components['schemas']['MovieResponse']['data'];
+  movieLanding?: components['schemas']['LandingResponse']['data'];
 }
 
-export const MovieModal = ({ isOpen, data, landing }: modalProps) => {
+export const MovieModal = ({ isOpen, movie, movieLanding }: modalProps) => {
+  // const [categories, setCategories] = useState([] as components['schemas']['CategoryListResponse']);
+  const [categories, setCategories] = useState('');
+  const [actors, setActors] = useState([] as components['schemas']['ActorListResponse']);
   const Navigate = useNavigate();
   const homePoster = `${process.env.REACT_APP_GRATFLIX_UPLOAD_PROVIDER}${
-    data?.attributes?.bigposter?.data?.attributes?.url?.split('/')[3]
+    movie?.attributes?.bigposter?.data?.attributes?.url?.split('/')[3]
   }`;
   const landingPoster = `${process.env.REACT_APP_GRATFLIX_UPLOAD_PROVIDER}${
-    landing?.attributes?.movie?.data?.attributes?.bigposter?.data?.attributes?.url?.split('/')[3]
+    movieLanding?.attributes?.movie?.data?.attributes?.bigposter?.data?.attributes?.url?.split('/')[3]
   }`;
   const logo = `${process.env.REACT_APP_GRATFLIX_UPLOAD_PROVIDER}${
-    data?.attributes?.Logo?.data?.attributes?.url?.split('/')[3]
+    movie?.attributes?.Logo?.data?.attributes?.url?.split('/')[3]
   }`;
-  console.log(landing?.attributes?.movie?.data?.attributes?.Logo?.data?.attributes?.url);
   const ref = useRef<HTMLDivElement>(null);
-
   const handleClose = () => {
     Navigate(-1);
   };
 
+  useEffect(() => {
+    // setCategories(movie?.attributes?.category || movieLanding?.attributes?.movie?.data?.attributes?.category);
+    setCategories(
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      movie?.attributes?.category?.data?.attributes?.categorie ||
+        movieLanding?.attributes?.movie?.data?.attributes?.category?.data?.attributes?.categorie,
+    );
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    setActors(movie?.attributes?.actors?.data || movieLanding?.attributes?.movie?.data?.attributes?.actors?.data);
+  }, [movie, movieLanding]);
+
+  const testions = () => {
+    console.log('testions');
+  };
+
   const synopsis = () => {
-    if (data?.attributes?.Synopsis) {
-      return data?.attributes?.Synopsis;
-    } else if (landing?.attributes?.movie?.data?.attributes?.Synopsis) {
-      return landing?.attributes?.movie?.data?.attributes?.Synopsis;
+    if (movie?.attributes?.Synopsis) {
+      return movie?.attributes?.Synopsis.slice(0, 170) + '...';
+    } else if (movieLanding?.attributes?.movie?.data?.attributes?.Synopsis?.slice(0, 170) + '...') {
+      return movieLanding?.attributes?.movie?.data?.attributes?.Synopsis?.slice(0, 170) + '...';
     }
     // eslint-disable-next-line prettier/prettier
     return 'quelqu\'un a déjà vu ce film ?';
   };
-  console.log(data?.attributes);
   return (
-    <Modal isOpen={isOpen} onClose={handleClose} size='5xl'>
+    <Modal isOpen={isOpen} onClose={handleClose} size={['3xl']}>
       <ModalOverlay ref={ref} />
       <ModalContent bgColor='#181818' color='white' position='relative'>
         <ModalCloseButton zIndex={1000} onClick={() => handleClose} />
         <Box position='relative'>
           <Box className={styles.image}></Box>
-          <Image src={(landing && landingPoster) || (data && homePoster)} w={1152} h={576} maxW='100%' />
+          <Image src={(movieLanding && landingPoster) || (movie && homePoster)} w={850} h={479} maxW='100%' />
           <Stack className={styles.stackContainer}>
             <Img w='100%' src={logo} mb={7} />
             <Flex alignItems='center' gap={6}>
-              <Button variant='solid' bgColor='#181818' className={styles.BtnStyle} color='white' w='max-content'>
+              <Button
+                variant='solid'
+                bgColor='#181818'
+                className={styles.BtnStyle}
+                color='white'
+                w='max-content'
+                onClick={() => testions()}>
                 <Text p={5}>Regarder</Text>
                 <BiRightArrow size='100%' />
               </Button>
             </Flex>
           </Stack>
         </Box>
-        <Grid as='section' className={styles.modalContainer} gridTemplateColumns='repeat(3, 1fr)'>
-          <Flex flexDir='column' gridArea='1 / 1 / 2 / 2'>
-            <Heading fontSize='lg'>
-              {data?.attributes?.title || landing?.attributes?.movie?.data?.attributes?.title}
-            </Heading>
-            <Text textAlign='left' fontSize='12px' fontWeight='bold'>
+        <Flex as='section' className={styles.modalContainer} flexDir='row' p={10}>
+          <Flex justifyContent='center' alignItems='center' w='60%' mr='23%'>
+            <Text fontSize='14px' fontWeight='bold'>
               {synopsis()}
             </Text>
           </Flex>
-          <div className={styles.line} style={{ gridArea: '1 / 2 / 2 / 3;' }}></div>
-          <Flex gridArea='1 / 3 / 2 / 4'>
-            <Box>{data?.attributes?.category?.data?.attributes?.categorie as string}</Box>
+          <Flex justifyContent='flex-start' flexDir='column'>
+            <Flex flexDir='column' alignItems='flex-start'>
+              <Text color='gray.400'>genre:</Text>
+              <Text>
+                <Link to={`/categorie/${categories}`}>{categories}</Link>
+              </Text>
+            </Flex>
+            <Flex flexDir='column' alignItems='flex-start'>
+              <Text color='gray.400'>acteurs:</Text>
+              {actors?.data?.map((actor) => {
+                console.log(actor);
+                return (
+                  <Text color='white' fontWeight='bold' key={actor?.attributes?.fullname}>
+                    <Link to={`/acteur/${actor?.attributes?.fullname}`}>{actor?.attributes?.fullname}</Link>
+                  </Text>
+                );
+              })}
+            </Flex>
           </Flex>
-        </Grid>
+        </Flex>
       </ModalContent>
     </Modal>
   );
 };
+//{actors &&
+//actors?.data?.map((actor: components['schemas']['ActorResponse']['data']) => (
+//  <Text color='white' fontWeight='bold' key={actor?.attributes?.fullname}>
+//    <Link to={`/acteur/${actor?.attributes?.fullname}`}>{actor?.attributes?.fullname}</Link>
+//  </Text>
+//))}
+//{categories &&
+//  categories?.data?.map((categorie: components['schemas']['CategoryResponse']['data']) => (
+//    <Text color='white' fontWeight='bold' key={categorie?.attributes?.categorie}>
+//      <Link to={`/acteur/${categorie?.attributes?.categorie}`}>{categorie?.attributes?.categorie}</Link>
+//    </Text>
+//  ))}
