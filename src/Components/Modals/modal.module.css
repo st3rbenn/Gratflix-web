@@ -22,3 +22,13 @@
   align-items: center;
   gap: 4px;
 }
+
+.stackContainer {
+  position: absolute;
+  top: 45%;
+  left: 5%;
+  width: 23%;
+  justify-content: center;
+  height: auto;
+  z-index: 1;
+}

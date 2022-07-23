@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { Box, Image, useDisclosure } from '@chakra-ui/react';
+import React, { useState } from 'react';
+import { Image } from '@chakra-ui/react';
 import { components } from 'src/src/api/typings/api';
-import { MovieModal } from '../Modals/MovieModal';
 import styles from './MovieCard.module.css';
-import { debounce } from 'lodash';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 
 interface MovieCardProps {
   movie: components['schemas']['MovieResponse']['data'];
@@ -12,41 +11,29 @@ interface MovieCardProps {
 
 export default function MovieCard({ movie }: MovieCardProps) {
   const [hover, setHover] = useState(false);
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  // let i = 0;
 
-  // const handleOver = debounce((ev) => {
-  //   console.log(ev.isisDefaultPrevented);
-  //   return onOpen();
-  // }, 1500);
-
-  // useEffect(() => {
-  //   while (hover) {
-  //     i++;
-  //   }
-
-  //   if (i == 3) {
-  //     onOpen();
-  //   }
-  // }, []);
-
-  // console.log(i);
+  const location = useLocation();
 
   return (
     <>
-      <Box className={styles.boxSettings} as='article' onClick={() => onOpen()}>
+      <Link
+        to={`?movie=${movie?.attributes?.title}`}
+        state={{ background: location, movie }}
+        className={styles.boxSettings}>
         <Image
-          src={`${process.env.REACT_APP_GRATFLIX_UPLOAD_PROVIDER}${
+          className={styles.image}
+          src={`${process.env.REACT_APP_GRATFLIX_UPLOAD_PROVIDER}medium_${
             movie?.attributes?.poster?.data?.attributes?.url?.split('/')[3]
           }`}
           alt={movie?.attributes?.title}
-          w={movie?.attributes?.poster?.data?.attributes?.width}
           style={hover ? Blur : unBlur}
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
+          w={325}
+          h={275}
         />
-      </Box>
-      <MovieModal data={movie} isOpen={isOpen} onClose={onClose} />
+      </Link>
+      <Outlet />
     </>
   );
 }

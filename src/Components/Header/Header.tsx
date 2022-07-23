@@ -17,7 +17,6 @@ export function Header() {
 
   const handleWritting = (ev: ChangeEvent) => {
     if (ev.target instanceof HTMLInputElement) {
-      window.history.replaceState(null, `/search?q=${ev.target.value}`);
       if (ev.target.value.length > 0) {
         Navigation(`/search?q=${ev.target.value}`);
       } else {

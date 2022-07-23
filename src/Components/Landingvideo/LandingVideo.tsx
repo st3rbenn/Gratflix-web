@@ -1,16 +1,16 @@
 import React, { SyntheticEvent, useEffect, useState } from 'react';
-import { AspectRatio, Box, Button, Flex, Image, Img, Stack, Text, useDisclosure } from '@chakra-ui/react';
+import { AspectRatio, Box, Button, Flex, Image, Img, Stack, Text } from '@chakra-ui/react';
 import { BiErrorCircle, BiRightArrow } from 'react-icons/bi';
 import styles from './LandingVideo.module.css';
 import { components } from '../../api/typings/api';
 import { fetcher } from '../../api/fetcher';
-import { MovieModal } from '../Modals/MovieModal';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 
 export const LandingVideo = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [landing, setLanding] = useState([] as components['schemas']['LandingResponse']);
   const [videoEnd, setVideoEnd] = useState(false);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const location = useLocation();
 
   const handleScroll = () => {
     const position = window.scrollY;
@@ -109,20 +109,23 @@ export const LandingVideo = () => {
             <Text p={5}>Regarder</Text>
             <BiRightArrow size='100%' />
           </Button>
-          <Button
-            variant='solid'
-            bgColor='#181818'
-            className={styles.BtnStyle}
-            color='white'
-            w='max-content'
-            _hover={Blur}
-            onClick={onOpen}>
-            <Text p={5}>Plus d'infos</Text>
-            <BiErrorCircle size='100%' />
-          </Button>
+          <Link
+            to={`?movie=${landing?.data?.attributes?.movie?.data?.attributes?.title}`}
+            state={{ background: location, landing }}>
+            <Button
+              variant='solid'
+              bgColor='#181818'
+              className={styles.BtnStyle}
+              color='white'
+              w='max-content'
+              _hover={Blur}>
+              <Text p={5}>Plus d'infos</Text>
+              <BiErrorCircle size='100%' />
+            </Button>
+          </Link>
         </Flex>
       </Stack>
-      <MovieModal landing={landing} isOpen={isOpen} onClose={onClose} />
+      <Outlet />
     </Box>
   );
 };
