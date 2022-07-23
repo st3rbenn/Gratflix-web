@@ -99,26 +99,15 @@ export const LandingVideo = () => {
       <Stack className={styles.stackContainer}>
         <Img w='100%' src={logo} mb={7} />
         <Flex alignItems='center' gap={6}>
-          <Button
-            variant='solid'
-            bgColor='#181818'
-            className={styles.BtnStyle}
-            color='white'
-            w='max-content'
-            _hover={Blur}>
-            <Text p={5}>Regarder</Text>
-            <BiRightArrow size='100%' />
-          </Button>
+          <Link to={'/watch/'}>
+            <Button variant='solid' bgColor='#181818' color='white' className={styles.BtnStyle} _hover={Blur}>
+              <Text p={5}>Regarder</Text>
+            </Button>
+          </Link>
           <Link
             to={`?movie=${landing?.data?.attributes?.movie?.data?.attributes?.title}`}
             state={{ background: location, landing }}>
-            <Button
-              variant='solid'
-              bgColor='#181818'
-              className={styles.BtnStyle}
-              color='white'
-              w='max-content'
-              _hover={Blur}>
+            <Button variant='solid' className={styles.BtnStyle} w='max-content' _hover={Blur}>
               <Text p={5}>Plus d'infos</Text>
               <BiErrorCircle size='100%' />
             </Button>

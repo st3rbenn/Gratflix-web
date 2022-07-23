@@ -23,7 +23,7 @@ interface modalProps {
   isOpen: boolean;
   onClose?: () => void;
   data?: components['schemas']['MovieResponse']['data'];
-  landing?: components['schemas']['LandingResponse'];
+  landing?: components['schemas']['LandingResponse']['data'];
 }
 
 export const MovieModal = ({ isOpen, data, landing }: modalProps) => {
@@ -32,11 +32,12 @@ export const MovieModal = ({ isOpen, data, landing }: modalProps) => {
     data?.attributes?.bigposter?.data?.attributes?.url?.split('/')[3]
   }`;
   const landingPoster = `${process.env.REACT_APP_GRATFLIX_UPLOAD_PROVIDER}${
-    landing?.data?.attributes?.movie?.data?.attributes?.bigposter?.data?.attributes?.url?.split('/')[3]
+    landing?.attributes?.movie?.data?.attributes?.bigposter?.data?.attributes?.url?.split('/')[3]
   }`;
   const logo = `${process.env.REACT_APP_GRATFLIX_UPLOAD_PROVIDER}${
     data?.attributes?.Logo?.data?.attributes?.url?.split('/')[3]
   }`;
+  console.log(landing?.attributes?.movie?.data?.attributes?.Logo?.data?.attributes?.url);
   const ref = useRef<HTMLDivElement>(null);
 
   const handleClose = () => {
@@ -46,8 +47,8 @@ export const MovieModal = ({ isOpen, data, landing }: modalProps) => {
   const synopsis = () => {
     if (data?.attributes?.Synopsis) {
       return data?.attributes?.Synopsis;
-    } else if (landing?.data?.attributes?.movie?.data?.attributes?.Synopsis) {
-      return landing?.data?.attributes?.movie?.data?.attributes?.Synopsis;
+    } else if (landing?.attributes?.movie?.data?.attributes?.Synopsis) {
+      return landing?.attributes?.movie?.data?.attributes?.Synopsis;
     }
     // eslint-disable-next-line prettier/prettier
     return 'quelqu\'un a déjà vu ce film ?';
@@ -74,7 +75,7 @@ export const MovieModal = ({ isOpen, data, landing }: modalProps) => {
         <Grid as='section' className={styles.modalContainer} gridTemplateColumns='repeat(3, 1fr)'>
           <Flex flexDir='column' gridArea='1 / 1 / 2 / 2'>
             <Heading fontSize='lg'>
-              {data?.attributes?.title || landing?.data?.attributes?.movie?.data?.attributes?.title}
+              {data?.attributes?.title || landing?.attributes?.movie?.data?.attributes?.title}
             </Heading>
             <Text textAlign='left' fontSize='12px' fontWeight='bold'>
               {synopsis()}

@@ -29,6 +29,9 @@
   width: 20%;
   padding: 1rem;
   width: max-content !important;
+  background-color: #181818;
+  color: white;
+  max-width: 100%;
 }
 
 .blur {
