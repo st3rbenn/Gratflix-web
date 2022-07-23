@@ -60,7 +60,7 @@ export const MovieModal = ({ isOpen, data, landing }: modalProps) => {
         <ModalCloseButton zIndex={1000} onClick={() => handleClose} />
         <Box position='relative'>
           <Box className={styles.image}></Box>
-          <Image src={(landing && landingPoster) || (data && homePoster)} w={1152} h={576} />
+          <Image src={(landing && landingPoster) || (data && homePoster)} w={1152} h={576} maxW='100%' />
           <Stack className={styles.stackContainer}>
             <Img w='100%' src={logo} mb={7} />
             <Flex alignItems='center' gap={6}>
@@ -71,8 +71,8 @@ export const MovieModal = ({ isOpen, data, landing }: modalProps) => {
             </Flex>
           </Stack>
         </Box>
-        <Grid as='section' className={styles.modalContainer} gridTemplateColumns='1fr 1fr'>
-          <Flex alignItems='flex-start' mb={5} gap={6} flexDir='column'>
+        <Grid as='section' className={styles.modalContainer} gridTemplateColumns='repeat(3, 1fr)'>
+          <Flex flexDir='column' gridArea='1 / 1 / 2 / 2'>
             <Heading fontSize='lg'>
               {data?.attributes?.title || landing?.data?.attributes?.movie?.data?.attributes?.title}
             </Heading>
@@ -80,8 +80,9 @@ export const MovieModal = ({ isOpen, data, landing }: modalProps) => {
               {synopsis()}
             </Text>
           </Flex>
-          <Flex alignItems='flex-start' mb={5} gap={6} flexDir='column'>
-            {data?.attributes?.category?.data?.attributes?.categorie as string}
+          <div className={styles.line} style={{ gridArea: '1 / 2 / 2 / 3;' }}></div>
+          <Flex gridArea='1 / 3 / 2 / 4'>
+            <Box>{data?.attributes?.category?.data?.attributes?.categorie as string}</Box>
           </Flex>
         </Grid>
       </ModalContent>
