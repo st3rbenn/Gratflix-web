@@ -96,6 +96,9 @@ export function Carousel({ category }: CarouselProps) {
           1400: {
             slidesPerView: 8,
           },
+          1600: {
+            slidesPerView: 9,
+          },
         }}>
         {/* <Flex {...settingsArrow} left={5} onClick={() => swiper.current.swiper.slidePrev()} _hover={{ bgColor: 'blackAlpha.400' }}>
             <MdArrowBackIos size={50}/>

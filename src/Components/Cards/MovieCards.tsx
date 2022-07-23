@@ -29,8 +29,9 @@ export default function MovieCard({ movie }: MovieCardProps) {
           style={hover ? Blur : unBlur}
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
-          w={325}
-          h={275}
+          borderRadius='20px'
+          w={{ base: '100%', sm: '280px', md: '300px', lg: '320px' }}
+          h={{ base: '100%', sm: '200px', md: '210px', lg: '220px' }}
         />
       </Link>
       <Outlet />
