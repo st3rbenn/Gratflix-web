@@ -10,18 +10,18 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 interface CarouselProps {
-  getMovieFromList?: number;
+  getMovieFromCategory?: number | string;
   carouselTitle?: string;
 }
 
-export function Carousel({ getMovieFromList, carouselTitle }: CarouselProps) {
+export function Carousel({ getMovieFromCategory, carouselTitle }: CarouselProps) {
   const [movies, setMovies] = useState<components['schemas']['MovieListResponse']>();
   const [listTitle, setListTitle] = useState<string>();
 
   const getMovies = async () => {
     const getMovie = fetcher.path('/movies').method('get').create();
     let queryMovie: object = {};
-    if (getMovieFromList !== undefined) {
+    if (getMovieFromCategory !== undefined) {
       queryMovie = {
         populate: 'category',
         'populate[0]': 'poster',
@@ -30,7 +30,7 @@ export function Carousel({ getMovieFromList, carouselTitle }: CarouselProps) {
         'populate[3]': 'trailer',
         'populate[4]': 'actors',
         'populate[5]': 'categories',
-        'filters[categories]': getMovieFromList,
+        'filters[categories]': getMovieFromCategory,
         'pagination[pageSize]': 12,
       };
     }
