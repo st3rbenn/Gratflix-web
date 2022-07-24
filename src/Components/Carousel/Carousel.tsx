@@ -4,10 +4,12 @@ import { Heading, Flex } from '@chakra-ui/react';
 import { fetcher } from '../../api/fetcher';
 import { components } from '../../api/typings/api';
 import MovieCard from '../Cards/MovieCards';
+import styles from './carousel.module.css';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import { Link, useLocation, Outlet } from 'react-router-dom';
 
 interface CarouselProps {
   getMovieFromCategory?: number | string;
@@ -17,6 +19,8 @@ interface CarouselProps {
 export function Carousel({ getMovieFromCategory, carouselTitle }: CarouselProps) {
   const [movies, setMovies] = useState<components['schemas']['MovieListResponse']>();
   const [listTitle, setListTitle] = useState<string>();
+
+  const location = useLocation();
 
   const getMovies = async () => {
     const getMovie = fetcher.path('/movies').method('get').create();
@@ -119,7 +123,12 @@ export function Carousel({ getMovieFromCategory, carouselTitle }: CarouselProps)
             return (
               <SwiperSlide key={movie?.id}>
                 <Flex justifyContent='center' alignItems='center'>
-                  <MovieCard movie={movie} />
+                  <Link
+                    to={`?movie=${movie?.attributes?.title?.split(' ').join('-')}`}
+                    state={{ background: location, movie }}
+                    className={styles.boxSettings}>
+                    <MovieCard movie={movie} />
+                  </Link>
                 </Flex>
               </SwiperSlide>
             );
