@@ -12,6 +12,8 @@ function App() {
   const movie = location.state && location.state.movie;
   // @ts-ignore
   const landing = location.state && location.state.landing;
+  // @ts-ignore
+  const modalBackground = location.state && location.state.modalBackground;
   return (
     <>
       <Routes location={background || location}>
@@ -19,11 +21,16 @@ function App() {
         <Route path='/browse' element={<Home />}>
           <Route path='/browse:movie' element={<MovieModal isOpen={true} movie={movie} movieLanding={landing} />} />
         </Route>
-        <Route path='/Search' element={<Search />} />
+        <Route path='/search' element={<Search />} />
       </Routes>
       {background && (
         <Routes>
           <Route path=':movie' element={<MovieModal isOpen={true} movie={movie} movieLanding={landing} />} />
+        </Routes>
+      )}
+      {modalBackground && (
+        <Routes>
+          <Route path=':movie' element={<MovieModal isOpen={true} movie={movie} />} />
         </Routes>
       )}
     </>

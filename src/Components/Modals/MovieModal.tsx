@@ -16,7 +16,7 @@ import {
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { BiRightArrow } from 'react-icons/bi';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { fetcher } from '../../api/fetcher';
 import { components } from 'src/src/api/typings/api';
 import MovieCard from '../Cards/MovieCards';
@@ -30,6 +30,7 @@ interface modalProps {
 }
 
 export const MovieModal = ({ isOpen, movie, movieLanding }: modalProps) => {
+  const location = useLocation();
   const [bigPoster, setBigPoster] = useState<string | undefined>();
   const [synopsis, setSynopsis] = useState<string | undefined>();
   const [logo, setLogo] = useState<string | undefined>();
@@ -52,6 +53,10 @@ export const MovieModal = ({ isOpen, movie, movieLanding }: modalProps) => {
       setActors(movieLanding?.data?.attributes?.movie?.data?.attributes?.actors?.data);
     }
   }, []);
+
+  const handleMovieClick = (movietitle: string | undefined) => {
+    console.log('clicked', movietitle);
+  };
 
   const seeMoreMovie = async () => {
     const getMoreMovie = fetcher.path('/movies').method('get').create();
@@ -130,9 +135,14 @@ export const MovieModal = ({ isOpen, movie, movieLanding }: modalProps) => {
             <Heading size='md'>A voir aussi</Heading>
           </Box>
           <Grid gridTemplateColumns='repeat(4, 1fr)' gap={6}>
-            {moreMovie?.data?.map((movie) => (
+            {moreMovie?.data?.map((movie: components['schemas']['MovieResponse']['data']) => (
               <GridItem key={movie?.id}>
-                <MovieCard movie={movie} />
+                <Link
+                  to={`?movie=${movie?.attributes?.title?.split(' ').join('-')}`}
+                  state={{ modalBackground: location, movie }}
+                  className={styles.boxSettings}>
+                  <MovieCard movie={movie} />
+                </Link>
               </GridItem>
             ))}
           </Grid>
