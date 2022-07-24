@@ -10,30 +10,18 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 interface CarouselProps {
-  category: number | string;
+  getMovieFromList?: number;
+  carouselTitle?: string;
 }
 
-export function Carousel({ category }: CarouselProps) {
-  const [movies, setMovies] = useState([] as components['schemas']['MovieListResponse']);
-  const [listTitle, setListTitle] = useState<string>('...loading');
+export function Carousel({ getMovieFromList, carouselTitle }: CarouselProps) {
+  const [movies, setMovies] = useState<components['schemas']['MovieListResponse']>();
+  const [listTitle, setListTitle] = useState<string>();
 
   const getMovies = async () => {
     const getMovie = fetcher.path('/movies').method('get').create();
     let queryMovie: object = {};
-    if (typeof category === 'string') {
-      if (category === 'recent') {
-        queryMovie = {
-          populate: 'poster',
-          'populate[0]': 'bigposter',
-          'populate[1]': 'category',
-          'populate[2]': 'Logo',
-          'populate[3]': 'trailer',
-          'populate[4]': 'actors',
-          sort: 'publishedAt:desc',
-          'pagination[pageSize]': 12,
-        };
-      }
-    } else {
+    if (getMovieFromList !== undefined) {
       queryMovie = {
         populate: 'category',
         'populate[0]': 'poster',
@@ -41,10 +29,24 @@ export function Carousel({ category }: CarouselProps) {
         'populate[2]': 'Logo',
         'populate[3]': 'trailer',
         'populate[4]': 'actors',
-        'populate[5]': 'category',
-        'filters[category]': category,
+        'populate[5]': 'categories',
+        'filters[categories]': getMovieFromList,
         'pagination[pageSize]': 12,
       };
+    }
+    if (carouselTitle !== undefined) {
+      if (carouselTitle === 'recent') {
+        queryMovie = {
+          populate: 'poster',
+          'populate[0]': 'bigposter',
+          'populate[1]': 'categories',
+          'populate[2]': 'Logo',
+          'populate[3]': 'trailer',
+          'populate[4]': 'actors',
+          sort: 'publishedAt:desc',
+          'pagination[pageSize]': 12,
+        };
+      }
     }
 
     const { data: moviesArray } = await getMovie(queryMovie);
@@ -56,19 +58,19 @@ export function Carousel({ category }: CarouselProps) {
   }, []);
 
   useEffect(() => {
-    if (typeof category === 'string') {
-      if (category === 'recent') {
+    if (carouselTitle !== undefined) {
+      if (carouselTitle === 'recent') {
         setListTitle('Récemment ajoutés');
-      } else if (category === 'trending') {
+      } else if (carouselTitle === 'trending') {
         setListTitle('Les plus populaires');
-      } else if (category === 'for you') {
+      } else if (carouselTitle === 'for you') {
         setListTitle('Pour vous');
       }
     } else {
-      const title = movies?.data?.[0]?.attributes?.category?.data?.attributes?.categorie as string;
+      const title = movies?.data?.[0]?.attributes?.categories?.data?.[0]?.attributes?.categorie;
       setListTitle(title);
     }
-  }, [movies]);
+  }, [movies !== undefined, carouselTitle !== undefined]);
   return (
     <>
       <Heading size='md' mt={7} ml={3} color='white'>
