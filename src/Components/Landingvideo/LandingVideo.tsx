@@ -31,7 +31,7 @@ export const LandingVideo = () => {
       'populate[3]': 'movie.poster',
       'populate[4]': 'movie.trailer',
       'populate[5]': 'movie.actors',
-      'populate[6]': 'movie.category',
+      'populate[6]': 'movie.categories',
     };
     const { data: landingResult } = await getLanding(queryLanding);
     setLanding(landingResult as components['schemas']['LandingResponse']);

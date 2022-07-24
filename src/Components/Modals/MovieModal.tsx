@@ -2,6 +2,9 @@ import {
   Box,
   Button,
   Flex,
+  Grid,
+  GridItem,
+  Heading,
   Image,
   Img,
   Modal,
@@ -11,10 +14,12 @@ import {
   Stack,
   Text,
 } from '@chakra-ui/react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BiRightArrow } from 'react-icons/bi';
 import { Link, useNavigate } from 'react-router-dom';
+import { fetcher } from '../../api/fetcher';
 import { components } from 'src/src/api/typings/api';
+import MovieCard from '../Cards/MovieCards';
 import styles from './modal.module.css';
 
 interface modalProps {
@@ -28,10 +33,10 @@ export const MovieModal = ({ isOpen, movie, movieLanding }: modalProps) => {
   const [bigPoster, setBigPoster] = useState<string | undefined>();
   const [synopsis, setSynopsis] = useState<string | undefined>();
   const [logo, setLogo] = useState<string | undefined>();
-  const [actors, setActors] = useState([] as components['schemas']['ActorListResponse']['data']);
-  const [categories, setCategories] = useState([] as components['schemas']['CategoryListResponse']['data']);
+  const [actors, setActors] = useState<components['schemas']['ActorListResponse']['data']>();
+  const [categories, setCategories] = useState<components['schemas']['CategoryListResponse']['data']>();
+  const [moreMovie, setMoreMovie] = useState<components['schemas']['MovieListResponse']>();
   const Navigate = useNavigate();
-  const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (movie != undefined) {
       setLogo(movie?.attributes?.Logo?.data?.attributes?.url);
@@ -48,18 +53,43 @@ export const MovieModal = ({ isOpen, movie, movieLanding }: modalProps) => {
     }
   }, []);
 
+  const seeMoreMovie = async () => {
+    const getMoreMovie = fetcher.path('/movies').method('get').create();
+    const queryMovie = {
+      populate: 'category',
+      'populate[0]': 'poster',
+      'populate[1]': 'bigposter',
+      'populate[2]': 'Logo',
+      'populate[3]': 'trailer',
+      'populate[4]': 'actors',
+      'populate[5]': 'categories',
+      'filters[categories]':
+        movie?.attributes?.categories?.data?.[0]?.id ||
+        movieLanding?.data?.attributes?.movie?.data?.attributes?.categories?.data?.[0]?.id,
+      'filters[actors]':
+        movie?.attributes?.actors?.data?.[0]?.id ||
+        movieLanding?.data?.attributes?.movie?.data?.attributes?.actors?.data?.[0]?.id,
+      'pagination[pageSize]': 8,
+    };
+    const { data: moreMovie } = await getMoreMovie(queryMovie);
+    setMoreMovie(moreMovie);
+  };
+
+  useEffect(() => {
+    seeMoreMovie();
+  }, []);
+
   const handleClose = () => {
     Navigate(-1);
   };
-
   return (
     <Modal isOpen={isOpen} onClose={handleClose} size={['3xl']}>
-      <ModalOverlay ref={ref} />
+      <ModalOverlay />
       <ModalContent bgColor='#181818' color='white' position='relative'>
         <ModalCloseButton zIndex={1000} onClick={() => handleClose} />
         <Box position='relative'>
           <Box className={styles.image}></Box>
-          <Image src={bigPoster} w={850} h={479} maxW='100%' />
+          <Image src={bigPoster} w={850} h={422} maxW='100%' />
           <Stack className={styles.stackContainer}>
             <Img w='100%' src={logo} mb={7} />
             <Flex alignItems='center' gap={6}>
@@ -70,17 +100,17 @@ export const MovieModal = ({ isOpen, movie, movieLanding }: modalProps) => {
             </Flex>
           </Stack>
         </Box>
-        <Flex as='section' className={styles.modalContainer} flexDir='row' p={10}>
+        <Flex as='section' className={styles.modalContainer}>
           <Flex justifyContent='center' alignItems='center' w='60%' mr='23%'>
-            <Text fontSize='14px' fontWeight='bold'>
-              {synopsis}
+            <Text fontSize='15px' fontWeight='semibold'>
+              {`${synopsis?.slice(0, 198)}...`}
             </Text>
           </Flex>
           <Flex justifyContent='flex-start' flexDir='column'>
-            <Flex flexDir='column' alignItems='flex-start'>
+            <Flex flexDir='column' alignItems='flex-start' mb='15px'>
               <Text color='gray.400'>genre:</Text>
               {categories?.map((category) => (
-                <Text color='white' fontWeight='bold' key={category?.attributes?.categorie}>
+                <Text color='white' fontWeight='semibold' key={category?.attributes?.categorie}>
                   <Link to={`/categorie/${category?.attributes?.categorie}`}>{category?.attributes?.categorie}</Link>
                 </Text>
               ))}
@@ -88,12 +118,24 @@ export const MovieModal = ({ isOpen, movie, movieLanding }: modalProps) => {
             <Flex flexDir='column' alignItems='flex-start'>
               <Text color='gray.400'>acteurs:</Text>
               {actors?.map((actor) => (
-                <Text color='white' fontWeight='bold' key={actor?.attributes?.fullname}>
+                <Text color='white' fontWeight='semibold' key={actor?.attributes?.fullname}>
                   <Link to={`/acteur/${actor?.attributes?.fullname}`}>{actor?.attributes?.fullname}</Link>
                 </Text>
               ))}
             </Flex>
           </Flex>
+        </Flex>
+        <Flex as='section' flexDir='column' className={styles.seeMoreMovie}>
+          <Box mb={5}>
+            <Heading size='md'>A voir aussi</Heading>
+          </Box>
+          <Grid gridTemplateColumns='repeat(4, 1fr)' gap={6}>
+            {moreMovie?.data?.map((movie) => (
+              <GridItem key={movie?.id}>
+                <MovieCard movie={movie} />
+              </GridItem>
+            ))}
+          </Grid>
         </Flex>
       </ModalContent>
     </Modal>

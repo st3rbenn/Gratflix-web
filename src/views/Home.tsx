@@ -12,10 +12,10 @@ function Home() {
           <Carousel carouselTitle='recent' />
         </Container>
         <Container className={styles.galerie} as='article'>
-          <Carousel getMovieFromList={2} />
+          <Carousel getMovieFromCategory={2} />
         </Container>
         <Container className={styles.galerie} as='article' mb={50}>
-          <Carousel getMovieFromList={3} />
+          <Carousel getMovieFromCategory={3} />
         </Container>
         <Container className={styles.galerie} as='article' mb={50}>
           {/* <Galerie list={2} listTitle={'oeoe'}/> */}
