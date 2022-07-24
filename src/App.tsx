@@ -15,9 +15,9 @@ function App() {
   return (
     <>
       <Routes location={background || location}>
-        <Route path='*' element={<Navigate to='/Browse' replace />} />
-        <Route path='/Browse' element={<Home />}>
-          <Route path=':movie' element={<MovieModal isOpen={true} />} />
+        <Route path='*' element={<Navigate to='/browse' replace />} />
+        <Route path='/browse' element={<Home />}>
+          <Route path='/browse:movie' element={<MovieModal isOpen={true} movie={movie} movieLanding={landing} />} />
         </Route>
         <Route path='/Search' element={<Search />} />
       </Routes>
