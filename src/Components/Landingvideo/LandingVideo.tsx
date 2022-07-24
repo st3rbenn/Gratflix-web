@@ -1,6 +1,6 @@
-import React, { SyntheticEvent, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AspectRatio, Box, Button, Flex, Image, Img, Stack, Text } from '@chakra-ui/react';
-import { BiErrorCircle, BiRightArrow } from 'react-icons/bi';
+import { BiErrorCircle } from 'react-icons/bi';
 import styles from './LandingVideo.module.css';
 import { components } from '../../api/typings/api';
 import { fetcher } from '../../api/fetcher';
@@ -30,14 +30,11 @@ export const LandingVideo = () => {
       'populate[2]': 'movie.bigposter',
       'populate[3]': 'movie.poster',
       'populate[4]': 'movie.trailer',
+      'populate[5]': 'movie.actors',
+      'populate[6]': 'movie.category',
     };
     const { data: landingResult } = await getLanding(queryLanding);
     setLanding(landingResult as components['schemas']['LandingResponse']);
-  };
-
-  const handlePlay = (ev: SyntheticEvent<HTMLMediaElement>) => {
-    console.log('ev', { ev });
-    setVideoEnd(true);
   };
 
   useEffect(() => {
@@ -90,7 +87,7 @@ export const LandingVideo = () => {
                   width: '100% !important',
                   height: '72% !important',
                 }}
-                onEnded={(ev) => handlePlay(ev)}
+                onEnded={() => setVideoEnd(true)}
               />
             </AspectRatio>
           </>
