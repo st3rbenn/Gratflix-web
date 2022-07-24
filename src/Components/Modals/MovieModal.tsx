@@ -45,13 +45,6 @@ export const MovieModal = ({ isOpen, movie, movieLanding }: modalProps) => {
   };
 
   useEffect(() => {
-    // setCategories(movie?.attributes?.category || movieLanding?.attributes?.movie?.data?.attributes?.category);
-    setCategories(
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      movie?.attributes?.category?.data?.attributes?.categorie ||
-        movieLanding?.attributes?.movie?.data?.attributes?.category?.data?.attributes?.categorie,
-    );
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     setActors(movie?.attributes?.actors?.data || movieLanding?.attributes?.movie?.data?.attributes?.actors?.data);

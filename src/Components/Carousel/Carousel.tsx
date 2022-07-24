@@ -81,6 +81,9 @@ export function Carousel({ category }: CarouselProps) {
         preloadImages
         lazy
         breakpoints={{
+          480: {
+            slidesPerView: 2,
+          },
           520: {
             slidesPerView: 3,
           },
