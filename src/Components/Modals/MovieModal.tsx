@@ -54,9 +54,9 @@ export const MovieModal = ({ isOpen, movie, movieLanding }: modalProps) => {
     }
   }, []);
 
-  const handleMovieClick = (movietitle: string | undefined) => {
-    console.log('clicked', movietitle);
-  };
+  // const handleMovieClick = (movietitle: string | undefined) => {
+  //   console.log('clicked', movietitle);
+  // };
 
   const seeMoreMovie = async () => {
     const getMoreMovie = fetcher.path('/movies').method('get').create();
@@ -130,20 +130,20 @@ export const MovieModal = ({ isOpen, movie, movieLanding }: modalProps) => {
             </Flex>
           </Flex>
         </Flex>
-        <Flex as='section' flexDir='column' className={styles.seeMoreMovie}>
+        <Flex as='section' flexDir='column' className={styles.seeMoreMovie} mb='15px'>
           <Box mb={5}>
             <Heading size='md'>A voir aussi</Heading>
           </Box>
           <Grid gridTemplateColumns='repeat(4, 1fr)' gap={6}>
             {moreMovie?.data?.map((movie: components['schemas']['MovieResponse']['data']) => (
-              <GridItem key={movie?.id}>
-                <Link
-                  to={`?movie=${movie?.attributes?.title?.split(' ').join('-')}`}
-                  state={{ modalBackground: location, movie }}
-                  className={styles.boxSettings}>
+              <Link
+                key={movie?.id}
+                to={`/browse?movie=${movie?.attributes?.title?.split(' ').join('-')}`}
+                state={{ background: location, movie }}>
+                <GridItem key={movie?.id}>
                   <MovieCard movie={movie} />
-                </Link>
-              </GridItem>
+                </GridItem>
+              </Link>
             ))}
           </Grid>
         </Flex>

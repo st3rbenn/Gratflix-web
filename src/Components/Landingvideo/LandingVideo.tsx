@@ -102,7 +102,7 @@ export const LandingVideo = () => {
             </Button>
           </Link>
           <Link
-            to={`?movie=${landing?.data?.attributes?.movie?.data?.attributes?.title}`}
+            to={`/browse?movie=${landing?.data?.attributes?.movie?.data?.attributes?.title}`}
             state={{ background: location, landing }}>
             <Button variant='solid' className={styles.BtnStyle} w='max-content' _hover={Blur}>
               <Text p={5}>Plus d'infos</Text>

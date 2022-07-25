@@ -112,38 +112,15 @@ export function Carousel({ getMovieFromCategory, carouselTitle }: CarouselProps)
             slidesPerView: 9,
           },
         }}>
-        {/* <Flex {...settingsArrow} left={5} onClick={() => swiper.current.swiper.slidePrev()} _hover={{ bgColor: 'blackAlpha.400' }}>
-            <MdArrowBackIos size={50}/>
-        </Flex>
-        <Flex {...settingsArrow} right={5} onClick={() => swiper.current.swiper.slideNext()} _hover={{ bgColor: 'blackAlpha.400' }}>
-            <MdArrowForwardIos size={50}/>
-        </Flex> */}
         {movies &&
-          movies?.data?.map((movie: components['schemas']['MovieResponse']['data']) => {
-            return (
-              <SwiperSlide key={movie?.id}>
-                <Flex justifyContent='center' alignItems='center'>
-                  <Link
-                    to={`?movie=${movie?.attributes?.title?.split(' ').join('-')}`}
-                    state={{ background: location, movie }}
-                    className={styles.boxSettings}>
-                    <MovieCard movie={movie} />
-                  </Link>
-                </Flex>
-              </SwiperSlide>
-            );
-          })}
+          movies?.data?.map((movie: components['schemas']['MovieResponse']['data']) => (
+            <SwiperSlide key={movie?.id}>
+              <Flex justifyContent='center' alignItems='center'>
+                <MovieCard movie={movie} />
+              </Flex>
+            </SwiperSlide>
+          ))}
       </Swiper>
     </>
   );
 }
-
-// const settingsArrow = {
-//   variant: 'ghost',
-//   colorscheme: 'whiteAlpha',
-//   position: 'absolute',
-//   top: '40%',
-//   zIndex: '1',
-//   transition: 'all 150ms ease-in-out',
-//   cursor: 'pointer',
-// };
