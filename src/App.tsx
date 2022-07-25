@@ -16,11 +16,9 @@ function App() {
   const modalBackground = location.state && location.state.modalBackground;
   return (
     <>
-      <Routes location={background || location}>
+      <Routes location={location}>
         <Route path='*' element={<Navigate to='/browse' replace />} />
-        <Route path='/browse' element={<Home />}>
-          <Route path='/browse:movie' element={<MovieModal isOpen={true} movie={movie} movieLanding={landing} />} />
-        </Route>
+        <Route path='/browse' element={<Home />} />
         <Route path='/search' element={<Search />} />
       </Routes>
       {background && (
