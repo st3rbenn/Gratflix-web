@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, NavLink, Link } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Heading, Flex } from '@chakra-ui/react';
 import { fetcher } from '../../api/fetcher';
