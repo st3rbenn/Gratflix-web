@@ -13,7 +13,6 @@ root.render(
       <Router>
         <Header />
         <App />
-        <Outlet />
       </Router>
     </ChakraProvider>
   </React.StrictMode>,
