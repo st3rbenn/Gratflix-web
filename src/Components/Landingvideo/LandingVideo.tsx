@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
 import { AspectRatio, Box, Button, Flex, Image, Img, Stack, Text } from '@chakra-ui/react';
+import React, { useEffect, useState } from 'react';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 import { BiErrorCircle } from 'react-icons/bi';
-import styles from './LandingVideo.module.css';
 import { components } from '../../api/typings/api';
 import { fetcher } from '../../api/fetcher';
-import { Link, Outlet, useLocation } from 'react-router-dom';
+import styles from './LandingVideo.module.css';
 
 export const LandingVideo = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -102,7 +102,7 @@ export const LandingVideo = () => {
             </Button>
           </Link>
           <Link
-            to={`/browse?movie=${landing?.data?.attributes?.movie?.data?.attributes?.title}`}
+            to={`?movie=${landing?.data?.attributes?.movie?.data?.attributes?.title?.split(' ').join('-')}`}
             state={{ background: location, landing }}>
             <Button variant='solid' className={styles.BtnStyle} w='max-content' _hover={Blur}>
               <Text p={5}>Plus d'infos</Text>

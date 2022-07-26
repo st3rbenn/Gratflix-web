@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation, NavLink, Link } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Heading, Flex } from '@chakra-ui/react';
 import { fetcher } from '../../api/fetcher';
@@ -9,7 +10,6 @@ import styles from './carousel.module.css';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-import { Link, useLocation, Outlet } from 'react-router-dom';
 
 interface CarouselProps {
   getMovieFromCategory?: number | string;
@@ -34,6 +34,7 @@ export function Carousel({ getMovieFromCategory, carouselTitle }: CarouselProps)
         'populate[3]': 'trailer',
         'populate[4]': 'actors',
         'populate[5]': 'categories',
+        'populate[6]': 'realisators',
         'filters[categories]': getMovieFromCategory,
         'pagination[pageSize]': 12,
       };
@@ -47,6 +48,7 @@ export function Carousel({ getMovieFromCategory, carouselTitle }: CarouselProps)
           'populate[2]': 'Logo',
           'populate[3]': 'trailer',
           'populate[4]': 'actors',
+          'populate[5]': 'realisators',
           sort: 'publishedAt:desc',
           'pagination[pageSize]': 12,
         };
@@ -77,7 +79,7 @@ export function Carousel({ getMovieFromCategory, carouselTitle }: CarouselProps)
   }, [movies !== undefined, carouselTitle !== undefined]);
   return (
     <>
-      <Heading size='md' mt={7} ml={3} color='white'>
+      <Heading size='md' mt={7} ml={3} mb={2} color='white'>
         {listTitle}
       </Heading>
       <Swiper
@@ -86,37 +88,17 @@ export function Carousel({ getMovieFromCategory, carouselTitle }: CarouselProps)
         slidesPerView='auto'
         preloadImages
         lazy
-        breakpoints={{
-          480: {
-            slidesPerView: 2,
-          },
-          520: {
-            slidesPerView: 3,
-          },
-          630: {
-            slidesPerView: 4,
-          },
-          900: {
-            slidesPerView: 5,
-          },
-          1000: {
-            slidesPerView: 6,
-          },
-          1200: {
-            slidesPerView: 7,
-          },
-          1400: {
-            slidesPerView: 8,
-          },
-          1600: {
-            slidesPerView: 9,
-          },
-        }}>
+        breakpoints={breakpoint}>
         {movies &&
           movies?.data?.map((movie: components['schemas']['MovieResponse']['data']) => (
             <SwiperSlide key={movie?.id}>
               <Flex justifyContent='center' alignItems='center'>
-                <MovieCard movie={movie} />
+                <Link
+                  to={`?movie=${movie?.attributes?.title?.split(' ').join('-')}`}
+                  state={{ background: location, movie }}
+                  className={styles.boxSettings}>
+                  <MovieCard movie={movie} />
+                </Link>
               </Flex>
             </SwiperSlide>
           ))}
@@ -124,3 +106,30 @@ export function Carousel({ getMovieFromCategory, carouselTitle }: CarouselProps)
     </>
   );
 }
+
+const breakpoint = {
+  480: {
+    slidesPerView: 2,
+  },
+  520: {
+    slidesPerView: 3,
+  },
+  630: {
+    slidesPerView: 4,
+  },
+  900: {
+    slidesPerView: 5,
+  },
+  1000: {
+    slidesPerView: 6,
+  },
+  1200: {
+    slidesPerView: 7,
+  },
+  1400: {
+    slidesPerView: 8,
+  },
+  1600: {
+    slidesPerView: 9,
+  },
+};

@@ -24,16 +24,24 @@ import styles from './modal.module.css';
 
 interface modalProps {
   isOpen: boolean;
-  onClose?: () => void;
-  movie?: components['schemas']['MovieResponse']['data'];
-  movieLanding?: components['schemas']['LandingResponse'];
 }
 
-export const MovieModal = ({ isOpen, movie, movieLanding }: modalProps) => {
+interface locationState {
+  movie?: components['schemas']['MovieResponse']['data'];
+  landing?: components['schemas']['LandingResponse'];
+  background: {
+    pathname: string;
+    search: string;
+  };
+}
+
+export const MovieModal = ({ isOpen }: modalProps) => {
   const location = useLocation();
+  const { movie, landing } = (location.state as locationState) || {};
   const [bigPoster, setBigPoster] = useState<string | undefined>();
   const [synopsis, setSynopsis] = useState<string | undefined>();
   const [logo, setLogo] = useState<string | undefined>();
+  const [realisators, setRealisators] = useState<components['schemas']['RealisatorListResponse']['data']>();
   const [actors, setActors] = useState<components['schemas']['ActorListResponse']['data']>();
   const [categories, setCategories] = useState<components['schemas']['CategoryListResponse']['data']>();
   const [moreMovie, setMoreMovie] = useState<components['schemas']['MovieListResponse']>();
@@ -45,19 +53,16 @@ export const MovieModal = ({ isOpen, movie, movieLanding }: modalProps) => {
       setSynopsis(movie?.attributes?.Synopsis);
       setCategories(movie?.attributes?.categories?.data);
       setActors(movie?.attributes?.actors?.data);
-    } else if (movieLanding !== undefined) {
-      setLogo(movieLanding?.data?.attributes?.movie?.data?.attributes?.Logo?.data?.attributes?.url);
-      setBigPoster(movieLanding?.data?.attributes?.movie?.data?.attributes?.bigposter?.data?.attributes?.url);
-      setSynopsis(movieLanding?.data?.attributes?.movie?.data?.attributes?.Synopsis);
-      setCategories(movieLanding?.data?.attributes?.movie?.data?.attributes?.categories?.data);
-      setActors(movieLanding?.data?.attributes?.movie?.data?.attributes?.actors?.data);
+      setRealisators(movie?.attributes?.realisators?.data);
+    } else if (landing !== undefined) {
+      setLogo(landing?.data?.attributes?.movie?.data?.attributes?.Logo?.data?.attributes?.url);
+      setBigPoster(landing?.data?.attributes?.movie?.data?.attributes?.bigposter?.data?.attributes?.url);
+      setSynopsis(landing?.data?.attributes?.movie?.data?.attributes?.Synopsis);
+      setCategories(landing?.data?.attributes?.movie?.data?.attributes?.categories?.data);
+      setActors(landing?.data?.attributes?.movie?.data?.attributes?.actors?.data);
+      setRealisators(landing?.data?.attributes?.movie?.data?.attributes?.realisators?.data);
     }
   }, []);
-
-  // const handleMovieClick = (movietitle: string | undefined) => {
-  //   console.log('clicked', movietitle);
-  // };
-
   const seeMoreMovie = async () => {
     const getMoreMovie = fetcher.path('/movies').method('get').create();
     const queryMovie = {
@@ -70,11 +75,11 @@ export const MovieModal = ({ isOpen, movie, movieLanding }: modalProps) => {
       'populate[5]': 'categories',
       'filters[categories]':
         movie?.attributes?.categories?.data?.[0]?.id ||
-        movieLanding?.data?.attributes?.movie?.data?.attributes?.categories?.data?.[0]?.id,
+        landing?.data?.attributes?.movie?.data?.attributes?.categories?.data?.[0]?.id,
       'filters[actors]':
         movie?.attributes?.actors?.data?.[0]?.id ||
-        movieLanding?.data?.attributes?.movie?.data?.attributes?.actors?.data?.[0]?.id,
-      'pagination[pageSize]': 8,
+        landing?.data?.attributes?.movie?.data?.attributes?.actors?.data?.[0]?.id,
+      'pagination[pageSize]': 4,
     };
     const { data: moreMovie } = await getMoreMovie(queryMovie);
     setMoreMovie(moreMovie);
@@ -91,7 +96,7 @@ export const MovieModal = ({ isOpen, movie, movieLanding }: modalProps) => {
     <Modal isOpen={isOpen} onClose={handleClose} size={['3xl']}>
       <ModalOverlay />
       <ModalContent bgColor='#181818' color='white' position='relative'>
-        <ModalCloseButton zIndex={1000} onClick={() => handleClose} />
+        <ModalCloseButton zIndex={1000} />
         <Box position='relative'>
           <Box className={styles.image}></Box>
           <Image src={bigPoster} w={850} h={422} maxW='100%' />
@@ -107,24 +112,40 @@ export const MovieModal = ({ isOpen, movie, movieLanding }: modalProps) => {
         </Box>
         <Flex as='section' className={styles.modalContainer}>
           <Flex justifyContent='center' alignItems='center' w='60%' mr='23%'>
-            <Text fontSize='15px' fontWeight='semibold'>
+            <Text fontSize='14px' fontWeight='semibold'>
               {`${synopsis?.slice(0, 198)}...`}
             </Text>
           </Flex>
           <Flex justifyContent='flex-start' flexDir='column'>
             <Flex flexDir='column' alignItems='flex-start' mb='15px'>
-              <Text color='gray.400'>genre:</Text>
+              <Text color='gray.400' fontSize='14px'>
+                genre:
+              </Text>
               {categories?.map((category) => (
-                <Text color='white' fontWeight='semibold' key={category?.attributes?.categorie}>
-                  <Link to={`/categorie/${category?.attributes?.categorie}`}>{category?.attributes?.categorie}</Link>
+                <Text color='white' fontSize='13px' fontWeight='semibold' key={category?.attributes?.categorie}>
+                  <Link to={`?categorie=${category?.attributes?.categorie}`}>{category?.attributes?.categorie}</Link>
+                </Text>
+              ))}
+            </Flex>
+            <Flex flexDir='column' alignItems='flex-start' mb='15px'>
+              <Text color='gray.400' fontSize='14px'>
+                acteurs:
+              </Text>
+              {actors?.map((actor) => (
+                <Text color='white' fontSize='13px' fontWeight='semibold' key={actor?.attributes?.fullname}>
+                  <Link to={`?acteur=${actor?.attributes?.fullname}`}>{actor?.attributes?.fullname}</Link>
                 </Text>
               ))}
             </Flex>
             <Flex flexDir='column' alignItems='flex-start'>
-              <Text color='gray.400'>acteurs:</Text>
-              {actors?.map((actor) => (
-                <Text color='white' fontWeight='semibold' key={actor?.attributes?.fullname}>
-                  <Link to={`/acteur/${actor?.attributes?.fullname}`}>{actor?.attributes?.fullname}</Link>
+              <Text color='gray.400' fontSize='14px'>
+                realisateur:
+              </Text>
+              {realisators?.map((realisator) => (
+                <Text color='white' fontSize='13px' fontWeight='semibold' key={realisator?.attributes?.fullname}>
+                  <Link to={`/?realisateur=${realisator?.attributes?.fullname}`}>
+                    {realisator?.attributes?.fullname}
+                  </Link>
                 </Text>
               ))}
             </Flex>
@@ -135,16 +156,18 @@ export const MovieModal = ({ isOpen, movie, movieLanding }: modalProps) => {
             <Heading size='md'>A voir aussi</Heading>
           </Box>
           <Grid gridTemplateColumns='repeat(4, 1fr)' gap={6}>
-            {moreMovie?.data?.map((movie: components['schemas']['MovieResponse']['data']) => (
-              <Link
-                key={movie?.id}
-                to={`/browse?movie=${movie?.attributes?.title?.split(' ').join('-')}`}
-                state={{ background: location, movie }}>
+            {moreMovie?.data?.map((movie: components['schemas']['MovieResponse']['data']) => {
+              return (
                 <GridItem key={movie?.id}>
-                  <MovieCard movie={movie} />
+                  <Link
+                    to={`?movie=${movie?.attributes?.title?.split(' ').join('-')}`}
+                    state={{ background: location, movie }}
+                    className={styles.boxSettings}>
+                    <MovieCard movie={movie} />
+                  </Link>
                 </GridItem>
-              </Link>
-            ))}
+              );
+            })}
           </Grid>
         </Flex>
       </ModalContent>
