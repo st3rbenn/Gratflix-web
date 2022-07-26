@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import {
   Box,
   Button,
@@ -38,6 +39,7 @@ interface locationState {
 export const MovieModal = ({ isOpen }: modalProps) => {
   const location = useLocation();
   const { movie, landing } = (location.state as locationState) || {};
+  const [isModal, setIsModal] = useState(false);
   const [bigPoster, setBigPoster] = useState<string | undefined>();
   const [synopsis, setSynopsis] = useState<string | undefined>();
   const [logo, setLogo] = useState<string | undefined>();
@@ -46,6 +48,7 @@ export const MovieModal = ({ isOpen }: modalProps) => {
   const [categories, setCategories] = useState<components['schemas']['CategoryListResponse']['data']>();
   const [moreMovie, setMoreMovie] = useState<components['schemas']['MovieListResponse']>();
   const Navigate = useNavigate();
+
   useEffect(() => {
     if (movie != undefined) {
       setLogo(movie?.attributes?.Logo?.data?.attributes?.url);
@@ -62,7 +65,9 @@ export const MovieModal = ({ isOpen }: modalProps) => {
       setActors(landing?.data?.attributes?.movie?.data?.attributes?.actors?.data);
       setRealisators(landing?.data?.attributes?.movie?.data?.attributes?.realisators?.data);
     }
+    setIsModal(true);
   }, []);
+
   const seeMoreMovie = async () => {
     const getMoreMovie = fetcher.path('/movies').method('get').create();
     const queryMovie = {
@@ -73,6 +78,7 @@ export const MovieModal = ({ isOpen }: modalProps) => {
       'populate[3]': 'trailer',
       'populate[4]': 'actors',
       'populate[5]': 'categories',
+      'filters[id][$ne]': movie?.id,
       'filters[categories]':
         movie?.attributes?.categories?.data?.[0]?.id ||
         landing?.data?.attributes?.movie?.data?.attributes?.categories?.data?.[0]?.id,
@@ -82,6 +88,12 @@ export const MovieModal = ({ isOpen }: modalProps) => {
       'pagination[pageSize]': 4,
     };
     const { data: moreMovie } = await getMoreMovie(queryMovie);
+    // @ts-ignore
+    for (let i = moreMovie?.data?.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      // @ts-ignore
+      [moreMovie[i], moreMovie[j]] = [moreMovie[j], moreMovie[i]];
+    }
     setMoreMovie(moreMovie);
   };
 
@@ -159,12 +171,7 @@ export const MovieModal = ({ isOpen }: modalProps) => {
             {moreMovie?.data?.map((movie: components['schemas']['MovieResponse']['data']) => {
               return (
                 <GridItem key={movie?.id}>
-                  <Link
-                    to={`?movie=${movie?.attributes?.title?.split(' ').join('-')}`}
-                    state={{ background: location, movie }}
-                    className={styles.boxSettings}>
-                    <MovieCard movie={movie} />
-                  </Link>
+                  <MovieCard movie={movie} isModal={isModal} />
                 </GridItem>
               );
             })}
