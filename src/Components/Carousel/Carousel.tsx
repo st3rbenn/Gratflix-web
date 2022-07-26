@@ -93,12 +93,7 @@ export function Carousel({ getMovieFromCategory, carouselTitle }: CarouselProps)
           movies?.data?.map((movie: components['schemas']['MovieResponse']['data']) => (
             <SwiperSlide key={movie?.id}>
               <Flex justifyContent='center' alignItems='center'>
-                <Link
-                  to={`?movie=${movie?.attributes?.title?.split(' ').join('-')}`}
-                  state={{ background: location, movie }}
-                  className={styles.boxSettings}>
-                  <MovieCard movie={movie} />
-                </Link>
+                <MovieCard movie={movie} />
               </Flex>
             </SwiperSlide>
           ))}
@@ -125,11 +120,5 @@ const breakpoint = {
   },
   1200: {
     slidesPerView: 7,
-  },
-  1400: {
-    slidesPerView: 8,
-  },
-  1600: {
-    slidesPerView: 9,
   },
 };
