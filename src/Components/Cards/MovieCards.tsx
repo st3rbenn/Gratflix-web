@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Image } from '@chakra-ui/react';
-import { components } from 'src/src/api/typings/api';
+import { components } from '../../api/typings/api';
 import { Link, useLocation } from 'react-router-dom';
 import styles from './MovieCard.module.css';
 
@@ -36,7 +36,7 @@ export default function MovieCard({ movie, isModal }: MovieCardProps) {
             sm: '200px',
             md: '220px',
             lg: isModal ? '220px' : '244px',
-            xl: isModal ? '220px' : '270px',
+            '2xl': isModal ? '220px' : '270px',
           }}
         />
       </Link>

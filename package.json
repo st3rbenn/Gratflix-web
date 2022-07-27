@@ -32,7 +32,8 @@
     "eject": "react-scripts eject",
     "lint": "eslint '**/*.{js,jsx,ts,tsx,json}'",
     "lint:fix": "eslint --fix '**/*.{js,jsx,ts,tsx,json}'",
-    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json}\" --config ./.prettierrc"
+    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json}\" --config ./.prettierrc",
+    "sync": "npx openapi-typescript ../gratflix-back/src/extensions/documentation/documentation/1.0.0/full_documentation.json --output src/api/typings/api.ts"
   },
   "eslintConfig": {
     "extends": [

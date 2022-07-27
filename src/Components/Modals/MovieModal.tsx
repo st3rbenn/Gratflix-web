@@ -19,7 +19,7 @@ import { useEffect, useState } from 'react';
 import { BiRightArrow } from 'react-icons/bi';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { fetcher } from '../../api/fetcher';
-import { components } from 'src/src/api/typings/api';
+import { components } from '../../api/typings/api';
 import MovieCard from '../Cards/MovieCards';
 import styles from './modal.module.css';
 
@@ -50,20 +50,23 @@ export const MovieModal = ({ isOpen }: modalProps) => {
   const Navigate = useNavigate();
 
   useEffect(() => {
-    if (movie != undefined) {
-      setLogo(movie?.attributes?.Logo?.data?.attributes?.url);
-      setBigPoster(movie?.attributes?.bigposter?.data?.attributes?.url);
-      setSynopsis(movie?.attributes?.Synopsis);
-      setCategories(movie?.attributes?.categories?.data);
-      setActors(movie?.attributes?.actors?.data);
-      setRealisators(movie?.attributes?.realisators?.data);
-    } else if (landing !== undefined) {
-      setLogo(landing?.data?.attributes?.movie?.data?.attributes?.Logo?.data?.attributes?.url);
-      setBigPoster(landing?.data?.attributes?.movie?.data?.attributes?.bigposter?.data?.attributes?.url);
-      setSynopsis(landing?.data?.attributes?.movie?.data?.attributes?.Synopsis);
-      setCategories(landing?.data?.attributes?.movie?.data?.attributes?.categories?.data);
-      setActors(landing?.data?.attributes?.movie?.data?.attributes?.actors?.data);
-      setRealisators(landing?.data?.attributes?.movie?.data?.attributes?.realisators?.data);
+    if (movie !== undefined || landing !== undefined) {
+      setLogo(
+        movie?.attributes?.Logo?.data?.attributes?.url ||
+          landing?.data?.attributes?.movie?.data?.attributes?.Logo?.data?.attributes?.url,
+      );
+      setBigPoster(
+        movie?.attributes?.bigposter?.data?.attributes?.url ||
+          landing?.data?.attributes?.movie?.data?.attributes?.bigposter?.data?.attributes?.url,
+      );
+      setSynopsis(movie?.attributes?.Synopsis || landing?.data?.attributes?.movie?.data?.attributes?.Synopsis);
+      setCategories(
+        movie?.attributes?.categories?.data || landing?.data?.attributes?.movie?.data?.attributes?.categories?.data,
+      );
+      setActors(movie?.attributes?.actors?.data || landing?.data?.attributes?.movie?.data?.attributes?.actors?.data);
+      setRealisators(
+        movie?.attributes?.realisators?.data || landing?.data?.attributes?.movie?.data?.attributes?.realisators?.data,
+      );
     }
     setIsModal(true);
   }, []);
@@ -124,6 +127,16 @@ export const MovieModal = ({ isOpen }: modalProps) => {
         </Box>
         <Flex as='section' className={styles.modalContainer}>
           <Flex justifyContent='center' alignItems='center' w='60%' mr='23%'>
+            <Flex flexDir='column' alignItems='flex-start' mb='15px'>
+              <Text color='gray.400' fontSize='14px'>
+                genre:
+              </Text>
+              {categories?.map((category: components['schemas']['CategoryResponse']['data']) => (
+                <Text color='white' fontSize='13px' fontWeight='semibold' key={category?.attributes?.categorie}>
+                  <Link to={`?categorie=${category?.attributes?.categorie}`}>{category?.attributes?.categorie}</Link>
+                </Text>
+              ))}
+            </Flex>
             <Text fontSize='14px' fontWeight='semibold'>
               {`${synopsis?.slice(0, 198)}...`}
             </Text>
@@ -133,7 +146,7 @@ export const MovieModal = ({ isOpen }: modalProps) => {
               <Text color='gray.400' fontSize='14px'>
                 genre:
               </Text>
-              {categories?.map((category) => (
+              {categories?.map((category: components['schemas']['CategoryResponse']['data']) => (
                 <Text color='white' fontSize='13px' fontWeight='semibold' key={category?.attributes?.categorie}>
                   <Link to={`?categorie=${category?.attributes?.categorie}`}>{category?.attributes?.categorie}</Link>
                 </Text>
@@ -143,7 +156,7 @@ export const MovieModal = ({ isOpen }: modalProps) => {
               <Text color='gray.400' fontSize='14px'>
                 acteurs:
               </Text>
-              {actors?.map((actor) => (
+              {actors?.map((actor: components['schemas']['ActorResponse']['data']) => (
                 <Text color='white' fontSize='13px' fontWeight='semibold' key={actor?.attributes?.fullname}>
                   <Link to={`?acteur=${actor?.attributes?.fullname}`}>{actor?.attributes?.fullname}</Link>
                 </Text>
@@ -153,7 +166,7 @@ export const MovieModal = ({ isOpen }: modalProps) => {
               <Text color='gray.400' fontSize='14px'>
                 realisateur:
               </Text>
-              {realisators?.map((realisator) => (
+              {realisators?.map((realisator: components['schemas']['RealisatorResponse']['data']) => (
                 <Text color='white' fontSize='13px' fontWeight='semibold' key={realisator?.attributes?.fullname}>
                   <Link to={`/?realisateur=${realisator?.attributes?.fullname}`}>
                     {realisator?.attributes?.fullname}
