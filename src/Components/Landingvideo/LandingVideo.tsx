@@ -6,6 +6,7 @@ import { components } from '../../api/typings/api';
 import { fetcher } from '../../api/fetcher';
 import styles from './LandingVideo.module.css';
 
+let trailer: string;
 export const LandingVideo = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [landing, setLanding] = useState([] as components['schemas']['LandingResponse']);
@@ -32,6 +33,8 @@ export const LandingVideo = () => {
       'populate[4]': 'movie.trailer',
       'populate[5]': 'movie.actors',
       'populate[6]': 'movie.categories',
+      'populate[7]': 'movie.realisators',
+      'populate[8]': 'movie.age',
     };
     const { data: landingResult } = await getLanding(queryLanding);
     setLanding(landingResult as components['schemas']['LandingResponse']);
@@ -40,10 +43,12 @@ export const LandingVideo = () => {
   useEffect(() => {
     result();
   }, []);
+  if (landing?.data?.attributes?.movie?.data?.attributes?.trailer !== undefined) {
+    trailer = `${process.env.REACT_APP_GRATFLIX_UPLOAD_PROVIDER}${
+      landing?.data?.attributes?.movie?.data?.attributes?.trailer?.data?.attributes?.url?.split('/')[3]
+    }`;
+  }
 
-  const trailer = `${process.env.REACT_APP_GRATFLIX_UPLOAD_PROVIDER}${
-    landing?.data?.attributes?.movie?.data?.attributes?.trailer?.data?.attributes?.url?.split('/')[3]
-  }`;
   const logo = `${process.env.REACT_APP_GRATFLIX_UPLOAD_PROVIDER}${
     landing?.data?.attributes?.movie?.data?.attributes?.Logo?.data?.attributes?.url?.split('/')[3]
   }`;

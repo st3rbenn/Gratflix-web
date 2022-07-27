@@ -21,10 +21,11 @@
   margin-left: 40px;
   margin-top: 40px;
   margin-right: 40px;
-  margin-bottom: 20px;
-  align-items: center;
+  margin-bottom: 15px;
+  align-items: flex-start;
   gap: 4px;
   flex-direction: row;
+  justify-content: space-between;
 }
 
 .stackContainer {
@@ -46,7 +47,10 @@
 }
 
 .seeMoreMovie{
-  margin-left: 40px;
-  margin-top: 40px;
-  margin-right: 40px;
+  flex-direction: column;
+}
+
+.listItems {
+  color: white;
+  font-size: 13px;
 }
