@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Image } from '@chakra-ui/react';
 import { components } from 'src/src/api/typings/api';
-import styles from './MovieCard.module.css';
 import { Link, useLocation } from 'react-router-dom';
+import styles from './MovieCard.module.css';
 
 interface MovieCardProps {
   movie: components['schemas']['MovieResponse']['data'];
@@ -29,9 +29,15 @@ export default function MovieCard({ movie, isModal }: MovieCardProps) {
           style={hover ? Blur : unBlur}
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
-          borderRadius='10px'
+          borderRadius='5px'
           w={{ base: '100%', sm: '280px', md: '300px', lg: '320px' }}
-          h={{ base: '100%', sm: '200px', md: '220px', lg: isModal ? '220px' : '244px' }}
+          h={{
+            base: '100%',
+            sm: '200px',
+            md: '220px',
+            lg: isModal ? '220px' : '244px',
+            xl: isModal ? '220px' : '270px',
+          }}
         />
       </Link>
     </>
@@ -39,7 +45,7 @@ export default function MovieCard({ movie, isModal }: MovieCardProps) {
 }
 
 const Blur = {
-  transform: 'scale(1.1)',
+  transform: 'scale(1.05)',
   transition: 'all 0.3s ease-in-out',
   zIndex: '-1',
 };
