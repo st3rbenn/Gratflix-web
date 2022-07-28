@@ -33,6 +33,7 @@ export function Carousel({ getMovieFromCategory, carouselTitle }: CarouselProps)
         'populate[4]': 'actors',
         'populate[5]': 'categories',
         'populate[6]': 'realisators',
+        'populate[7]': 'age',
         'filters[categories]': getMovieFromCategory,
         'pagination[pageSize]': 12,
       };
@@ -47,6 +48,7 @@ export function Carousel({ getMovieFromCategory, carouselTitle }: CarouselProps)
           'populate[3]': 'trailer',
           'populate[4]': 'actors',
           'populate[5]': 'realisators',
+          'populate[6]': 'age',
           sort: 'publishedAt:desc',
           'pagination[pageSize]': 12,
         };

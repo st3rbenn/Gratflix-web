@@ -39,8 +39,7 @@ export function Header() {
       position='fixed'
       zIndex={1000}
       className={`${styles.headerContainer} ${scrollPosition > 0 ? styles.HeaderFade : styles.HeaderFadeOut}`}
-      color='white'
-    >
+      color='white'>
       <Flex as='nav' alignItems='center' ml='50px' mr='55px' justifyContent='space-between'>
         <List display='flex' gap={5} alignItems='center' fontWeight={600} fontSize='sm'>
           <ListItem w='20%'>
@@ -53,24 +52,21 @@ export function Header() {
             ml={10}
             fontSize={pathNameUrl === '/browse' ? 'md' : ''}
             color={pathNameUrl === '/browse' ? 'gray.100' : 'gray.300'}
-            _hover={pathNameUrl === '/browse' ? { color: '' } : { color: 'gray.300' }}
-          >
+            _hover={pathNameUrl === '/browse' ? { color: '' } : { color: 'gray.300' }}>
             <Link to='/browse'>Accueil</Link>
           </ListItem>
 
           <ListItem
             fontSize={pathNameUrl === '/ma-liste' ? 'md' : ''}
             color={pathNameUrl === '/ma-liste' ? 'gray.100' : 'gray.300'}
-            _hover={pathNameUrl === '/ma-liste' ? { color: '' } : { color: 'gray.300' }}
-          >
+            _hover={pathNameUrl === '/ma-liste' ? { color: '' } : { color: 'gray.300' }}>
             <Link to='/ma-liste'>Ma liste</Link>
           </ListItem>
 
           <ListItem
             fontSize={pathNameUrl === '/categorie' ? 'md' : ''}
             color={pathNameUrl === '/categorie' ? 'gray.100' : 'gray.300'}
-            _hover={pathNameUrl === '/categorie' ? { color: '' } : { color: 'gray.300' }}
-          >
+            _hover={pathNameUrl === '/categorie' ? { color: '' } : { color: 'gray.300' }}>
             <Link to='/categorie'>Catégories</Link>
           </ListItem>
         </List>
