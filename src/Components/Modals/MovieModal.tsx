@@ -47,39 +47,47 @@ export const MovieModal = ({ isOpen }: modalProps) => {
   const [actors, setActors] = useState<components['schemas']['ActorListResponse']['data']>();
   const [categories, setCategories] = useState<components['schemas']['CategoryListResponse']['data']>();
   const [moreMovie, setMoreMovie] = useState<components['schemas']['MovieListResponse']>();
-  const [releaseDate, setReleaseDateDate] = useState<string | undefined>();
+  const [releaseDate, setReleaseDate] = useState<string | undefined>();
   const [viewTime, setViewTime] = useState<string | undefined>();
   const [age, setAge] = useState<string | undefined>();
   const Navigate = useNavigate();
 
+  const date = (date: string | undefined) => () => {
+    const dateSplit = date?.split('-');
+    const year = dateSplit?.[0];
+    const month = dateSplit?.[1];
+    const day = dateSplit?.[2];
+    return `${day}-${month}-${year}`;
+  };
+
   useEffect(() => {
-    if (movie !== undefined || landing !== undefined) {
-      setLogo(
-        movie?.attributes?.Logo?.data?.attributes?.url ||
-          landing?.data?.attributes?.movie?.data?.attributes?.Logo?.data?.attributes?.url,
-      );
-      setBigPoster(
-        movie?.attributes?.bigposter?.data?.attributes?.url ||
-          landing?.data?.attributes?.movie?.data?.attributes?.bigposter?.data?.attributes?.url,
-      );
-      setSynopsis(movie?.attributes?.Synopsis || landing?.data?.attributes?.movie?.data?.attributes?.Synopsis);
-      setCategories(
-        movie?.attributes?.categories?.data || landing?.data?.attributes?.movie?.data?.attributes?.categories?.data,
-      );
-      setActors(movie?.attributes?.actors?.data || landing?.data?.attributes?.movie?.data?.attributes?.actors?.data);
-      setRealisators(
-        movie?.attributes?.realisators?.data || landing?.data?.attributes?.movie?.data?.attributes?.realisators?.data,
-      );
-      setReleaseDateDate(
-        movie?.attributes?.releasedate || landing?.data?.attributes?.movie?.data?.attributes?.releasedate,
-      );
-      setViewTime(movie?.attributes?.viewtime || landing?.data?.attributes?.movie?.data?.attributes?.viewtime);
-      setAge(
-        // @ts-ignore
-        movie?.attributes?.age?.data?.attributes?.age ||
-          landing?.data?.attributes?.movie?.data?.attributes?.age?.data?.attributes?.age,
-      );
+    setLogo(
+      movie?.attributes?.Logo?.data?.attributes?.url ||
+        landing?.data?.attributes?.movie?.data?.attributes?.Logo?.data?.attributes?.url,
+    );
+    setBigPoster(
+      movie?.attributes?.bigposter?.data?.attributes?.url ||
+        landing?.data?.attributes?.movie?.data?.attributes?.bigposter?.data?.attributes?.url,
+    );
+    setSynopsis(movie?.attributes?.Synopsis || landing?.data?.attributes?.movie?.data?.attributes?.Synopsis);
+    setCategories(
+      movie?.attributes?.categories?.data || landing?.data?.attributes?.movie?.data?.attributes?.categories?.data,
+    );
+    setActors(movie?.attributes?.actors?.data || landing?.data?.attributes?.movie?.data?.attributes?.actors?.data);
+    setRealisators(
+      movie?.attributes?.realisators?.data || landing?.data?.attributes?.movie?.data?.attributes?.realisators?.data,
+    );
+    if (landing?.data?.attributes?.movie?.data?.attributes?.releasedate !== undefined) {
+      setReleaseDate(date(landing?.data?.attributes?.movie?.data?.attributes?.releasedate));
+    } else {
+      setReleaseDate(date(movie?.attributes?.releasedate));
     }
+    setViewTime(movie?.attributes?.viewtime || landing?.data?.attributes?.movie?.data?.attributes?.viewtime);
+    setAge(
+      // @ts-ignore
+      movie?.attributes?.age?.data?.attributes?.age ||
+        landing?.data?.attributes?.movie?.data?.attributes?.age?.data?.attributes?.age,
+    );
     setIsModal(true);
   }, []);
 
@@ -100,14 +108,25 @@ export const MovieModal = ({ isOpen }: modalProps) => {
       'filters[actors]':
         movie?.attributes?.actors?.data?.[0]?.id ||
         landing?.data?.attributes?.movie?.data?.attributes?.actors?.data?.[0]?.id,
-      'pagination[pageSize]': 4,
+      'pagination[pageSize]': 8,
     };
     const { data: moreMovie } = await getMoreMovie(queryMovie);
+    // let d: {
+    //   data: components['schemas']['MovieListResponse']['data'];
+    //   meta: {
+    //     pagination: {
+    //       page: number;
+    //       pageSize: number;
+    //       total: number;
+    //     };
+    //   };
+    // } = moreMovie;
     // @ts-ignore
     for (let i = moreMovie?.data?.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       // @ts-ignore
       [moreMovie[i], moreMovie[j]] = [moreMovie[j], moreMovie[i]];
+      console.log();
     }
     setMoreMovie(moreMovie);
   };
