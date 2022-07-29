@@ -1,8 +1,8 @@
-import { Container } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { fetcher } from '../api/fetcher';
-import { components } from '../api/typings/api';
+import React, {useEffect, useState} from 'react';
+import {Container} from '@chakra-ui/react';
+import {useLocation} from 'react-router-dom';
+import {fetcher} from '../api/fetcher';
+import {components} from '../api/typings/api';
 
 function Search() {
   const [movies, setMovies] = useState<components['schemas']['MovieListResponse']>();
@@ -26,7 +26,7 @@ function Search() {
         'pagination[pageSize]': 12,
       };
     }
-    const { data: moviesArray } = await searchResult(querySearch);
+    const {data: moviesArray} = await searchResult(querySearch);
     console.log(moviesArray);
     // setMovies(moviesArray);
   };
@@ -36,7 +36,7 @@ function Search() {
   }, [resultSearch]);
 
   return (
-    <Container maxW='container.xxl' as='section' bgColor='#181818' color='white' minH='100vh'>
+    <Container maxW="container.xxl" as="section" bgColor="#181818" color="white" minH="100vh">
       <div>{resultSearch}</div>
     </Container>
   );

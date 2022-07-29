@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { Image } from '@chakra-ui/react';
-import { components } from '../../api/typings/api';
-import { Link, useLocation } from 'react-router-dom';
+import React, {useState} from 'react';
+import {Image} from '@chakra-ui/react';
+import {components} from '../../api/typings/api';
+import {Link, useLocation} from 'react-router-dom';
 import styles from './MovieCard.module.css';
 
 interface MovieCardProps {
@@ -10,7 +10,7 @@ interface MovieCardProps {
   isModal?: boolean;
 }
 
-export default function MovieCard({ movie, isModal }: MovieCardProps) {
+export default function MovieCard({movie, isModal}: MovieCardProps) {
   const [hover, setHover] = useState(false);
   const location = useLocation();
 
@@ -18,9 +18,8 @@ export default function MovieCard({ movie, isModal }: MovieCardProps) {
     <>
       <Link
         to={`?movie=${movie?.attributes?.title?.split(' ').join('-')}`}
-        state={{ background: location, movie }}
-        className={styles.boxSettings}
-      >
+        state={{background: location, movie}}
+        className={styles.boxSettings}>
         <Image
           className={styles.image}
           src={`${process.env.REACT_APP_GRATFLIX_UPLOAD_PROVIDER}medium_${
@@ -30,8 +29,8 @@ export default function MovieCard({ movie, isModal }: MovieCardProps) {
           style={hover ? Blur : unBlur}
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
-          borderRadius='5px'
-          w={{ base: '100%', sm: '280px', md: '300px', lg: '320px' }}
+          borderRadius="5px"
+          w={{base: '100%', sm: '280px', md: '300px', lg: '320px'}}
           h={{
             base: '100%',
             sm: '200px',

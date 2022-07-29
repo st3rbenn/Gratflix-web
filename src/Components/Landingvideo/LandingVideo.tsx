@@ -1,9 +1,9 @@
-import { AspectRatio, Box, Button, Flex, Image, Img, Stack, Text } from '@chakra-ui/react';
-import React, { SyntheticEvent, useEffect, useState } from 'react';
-import { Link, Outlet, useLocation } from 'react-router-dom';
-import { BiErrorCircle, BiRightArrow } from 'react-icons/bi';
-import { components } from '../../api/typings/api';
-import { fetcher } from '../../api/fetcher';
+import {AspectRatio, Box, Button, Flex, Image, Img, Stack, Text} from '@chakra-ui/react';
+import React, {SyntheticEvent, useEffect, useState} from 'react';
+import {Link, Outlet, useLocation} from 'react-router-dom';
+import {BiErrorCircle, BiRightArrow} from 'react-icons/bi';
+import {components} from '../../api/typings/api';
+import {fetcher} from '../../api/fetcher';
 import styles from './LandingVideo.module.css';
 
 interface landingProps {
@@ -11,7 +11,7 @@ interface landingProps {
 }
 
 let trailer: string;
-export const LandingVideo = ({ loadingData }: landingProps) => {
+export const LandingVideo = ({loadingData}: landingProps) => {
   const [landing, setLanding] = useState([] as components['schemas']['LandingResponse']);
   const [video, setVideo] = useState<EventTarget>();
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -32,7 +32,7 @@ export const LandingVideo = ({ loadingData }: landingProps) => {
       'populate[7]': 'movie.realisators',
       'populate[8]': 'movie.age',
     };
-    const { data: landingResult } = await getLanding(queryLanding);
+    const {data: landingResult} = await getLanding(queryLanding);
     setLanding(landingResult as components['schemas']['LandingResponse']);
   };
 
@@ -42,7 +42,7 @@ export const LandingVideo = ({ loadingData }: landingProps) => {
   };
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('scroll', handleScroll, {passive: true});
     result();
   }, []);
 
@@ -76,9 +76,9 @@ export const LandingVideo = ({ loadingData }: landingProps) => {
   };
 
   return (
-    <Box as='section' className={styles.landingContainer}>
-      <Box position='relative'>
-        <Box className={styles.image} style={{ zIndex: 1 }}></Box>
+    <Box as="section" className={styles.landingContainer}>
+      <Box position="relative">
+        <Box className={styles.image} style={{zIndex: 1}}></Box>
         {videoEnd ? (
           <>
             <AspectRatio ratio={1.72} className={styles.blockClick}>
@@ -114,33 +114,31 @@ export const LandingVideo = ({ loadingData }: landingProps) => {
         )}
       </Box>
       <Stack className={styles.stackContainer}>
-        <Img w='100%' src={logo} mb={7} />
-        <Flex alignItems='center' gap={6}>
+        <Img w="100%" src={logo} mb={7} />
+        <Flex alignItems="center" gap={6}>
           <Link to={'/watch/'}>
             <Button
-              alignSelf='center'
-              variant='solid'
-              bgColor='#181818'
-              color='white'
+              alignSelf="center"
+              variant="solid"
+              bgColor="#181818"
+              color="white"
               className={styles.BtnStyle}
               _hover={Blur}
-              p={5}
-            >
-              <Text alignSelf='center' mr='15px' fontWeight='semibold'>
+              p={5}>
+              <Text alignSelf="center" mr="15px" fontWeight="semibold">
                 Regarder
               </Text>
-              <BiRightArrow height='35px' width='35px' />
+              <BiRightArrow height="35px" width="35px" />
             </Button>
           </Link>
           <Link
             to={`?movie=${landing?.data?.attributes?.movie?.data?.attributes?.title?.split(' ').join('-')}`}
-            state={{ background: location, landing }}
-          >
-            <Button alignSelf='center' variant='solid' className={styles.BtnStyle} w='max-content' _hover={Blur} p={5}>
-              <Text alignSelf='center' mr='15' fontWeight='semibold'>
-                Plus d'infos
+            state={{background: location, landing}}>
+            <Button alignSelf="center" variant="solid" className={styles.BtnStyle} w="max-content" _hover={Blur} p={5}>
+              <Text alignSelf="center" mr="15" fontWeight="semibold">
+                Plus d&apos;infos
               </Text>
-              <BiErrorCircle height='35px' width='35px' />
+              <BiErrorCircle height="35px" width="35px" />
             </Button>
           </Link>
         </Flex>
