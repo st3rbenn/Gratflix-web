@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Heading, Flex, Image, Box } from '@chakra-ui/react';
-import { fetcher } from '../../api/fetcher';
-import { components } from '../../api/typings/api';
+import React, {useEffect, useState} from 'react';
+import {Swiper, SwiperSlide} from 'swiper/react';
+import {Heading, Flex, Image, Box} from '@chakra-ui/react';
+import {fetcher} from '../../api/fetcher';
+import {components} from '../../api/typings/api';
 import MovieCard from '../Cards/MovieCards';
 import arrow from '../../assets/img/arrow.svg';
 
@@ -17,7 +17,7 @@ interface CarouselProps {
   loadingData?: () => void;
 }
 
-export function Carousel({ getMovieFromCategory, carouselTitle }: CarouselProps) {
+export function Carousel({getMovieFromCategory, carouselTitle}: CarouselProps) {
   const [movies, setMovies] = useState<components['schemas']['MovieListResponse']>();
   const [listTitle, setListTitle] = useState<string>();
 
@@ -56,7 +56,7 @@ export function Carousel({ getMovieFromCategory, carouselTitle }: CarouselProps)
       }
     }
 
-    const { data: moviesArray } = await getMovie(queryMovie);
+    const {data: moviesArray} = await getMovie(queryMovie);
     setMovies(moviesArray);
   };
 
@@ -80,22 +80,22 @@ export function Carousel({ getMovieFromCategory, carouselTitle }: CarouselProps)
   }, [movies !== undefined, carouselTitle !== undefined]);
   return (
     <>
-      <Heading size='md' mt={7} ml={3} mb={2} color='white'>
+      <Heading size="md" mt={7} ml={3} mb={2} color="white">
         {listTitle}
       </Heading>
-      <Swiper spaceBetween={10} style={{ position: 'relative' }} slidesPerView='auto' lazy breakpoints={breakpoint}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', position: 'relative' }}>
-          <Box style={{ position: 'absolute', top: 0, right: 0 }}>
-            <Image src={arrow} w='50px' h='50px' background='hsla(0,0%,8%,.5)' />
+      <Swiper spaceBetween={10} style={{position: 'relative'}} slidesPerView="auto" lazy breakpoints={breakpoint}>
+        <div style={{display: 'flex', justifyContent: 'space-between', position: 'relative'}}>
+          <Box style={{position: 'absolute', top: 0, right: 0}}>
+            <Image src={arrow} w="50px" h="50px" background="hsla(0,0%,8%,.5)" />
           </Box>
-          <Box style={{ position: 'absolute', top: 0, left: 0 }}>
-            <Image src={arrow} w='50px' h='50px' transform='rotate(180deg)' background='hsla(0,0%,8%,.5)' />
+          <Box style={{position: 'absolute', top: 0, left: 0}}>
+            <Image src={arrow} w="50px" h="50px" transform="rotate(180deg)" background="hsla(0,0%,8%,.5)" />
           </Box>
         </div>
         {movies &&
           movies?.data?.map((movie: components['schemas']['MovieResponse']['data']) => (
             <SwiperSlide key={movie?.id}>
-              <Flex justifyContent='center' alignItems='center'>
+              <Flex justifyContent="center" alignItems="center">
                 <MovieCard movie={movie} />
               </Flex>
             </SwiperSlide>

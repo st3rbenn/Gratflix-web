@@ -15,11 +15,11 @@ import {
   Stack,
   Text,
 } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
-import { BiRightArrow } from 'react-icons/bi';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { fetcher } from '../../api/fetcher';
-import { components } from '../../api/typings/api';
+import React, {useEffect, useState} from 'react';
+import {BiRightArrow} from 'react-icons/bi';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
+import {fetcher} from '../../api/fetcher';
+import {components} from '../../api/typings/api';
 import MovieCard from '../Cards/MovieCards';
 import styles from './modal.module.css';
 
@@ -36,9 +36,9 @@ interface locationState {
   };
 }
 
-export const MovieModal = ({ isOpen }: modalProps) => {
+export const MovieModal = ({isOpen}: modalProps) => {
   const location = useLocation();
-  const { movie, landing } = (location.state as locationState) || {};
+  const {movie, landing} = (location.state as locationState) || {};
   const [isModal, setIsModal] = useState(false);
   const [bigPoster, setBigPoster] = useState<string | undefined>();
   const [synopsis, setSynopsis] = useState<string | undefined>();
@@ -110,7 +110,7 @@ export const MovieModal = ({ isOpen }: modalProps) => {
         landing?.data?.attributes?.movie?.data?.attributes?.actors?.data?.[0]?.id,
       'pagination[pageSize]': 8,
     };
-    const { data: moreMovie } = await getMoreMovie(queryMovie);
+    const {data: moreMovie} = await getMoreMovie(queryMovie);
     // let d: {
     //   data: components['schemas']['MovieListResponse']['data'];
     //   meta: {
@@ -141,88 +141,86 @@ export const MovieModal = ({ isOpen }: modalProps) => {
   return (
     <Modal isOpen={isOpen} onClose={handleClose} size={['3xl']}>
       <ModalOverlay />
-      <ModalContent bgColor='#181818' color='white' position='relative'>
+      <ModalContent bgColor="#181818" color="white" position="relative">
         <ModalCloseButton zIndex={1000} />
-        <Box position='relative'>
+        <Box position="relative">
           <Box className={styles.image}></Box>
-          <Image src={bigPoster} w={850} h={422} maxW='100%' />
+          <Image src={bigPoster} w={850} h={422} maxW="100%" />
           <Stack className={styles.stackContainer}>
-            <Img w='100%' src={logo} mb={7} />
+            <Img w="100%" src={logo} mb={7} />
             <Link to={'/watch/'}>
               <Button
-                alignSelf='center'
-                variant='solid'
-                bgColor='#181818'
-                color='white'
+                alignSelf="center"
+                variant="solid"
+                bgColor="#181818"
+                color="white"
                 className={styles.BtnStyle}
-                p={5}
-              >
-                <Text alignSelf='center' mr='15px' fontWeight='semibold'>
+                p={5}>
+                <Text alignSelf="center" mr="15px" fontWeight="semibold">
                   Regarder
                 </Text>
-                <BiRightArrow height='35px' width='35px' />
+                <BiRightArrow height="35px" width="35px" />
               </Button>
             </Link>
           </Stack>
         </Box>
-        <Box as='main' className={styles.modalContainer}>
-          <Flex as='section' justifyContent='space-between' flexWrap='wrap'>
-            <Flex alignItems='flex-start' w='70%' flexDir='column' gap='44px' flexWrap='wrap'>
-              <Flex flexDir='row' gap='15px' flexWrap='wrap'>
-                <Flex flexDir='row' gap='8px' color='gray.400' fontSize='14px'>
+        <Box as="main" className={styles.modalContainer}>
+          <Flex as="section" justifyContent="space-between" flexWrap="wrap">
+            <Flex alignItems="flex-start" w="70%" flexDir="column" gap="44px" flexWrap="wrap">
+              <Flex flexDir="row" gap="15px" flexWrap="wrap">
+                <Flex flexDir="row" gap="8px" color="gray.400" fontSize="14px">
                   date de sortie:
-                  <Text color='white' fontSize='15px' fontWeight='semibold'>
+                  <Text color="white" fontSize="15px" fontWeight="semibold">
                     {releaseDate}
                   </Text>
                 </Flex>
-                <Flex flexDir='row' gap='8px' color='gray.400' fontSize='14px'>
+                <Flex flexDir="row" gap="8px" color="gray.400" fontSize="14px">
                   durée:
-                  <Text color='white' fontSize='15px' fontWeight='semibold'>
+                  <Text color="white" fontSize="15px" fontWeight="semibold">
                     {viewTime}
                   </Text>
                 </Flex>
                 <Text
                   className={styles.listItems}
-                  fontWeight='semibold'
-                  border='1px white solid'
-                  pr='5px'
-                  pl='5px'
-                  ml='10px'
-                >
+                  fontWeight="semibold"
+                  border="1px white solid"
+                  pr="5px"
+                  pl="5px"
+                  ml="10px">
                   {age}
                 </Text>
               </Flex>
-              <Text fontSize='15px' fontWeight='semibold'>
+              <Text fontSize="15px" fontWeight="semibold">
                 {`${synopsis?.slice(0, 315)}...`}
               </Text>
             </Flex>
-            <Flex justifyContent='flex-start' flexDir='column' flexWrap='wrap'>
-              <Flex flexDir='column' alignItems='flex-start' mb='15px' flexWrap='wrap'>
-                <Text color='gray.400' fontSize='14px'>
+            <Flex justifyContent="flex-start" flexDir="column" flexWrap="wrap">
+              <Flex flexDir="column" alignItems="flex-start" mb="15px" flexWrap="wrap">
+                <Text color="gray.400" fontSize="14px">
                   genre:
                 </Text>
                 {categories?.map((category: components['schemas']['CategoryResponse']['data']) => (
-                  <Text className={styles.listItems} fontWeight='semibold' key={category?.attributes?.categorie}>
+                  <Text className={styles.listItems} fontWeight="semibold" key={category?.attributes?.categorie}>
                     <Link to={`?categorie=${category?.attributes?.categorie}`}>{category?.attributes?.categorie}</Link>
                   </Text>
                 ))}
               </Flex>
-              <Flex flexDir='column' alignItems='flex-start' mb='15px'>
-                <Text color='gray.400' fontSize='14px'>
+              <Flex flexDir="column" alignItems="flex-start" mb="15px">
+                <Text color="gray.400" fontSize="14px">
                   acteurs:
                 </Text>
                 {actors?.map((actor: components['schemas']['ActorResponse']['data']) => (
-                  <Text className={styles.listItems} fontWeight='semibold' key={actor?.attributes?.fullname}>
+                  <Text className={styles.listItems} fontWeight="semibold" key={actor?.attributes?.fullname}>
                     <Link to={`?acteur=${actor?.attributes?.fullname}`}>{actor?.attributes?.fullname}</Link>
                   </Text>
                 ))}
               </Flex>
-              <Flex flexDir='column' alignItems='flex-start'>
-                <Text color='gray.400' fontSize='14px'>
+              <Flex flexDir="column" alignItems="flex-start">
+                <Text color="gray.400" fontSize="14px">
                   realisateur:
                 </Text>
                 {realisators?.map((realisator: components['schemas']['RealisatorResponse']['data']) => (
-                  <Text className={styles.listItems} fontWeight='semibold' key={realisator?.attributes?.fullname}>
+                  <Text className={styles.listItems} fontWeight="semibold" key={realisator?.attributes?.fullname}>
                     <Link to={`/?realisateur=${realisator?.attributes?.fullname}`}>
                       {realisator?.attributes?.fullname}
                     </Link>
@@ -231,11 +229,11 @@ export const MovieModal = ({ isOpen }: modalProps) => {
               </Flex>
             </Flex>
           </Flex>
-          <Flex as='section' className={styles.seeMoreMovie}>
+          <Flex as="section" className={styles.seeMoreMovie}>
             <Box mb={5}>
-              <Heading size='md'>A voir aussi</Heading>
+              <Heading size="md">A voir aussi</Heading>
             </Box>
-            <Grid gridTemplateColumns='repeat(4, 1fr)' gap={6}>
+            <Grid gridTemplateColumns="repeat(4, 1fr)" gap={6}>
               {moreMovie?.data?.map((movie: components['schemas']['MovieResponse']['data']) => {
                 return (
                   <GridItem key={movie?.id}>
