@@ -1,5 +1,5 @@
-import { Fetcher } from 'openapi-typescript-fetch';
-import { paths } from './typings/api';
+import {Fetcher} from 'openapi-typescript-fetch';
+import {paths} from './typings/api';
 
 const baseUrl = `${process.env.REACT_APP_GRATFLIX_API_URL}/api` || 'http://localhost:3001/api';
 // declare fetcher for paths
@@ -14,4 +14,4 @@ fetcher.configure({
   },
 });
 
-export { fetcher };
+export {fetcher};
