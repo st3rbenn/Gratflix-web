@@ -19,7 +19,8 @@ export default function MovieCard({ movie, isModal }: MovieCardProps) {
       <Link
         to={`?movie=${movie?.attributes?.title?.split(' ').join('-')}`}
         state={{ background: location, movie }}
-        className={styles.boxSettings}>
+        className={styles.boxSettings}
+      >
         <Image
           className={styles.image}
           src={`${process.env.REACT_APP_GRATFLIX_UPLOAD_PROVIDER}medium_${

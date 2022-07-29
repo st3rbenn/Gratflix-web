@@ -148,18 +148,27 @@ export const MovieModal = ({ isOpen }: modalProps) => {
           <Image src={bigPoster} w={850} h={422} maxW='100%' />
           <Stack className={styles.stackContainer}>
             <Img w='100%' src={logo} mb={7} />
-            <Flex alignItems='center' gap={6}>
-              <Button variant='solid' bgColor='#181818' className={styles.BtnStyle} color='white' w='max-content'>
-                <Text p={5}>Regarder</Text>
-                <BiRightArrow size='100%' />
+            <Link to={'/watch/'}>
+              <Button
+                alignSelf='center'
+                variant='solid'
+                bgColor='#181818'
+                color='white'
+                className={styles.BtnStyle}
+                p={5}
+              >
+                <Text alignSelf='center' mr='15px' fontWeight='semibold'>
+                  Regarder
+                </Text>
+                <BiRightArrow height='35px' width='35px' />
               </Button>
-            </Flex>
+            </Link>
           </Stack>
         </Box>
         <Box as='main' className={styles.modalContainer}>
-          <Flex as='section' justifyContent='space-between'>
-            <Flex alignItems='flex-start' w='70%' flexDir='column' gap='44px'>
-              <Flex flexDir='row' gap='15px'>
+          <Flex as='section' justifyContent='space-between' flexWrap='wrap'>
+            <Flex alignItems='flex-start' w='70%' flexDir='column' gap='44px' flexWrap='wrap'>
+              <Flex flexDir='row' gap='15px' flexWrap='wrap'>
                 <Flex flexDir='row' gap='8px' color='gray.400' fontSize='14px'>
                   date de sortie:
                   <Text color='white' fontSize='15px' fontWeight='semibold'>
@@ -178,7 +187,8 @@ export const MovieModal = ({ isOpen }: modalProps) => {
                   border='1px white solid'
                   pr='5px'
                   pl='5px'
-                  ml='10px'>
+                  ml='10px'
+                >
                   {age}
                 </Text>
               </Flex>
@@ -186,8 +196,8 @@ export const MovieModal = ({ isOpen }: modalProps) => {
                 {`${synopsis?.slice(0, 315)}...`}
               </Text>
             </Flex>
-            <Flex justifyContent='flex-start' flexDir='column'>
-              <Flex flexDir='column' alignItems='flex-start' mb='15px'>
+            <Flex justifyContent='flex-start' flexDir='column' flexWrap='wrap'>
+              <Flex flexDir='column' alignItems='flex-start' mb='15px' flexWrap='wrap'>
                 <Text color='gray.400' fontSize='14px'>
                   genre:
                 </Text>
