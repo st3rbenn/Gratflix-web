@@ -14,6 +14,7 @@ import 'swiper/css/lazy';
 interface CarouselProps {
   getMovieFromCategory?: number | string;
   carouselTitle?: string;
+  loadingData?: () => void;
 }
 
 export function Carousel({ getMovieFromCategory, carouselTitle }: CarouselProps) {

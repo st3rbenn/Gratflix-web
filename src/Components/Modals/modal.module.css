@@ -54,3 +54,7 @@
   color: white;
   font-size: 13px;
 }
+
+.listItems:hover {
+  text-decoration: underline;
+}

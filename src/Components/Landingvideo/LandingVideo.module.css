@@ -1,7 +1,18 @@
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .blockClick {
   pointer-events: none;
   width: 100% !important;
   height: 72% !important;
+  transition: all 0.5s fadeIn;
+  overflow: hidden;
 }
 
 .landingContainer {
@@ -43,7 +54,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 72% !important;
+  height: 100% !important;
   opacity: 1;
   overflow: hidden;
   background: linear-gradient(0deg, #181818, transparent 50%)

@@ -7,7 +7,7 @@ import { Outlet } from 'react-router-dom';
 function Home() {
   return (
     <>
-      <Box position='relative' as='main'>
+      <Box position='relative' as='main' bgColor='#181818'>
         <LandingVideo />
         <Box className={styles.swiperContainer} as='section'>
           <Container className={styles.galerie} as='article' style={{ maxWidth: 'container.xxl' }}>
@@ -19,12 +19,12 @@ function Home() {
           <Container className={styles.galerie} as='article' mb={50}>
             <Carousel getMovieFromCategory={3} />
           </Container>
-          <Container className={styles.galerie} as='article' mb={50}>
-            {/* <Galerie list={2} listTitle={'oeoe'}/> */}
+          {/* <Container className={styles.galerie} as='article' mb={50}>
+            <Galerie list={2} listTitle={'oeoe'}/>
           </Container>
           <Container className={styles.galerie} as='article' mb={50}>
-            {/* <Galerie list={8} listTitle={'test'}/> */}
-          </Container>
+            <Galerie list={8} listTitle={'test'}/>
+          </Container> */}
         </Box>
       </Box>
       <Outlet />

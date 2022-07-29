@@ -1,26 +1,22 @@
 import { AspectRatio, Box, Button, Flex, Image, Img, Stack, Text } from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
+import React, { SyntheticEvent, useEffect, useState } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
-import { BiErrorCircle } from 'react-icons/bi';
+import { BiErrorCircle, BiRightArrow } from 'react-icons/bi';
 import { components } from '../../api/typings/api';
 import { fetcher } from '../../api/fetcher';
 import styles from './LandingVideo.module.css';
 
+interface landingProps {
+  loadingData?: () => void;
+}
+
 let trailer: string;
-export const LandingVideo = () => {
-  const [scrollPosition, setScrollPosition] = useState(0);
+export const LandingVideo = ({ loadingData }: landingProps) => {
   const [landing, setLanding] = useState([] as components['schemas']['LandingResponse']);
+  const [video, setVideo] = useState<EventTarget>();
+  const [scrollPosition, setScrollPosition] = useState(0);
   const [videoEnd, setVideoEnd] = useState(false);
   const location = useLocation();
-
-  const handleScroll = () => {
-    const position = window.scrollY;
-    setScrollPosition(position);
-  };
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll, { passive: true });
-  }, []);
 
   const result = async () => {
     const getLanding = fetcher.path('/landing').method('get').create();
@@ -40,9 +36,28 @@ export const LandingVideo = () => {
     setLanding(landingResult as components['schemas']['LandingResponse']);
   };
 
+  const handleScroll = () => {
+    const position = window.scrollY;
+    setScrollPosition(position);
+  };
+
   useEffect(() => {
+    window.addEventListener('scroll', handleScroll, { passive: true });
     result();
   }, []);
+
+  useEffect(() => {
+    if (scrollPosition > 320) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      video?.pause();
+    } else {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      video?.play();
+    }
+  }, [scrollPosition]);
+
   if (landing?.data?.attributes?.movie?.data?.attributes?.trailer !== undefined) {
     trailer = `${process.env.REACT_APP_GRATFLIX_UPLOAD_PROVIDER}${
       landing?.data?.attributes?.movie?.data?.attributes?.trailer?.data?.attributes?.url?.split('/')[3]
@@ -59,16 +74,16 @@ export const LandingVideo = () => {
   const Blur = {
     filter: 'contrast(88%) brightness(72%)',
   };
+
   return (
     <Box as='section' className={styles.landingContainer}>
       <Box position='relative'>
         <Box className={styles.image} style={{ zIndex: 1 }}></Box>
-        {videoEnd || scrollPosition >= 450 ? (
+        {videoEnd ? (
           <>
-            <AspectRatio ratio={1.72} className={styles.ratio}>
+            <AspectRatio ratio={1.72} className={styles.blockClick}>
               <Image
                 src={poster}
-                className={styles.blockClick}
                 style={{
                   width: '100% !important',
                   height: '72% !important',
@@ -79,14 +94,14 @@ export const LandingVideo = () => {
           </>
         ) : (
           <>
-            <AspectRatio ratio={1.72} className={styles.ratio}>
+            <AspectRatio ratio={1.72} className={styles.blockClick}>
               <video
                 poster={poster}
                 src={trailer}
-                className={styles.blockClick}
                 muted
                 autoPlay
                 playsInline
+                onTimeUpdate={(ev) => setVideo(ev.target)}
                 style={{
                   filter: 'brightness(0.8) invert(0.12) opacity(1)',
                   width: '100% !important',
@@ -102,16 +117,30 @@ export const LandingVideo = () => {
         <Img w='100%' src={logo} mb={7} />
         <Flex alignItems='center' gap={6}>
           <Link to={'/watch/'}>
-            <Button variant='solid' bgColor='#181818' color='white' className={styles.BtnStyle} _hover={Blur}>
-              <Text p={5}>Regarder</Text>
+            <Button
+              alignSelf='center'
+              variant='solid'
+              bgColor='#181818'
+              color='white'
+              className={styles.BtnStyle}
+              _hover={Blur}
+              p={5}
+            >
+              <Text alignSelf='center' mr='15px' fontWeight='semibold'>
+                Regarder
+              </Text>
+              <BiRightArrow height='35px' width='35px' />
             </Button>
           </Link>
           <Link
             to={`?movie=${landing?.data?.attributes?.movie?.data?.attributes?.title?.split(' ').join('-')}`}
-            state={{ background: location, landing }}>
-            <Button variant='solid' className={styles.BtnStyle} w='max-content' _hover={Blur}>
-              <Text p={5}>Plus d'infos</Text>
-              <BiErrorCircle size='100%' />
+            state={{ background: location, landing }}
+          >
+            <Button alignSelf='center' variant='solid' className={styles.BtnStyle} w='max-content' _hover={Blur} p={5}>
+              <Text alignSelf='center' mr='15' fontWeight='semibold'>
+                Plus d'infos
+              </Text>
+              <BiErrorCircle height='35px' width='35px' />
             </Button>
           </Link>
         </Flex>
