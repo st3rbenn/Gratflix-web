@@ -28,8 +28,9 @@
   },
   "scripts": {
     "dev": "cross-env NODE_OPTIONS='--inspect' react-scripts start",
-    "build": "react-scripts build",
+    "build": "cross-env PROCESS_ENV=production react-scripts build",
     "test": "react-scripts test",
+    "start": "react-scripts start",
     "lint": "eslint '**/*.{js,jsx,ts,tsx,json}'",
     "lint:fix": "eslint --fix '**/*.{js,jsx,ts,tsx,json}'",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json}\" --config ./.prettierrc",
