@@ -3,7 +3,7 @@ import {Navigate, Route, Routes, useLocation} from 'react-router-dom';
 import {MovieModal} from './Components/Modals/MovieModal';
 import Home from './views/Home';
 import Search from './views/Search';
-import React from 'react';
+import React, {useEffect} from 'react';
 
 interface locationState {
   background: {
@@ -14,6 +14,9 @@ interface locationState {
 function App() {
   const location = useLocation();
   const {background} = (location.state as locationState) || {};
+  useEffect(() => {
+    document.body.style.overflowX = 'hidden';
+  }, []);
   return (
     <>
       <Routes>

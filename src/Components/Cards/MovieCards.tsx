@@ -30,13 +30,13 @@ export default function MovieCard({movie, isModal}: MovieCardProps) {
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
           borderRadius="5px"
-          w={{base: '100%', sm: '280px', md: '300px', lg: '320px'}}
+          w={{base: '100%', sm: '240px', md: '260px', lg: '263px'}}
           h={{
             base: '100%',
             sm: '200px',
             md: '220px',
             lg: isModal ? '220px' : '244px',
-            '2xl': isModal ? '220px' : '270px',
+            '2xl': isModal ? '220px' : '344px',
           }}
         />
       </Link>

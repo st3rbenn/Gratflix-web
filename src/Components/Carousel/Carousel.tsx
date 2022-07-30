@@ -83,15 +83,21 @@ export function Carousel({getMovieFromCategory, carouselTitle}: CarouselProps) {
       <Heading size="md" mt={7} ml={3} mb={2} color="white">
         {listTitle}
       </Heading>
-      <Swiper spaceBetween={10} style={{position: 'relative'}} slidesPerView="auto" lazy breakpoints={breakpoint}>
-        <div style={{display: 'flex', justifyContent: 'space-between', position: 'relative'}}>
+      <Swiper
+        spaceBetween={10}
+        style={{position: 'relative', overflow: 'visible'}}
+        lazy
+        slidesPerView={7}
+        breakpoints={breakpoint}
+        allowTouchMove>
+        {/* <div style={{display: 'flex', justifyContent: 'space-between', position: 'relative'}}>
           <Box style={{position: 'absolute', top: 0, right: 0}}>
             <Image src={arrow} w="50px" h="50px" background="hsla(0,0%,8%,.5)" />
           </Box>
           <Box style={{position: 'absolute', top: 0, left: 0}}>
             <Image src={arrow} w="50px" h="50px" transform="rotate(180deg)" background="hsla(0,0%,8%,.5)" />
           </Box>
-        </div>
+        </div> */}
         {movies &&
           movies?.data?.map((movie: components['schemas']['MovieResponse']['data']) => (
             <SwiperSlide key={movie?.id}>
@@ -123,8 +129,5 @@ const breakpoint = {
   },
   1200: {
     slidesPerView: 7,
-  },
-  1550: {
-    slidesPerView: 8,
   },
 };
