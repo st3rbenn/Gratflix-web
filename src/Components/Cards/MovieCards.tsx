@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
+import {debounce} from 'lodash';
 import {Image} from '@chakra-ui/react';
 import {components} from '../../api/typings/api';
-import {Link, useLocation} from 'react-router-dom';
 import styles from './MovieCard.module.css';
 
 interface MovieCardProps {
@@ -13,13 +14,22 @@ interface MovieCardProps {
 export default function MovieCard({movie, isModal}: MovieCardProps) {
   const [hover, setHover] = useState(false);
   const location = useLocation();
+  const Navigate = useNavigate();
+
+  const handleMouseEnter = () => {
+    Navigate(`?movie=${movie?.attributes?.title?.split(' ').join('-')}`, {state: {background: location, movie}});
+  };
+
+  const debounceHandleMouseEnter = useCallback(debounce(handleMouseEnter, 1000), []);
 
   return (
     <>
       <Link
         to={`?movie=${movie?.attributes?.title?.split(' ').join('-')}`}
         state={{background: location, movie}}
-        className={styles.boxSettings}>
+        className={styles.boxSettings}
+        onMouseEnter={debounceHandleMouseEnter}
+        onMouseLeave={() => debounceHandleMouseEnter.cancel()}>
         <Image
           className={styles.image}
           src={`${process.env.REACT_APP_GRATFLIX_UPLOAD_PROVIDER}medium_${

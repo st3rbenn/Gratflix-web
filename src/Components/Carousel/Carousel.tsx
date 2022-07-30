@@ -78,6 +78,7 @@ export function Carousel({getMovieFromCategory, carouselTitle}: CarouselProps) {
       setListTitle(title);
     }
   }, [movies !== undefined, carouselTitle !== undefined]);
+
   return (
     <>
       <Heading size="md" mt={7} ml={3} mb={2} color="white">

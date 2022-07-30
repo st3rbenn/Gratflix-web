@@ -1,9 +1,8 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
+import React, {useEffect} from 'react';
 import {Navigate, Route, Routes, useLocation} from 'react-router-dom';
 import {MovieModal} from './Components/Modals/MovieModal';
 import Home from './views/Home';
 import Search from './views/Search';
-import React, {useEffect} from 'react';
 
 interface locationState {
   background: {

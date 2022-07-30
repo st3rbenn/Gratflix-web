@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {ChangeEvent, useCallback, useEffect, useState} from 'react';
 import {Flex, Container, List, ListItem, Img, Input, Stack, Button} from '@chakra-ui/react';
 import Logo from './Logo.png';
 import {useNavigate, Link} from 'react-router-dom';
@@ -25,6 +25,8 @@ export function Header() {
       }
     }
   };
+
+  const debounceChangeHandler = useCallback(debounce(handleWritting, 500), []);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll, {passive: true});
@@ -76,7 +78,7 @@ export function Header() {
             placeholder="Rechercher un film, par acteur..."
             _placeholder={{opacity: 1, color: 'white', fontWeight: 600, fontSize: 'sm'}}
             htmlSize={20}
-            onChange={(e) => handleWritting(e)}
+            onChange={debounceChangeHandler}
           />
           <Button width="auto" mt="0 !important" bgColor="#e50914" pl={7} pr={7}>
             S&apos;enregistrer
