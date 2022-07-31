@@ -21,11 +21,11 @@ function Home() {
             <Carousel getMovieFromCategory={3} />
           </Container>
           {/* <Container className={styles.galerie} as='article' mb={50}>
-            <Galerie list={2} listTitle={'oeoe'}/>
-          </Container>
-          <Container className={styles.galerie} as='article' mb={50}>
-            <Galerie list={8} listTitle={'test'}/>
-          </Container> */}
+              <Galerie list={2} listTitle={'oeoe'}/>
+            </Container>
+            <Container className={styles.galerie} as='article' mb={50}>
+              <Galerie list={8} listTitle={'test'}/>
+            </Container> */}
         </Box>
       </Box>
       <Outlet />

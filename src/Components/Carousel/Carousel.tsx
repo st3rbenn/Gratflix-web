@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Swiper, SwiperSlide} from 'swiper/react';
-import {Heading, Flex, Image, Box} from '@chakra-ui/react';
+import {Heading, Flex, Image, Box, Grid} from '@chakra-ui/react';
 import {fetcher} from '../../api/fetcher';
 import {components} from '../../api/typings/api';
 import MovieCard from '../Cards/MovieCards';
@@ -10,6 +10,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import 'swiper/css/lazy';
+import Loader from '../Loader/loader';
 
 interface CarouselProps {
   getMovieFromCategory?: number | string;
@@ -81,9 +82,20 @@ export function Carousel({getMovieFromCategory, carouselTitle}: CarouselProps) {
 
   return (
     <>
-      <Heading size="md" mt={7} ml={3} mb={2} color="white">
-        {listTitle}
-      </Heading>
+      {movies !== undefined && (
+        <>
+          <Heading size="md" mt={7} ml={3} mb={2} color="white">
+            {listTitle}
+          </Heading>
+        </>
+      )}
+      {/* : (
+        <>
+          <Grid gridTemplateColumns="repeat(4, 1fr)" width="fit-content" gap="2rem">
+            <Loader />
+          </Grid>
+        </>
+      ) */}
       <Swiper
         spaceBetween={10}
         style={{position: 'relative', overflow: 'visible'}}
@@ -92,21 +104,20 @@ export function Carousel({getMovieFromCategory, carouselTitle}: CarouselProps) {
         breakpoints={breakpoint}
         allowTouchMove>
         {/* <div style={{display: 'flex', justifyContent: 'space-between', position: 'relative'}}>
-          <Box style={{position: 'absolute', top: 0, right: 0}}>
-            <Image src={arrow} w="50px" h="50px" background="hsla(0,0%,8%,.5)" />
-          </Box>
-          <Box style={{position: 'absolute', top: 0, left: 0}}>
-            <Image src={arrow} w="50px" h="50px" transform="rotate(180deg)" background="hsla(0,0%,8%,.5)" />
-          </Box>
-        </div> */}
-        {movies &&
-          movies?.data?.map((movie: components['schemas']['MovieResponse']['data']) => (
-            <SwiperSlide key={movie?.id}>
-              <Flex justifyContent="center" alignItems="center">
-                <MovieCard movie={movie} />
-              </Flex>
-            </SwiperSlide>
-          ))}
+        <Box style={{position: 'absolute', top: 0, right: 0}}>
+          <Image src={arrow} w="50px" h="50px" background="hsla(0,0%,8%,.5)" />
+        </Box>
+        <Box style={{position: 'absolute', top: 0, left: 0}}>
+          <Image src={arrow} w="50px" h="50px" transform="rotate(180deg)" background="hsla(0,0%,8%,.5)" />
+        </Box>
+      </div> */}
+        {movies?.data?.map((movie: components['schemas']['MovieResponse']['data']) => (
+          <SwiperSlide key={movie?.id}>
+            <Flex justifyContent="center" alignItems="center">
+              <MovieCard movie={movie} />
+            </Flex>
+          </SwiperSlide>
+        ))}
       </Swiper>
     </>
   );

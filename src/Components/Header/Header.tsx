@@ -43,7 +43,7 @@ export function Header() {
       className={`${styles.headerContainer} ${scrollPosition > 0 ? styles.HeaderFade : styles.HeaderFadeOut}`}
       color="white">
       <Flex as="nav" alignItems="center" ml="50px" mr="55px" justifyContent="space-between">
-        <List display="flex" gap={5} alignItems="center" fontWeight={600} fontSize="sm">
+        <List display="flex" gap={5} alignItems="center" fontWeight="bold" fontSize="sm">
           <ListItem w="20%">
             <Link to="/">
               <Img src={Logo} />
