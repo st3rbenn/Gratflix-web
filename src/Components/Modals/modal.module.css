@@ -1,11 +1,10 @@
-.btnStyle {
-  justify-content: center;
-  align-items: center;
-  margin-top: 0 !important;
-  height: 10%;
-  width: 20%;
-  padding: 1rem;
+.btn {
+  background-color: #181818;
+  color: white;
+  align-self: center;
 }
+
+
 
 .image {
   position: absolute;
@@ -17,6 +16,7 @@
   overflow: hidden;
   background: linear-gradient(0deg, #181818, transparent 50%);
 }
+
 .modalContainer {
   margin-left: 40px;
   margin-top: 40px;
@@ -57,4 +57,45 @@
 
 .listItems:hover {
   text-decoration: underline;
+}
+
+.text {
+  color: white;
+  font-style: 15px;
+  font-weight: 500;
+}
+
+.textContainer {
+  flex-direction: row;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.age {
+font-weight: 600;
+border: 1px white solid;
+padding-right: 5px;
+padding-left: 5px;
+margin-left: 10px;
+}
+
+.topContainer {
+  align-items: flex-start;
+  flex-direction: column;
+  width: 70%;
+  gap: 44px;
+  flex-wrap: wrap;
+}
+
+.sideContainer {
+  justify-content: flex-start;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.sideItemsContainer {
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
 }

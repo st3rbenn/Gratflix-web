@@ -27,8 +27,7 @@ function Search() {
       };
     }
     const {data: moviesArray} = await searchResult(querySearch);
-    console.log(moviesArray);
-    // setMovies(moviesArray);
+    setMovies(moviesArray);
   };
 
   useEffect(() => {

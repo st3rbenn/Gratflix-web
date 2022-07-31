@@ -12,6 +12,7 @@ import {
   ModalCloseButton,
   ModalContent,
   ModalOverlay,
+  Skeleton,
   Stack,
   Text,
 } from '@chakra-ui/react';
@@ -21,6 +22,7 @@ import {Link, useLocation, useNavigate} from 'react-router-dom';
 import {fetcher} from '../../api/fetcher';
 import {components} from '../../api/typings/api';
 import MovieCard from '../Cards/MovieCards';
+import Loader from '../Loader/loader';
 import styles from './modal.module.css';
 
 interface modalProps {
@@ -40,6 +42,7 @@ export const MovieModal = ({isOpen}: modalProps) => {
   const location = useLocation();
   const {movie, landing} = (location.state as locationState) || {};
   const [isModal, setIsModal] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
   const [bigPoster, setBigPoster] = useState<string | undefined>();
   const [synopsis, setSynopsis] = useState<string | undefined>();
   const [logo, setLogo] = useState<string | undefined>();
@@ -111,24 +114,16 @@ export const MovieModal = ({isOpen}: modalProps) => {
       'pagination[pageSize]': 8,
     };
     const {data: moreMovie} = await getMoreMovie(queryMovie);
-    // let d: {
-    //   data: components['schemas']['MovieListResponse']['data'];
-    //   meta: {
-    //     pagination: {
-    //       page: number;
-    //       pageSize: number;
-    //       total: number;
-    //     };
-    //   };
-    // } = moreMovie;
     // @ts-ignore
     for (let i = moreMovie?.data?.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       // @ts-ignore
       [moreMovie[i], moreMovie[j]] = [moreMovie[j], moreMovie[i]];
-      console.log();
     }
-    setMoreMovie(moreMovie);
+    if (moreMovie !== undefined) {
+      setIsLoaded(true);
+      setMoreMovie(moreMovie);
+    }
   };
 
   useEffect(() => {
@@ -139,7 +134,7 @@ export const MovieModal = ({isOpen}: modalProps) => {
     Navigate(-1);
   };
   return (
-    <Modal isOpen={isOpen} onClose={handleClose} size={['3xl']}>
+    <Modal isOpen={isOpen} onClose={handleClose} size="3xl">
       <ModalOverlay />
       <ModalContent bgColor="#181818" color="white" position="relative">
         <ModalCloseButton zIndex={1000} />
@@ -148,14 +143,8 @@ export const MovieModal = ({isOpen}: modalProps) => {
           <Image src={bigPoster} w={850} h={422} maxW="100%" />
           <Stack className={styles.stackContainer}>
             <Img w="100%" src={logo} mb={7} />
-            <Link to={'/watch/'}>
-              <Button
-                alignSelf="center"
-                variant="solid"
-                bgColor="#181818"
-                color="white"
-                className={styles.BtnStyle}
-                p={5}>
+            <Link to="/watch/" style={{width: 'fit-content'}}>
+              <Button className={styles.btn} variant="solid">
                 <Text alignSelf="center" mr="15px" fontWeight="semibold">
                   Regarder
                 </Text>
@@ -166,36 +155,24 @@ export const MovieModal = ({isOpen}: modalProps) => {
         </Box>
         <Box as="main" className={styles.modalContainer}>
           <Flex as="section" justifyContent="space-between" flexWrap="wrap">
-            <Flex alignItems="flex-start" w="70%" flexDir="column" gap="44px" flexWrap="wrap">
+            <Flex className={styles.topContainer}>
               <Flex flexDir="row" gap="15px" flexWrap="wrap">
-                <Flex flexDir="row" gap="8px" color="gray.400" fontSize="14px">
+                <Flex className={styles.textContainer} color="gray.400">
                   date de sortie:
-                  <Text color="white" fontSize="15px" fontWeight="semibold">
-                    {releaseDate}
-                  </Text>
+                  <Text className={styles.text}>{releaseDate}</Text>
                 </Flex>
-                <Flex flexDir="row" gap="8px" color="gray.400" fontSize="14px">
+                <Flex className={styles.textContainer} color="gray.400">
                   durée:
-                  <Text color="white" fontSize="15px" fontWeight="semibold">
-                    {viewTime}
-                  </Text>
+                  <Text className={styles.text}>{viewTime}</Text>
                 </Flex>
-                <Text
-                  className={styles.listItems}
-                  fontWeight="semibold"
-                  border="1px white solid"
-                  pr="5px"
-                  pl="5px"
-                  ml="10px">
-                  {age}
-                </Text>
+                <Text className={`${styles.listItems} ${styles.age}`}>{age}</Text>
               </Flex>
               <Text fontSize="15px" fontWeight="semibold">
                 {`${synopsis?.slice(0, 315)}...`}
               </Text>
             </Flex>
-            <Flex justifyContent="flex-start" flexDir="column" flexWrap="wrap">
-              <Flex flexDir="column" alignItems="flex-start" mb="15px" flexWrap="wrap">
+            <Flex className={styles.sideContainer}>
+              <Flex className={styles.sideItemsContainer} mb="15px">
                 <Text color="gray.400" fontSize="14px">
                   genre:
                 </Text>
@@ -205,7 +182,7 @@ export const MovieModal = ({isOpen}: modalProps) => {
                   </Text>
                 ))}
               </Flex>
-              <Flex flexDir="column" alignItems="flex-start" mb="15px">
+              <Flex className={styles.sideItemsContainer} mb="15px">
                 <Text color="gray.400" fontSize="14px">
                   acteurs:
                 </Text>
@@ -215,7 +192,7 @@ export const MovieModal = ({isOpen}: modalProps) => {
                   </Text>
                 ))}
               </Flex>
-              <Flex flexDir="column" alignItems="flex-start">
+              <Flex className={styles.sideItemsContainer}>
                 <Text color="gray.400" fontSize="14px">
                   realisateur:
                 </Text>
@@ -234,13 +211,17 @@ export const MovieModal = ({isOpen}: modalProps) => {
               <Heading size="md">A voir aussi</Heading>
             </Box>
             <Grid gridTemplateColumns="repeat(4, 1fr)" gap={6}>
-              {moreMovie?.data?.map((movie: components['schemas']['MovieResponse']['data']) => {
-                return (
-                  <GridItem key={movie?.id}>
-                    <MovieCard movie={movie} isModal={isModal} />
-                  </GridItem>
-                );
-              })}
+              {isLoaded ? (
+                moreMovie?.data?.map((movie: components['schemas']['MovieResponse']['data']) => {
+                  return (
+                    <GridItem key={movie?.id}>
+                      <MovieCard movie={movie} isModal={isModal} />
+                    </GridItem>
+                  );
+                })
+              ) : (
+                <Loader />
+              )}
             </Grid>
           </Flex>
         </Box>

@@ -7,17 +7,19 @@ import styles from './MovieCard.module.css';
 
 interface MovieCardProps {
   movie: components['schemas']['MovieResponse']['data'];
-  hover?: boolean;
   isModal?: boolean;
 }
 
 export default function MovieCard({movie, isModal}: MovieCardProps) {
   const [hover, setHover] = useState(false);
+  const [cardClicked, setCardClicked] = useState<boolean>(false);
   const location = useLocation();
   const Navigate = useNavigate();
 
   const handleMouseEnter = () => {
-    Navigate(`?movie=${movie?.attributes?.title?.split(' ').join('-')}`, {state: {background: location, movie}});
+    if (!isModal)
+      if (!cardClicked)
+        Navigate(`?movie=${movie?.attributes?.title?.split(' ').join('-')}`, {state: {background: location, movie}});
   };
 
   const debounceHandleMouseEnter = useCallback(debounce(handleMouseEnter, 1000), []);
@@ -39,6 +41,7 @@ export default function MovieCard({movie, isModal}: MovieCardProps) {
           style={hover ? Blur : unBlur}
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
+          onDragCapture={() => setCardClicked(true)}
           borderRadius="5px"
           w={{base: '100%', sm: '240px', md: '260px', lg: '263px'}}
           h={{
@@ -46,7 +49,7 @@ export default function MovieCard({movie, isModal}: MovieCardProps) {
             sm: '200px',
             md: '220px',
             lg: isModal ? '220px' : '244px',
-            '2xl': isModal ? '220px' : '344px',
+            '2xl': isModal ? '220px' : '334px',
           }}
         />
       </Link>
