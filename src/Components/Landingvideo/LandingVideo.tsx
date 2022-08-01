@@ -36,7 +36,6 @@ export const LandingVideo = ({loadingData}: landingProps) => {
     };
     const {data: landingResult} = await getLanding(queryLanding);
     if (landingResult !== undefined) {
-      setLoading(false);
       setLanding(landingResult as components['schemas']['LandingResponse']);
     }
   };
@@ -63,15 +62,21 @@ export const LandingVideo = ({loadingData}: landingProps) => {
     }
   }, [scrollPosition]);
 
+  useEffect(() => {
+    if (landing?.data?.attributes?.movie?.data?.attributes?.Logo !== undefined) {
+      setLoading(false);
+    }
+  }, [landing]);
+
   if (landing?.data?.attributes?.movie?.data?.attributes?.trailer !== undefined) {
     trailer = `${process.env.REACT_APP_GRATFLIX_UPLOAD_PROVIDER}${
       landing?.data?.attributes?.movie?.data?.attributes?.trailer?.data?.attributes?.url?.split('/')[3]
     }`;
   }
-
   const logo = `${process.env.REACT_APP_GRATFLIX_UPLOAD_PROVIDER}${
     landing?.data?.attributes?.movie?.data?.attributes?.Logo?.data?.attributes?.url?.split('/')[3]
   }`;
+
   const poster = `${process.env.REACT_APP_GRATFLIX_UPLOAD_PROVIDER}${
     landing?.data?.attributes?.movie?.data?.attributes?.bigposter?.data?.attributes?.url?.split('/')[3]
   }`;
@@ -84,7 +89,7 @@ export const LandingVideo = ({loadingData}: landingProps) => {
     <Box as="section" className={styles.landingContainer}>
       {!loading ? (
         <>
-          <Box position="relative">
+          <Box position="relative" className={styles.fadeInContainer}>
             <Box className={styles.image} style={{zIndex: 1}}></Box>
             {videoEnd ? (
               <>
@@ -120,7 +125,7 @@ export const LandingVideo = ({loadingData}: landingProps) => {
               </>
             )}
           </Box>
-          <Stack className={styles.stackContainer}>
+          <Stack className={`${styles.stackContainer} ${styles.fadeInContainer}`}>
             <Img w="100%" src={logo} mb={7} />
             <Flex alignItems="center" gap={6}>
               <Link to={'/watch/'}>

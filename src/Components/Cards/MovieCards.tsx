@@ -15,11 +15,12 @@ export default function MovieCard({movie, isModal}: MovieCardProps) {
   const [cardClicked, setCardClicked] = useState(false);
   const location = useLocation();
   const Navigate = useNavigate();
+  const isSearchP = location.search.split('=')[0].includes('q');
 
   const handleMouseEnter = () => {
     if (!isModal)
-      if (cardClicked)
-        if (!location.search.split('=')[0].includes('q'))
+      if (!location.search.split('=')[0].includes('q'))
+        if (!cardClicked)
           Navigate(`?movie=${movie?.attributes?.title?.split(' ').join('-')}`, {state: {background: location, movie}});
   };
 
@@ -42,14 +43,14 @@ export default function MovieCard({movie, isModal}: MovieCardProps) {
           style={hover ? Blur : unBlur}
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
-          onDragCapture={() => setCardClicked(true)}
+          onDrag={() => console.log('testions')}
           borderRadius="5px"
           w={{base: '100%', sm: '240px', md: '260px', lg: '263px'}}
           h={{
             base: '100%',
             sm: '200px',
             md: '220px',
-            lg: isModal ? '220px' : '244px',
+            lg: isModal ? '220px' : isSearchP ? '300px' : '263px',
             '2xl': isModal ? '220px' : '320px',
           }}
         />

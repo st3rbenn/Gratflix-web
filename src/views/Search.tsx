@@ -48,14 +48,20 @@ function Search() {
   return (
     <Container maxW="container.xxl" as="section" bgColor="#181818" color="white" minH="100vh">
       <Box className={styles.searchContainer}>
-        <Heading size="md" color="gray.400">
+        <Heading size="md" color="gray.400" w="fit-content" mt="15px" ml="20px">
           Résultat de recherche pour:
           <Text color="white">{resultSearch}</Text>
         </Heading>
         <Flex flexWrap="wrap" alignItems="center" gap={2} mt="4rem">
           {isLoaded ? (
             movies?.data?.map((movie: components['schemas']['MovieResponse']['data']) => (
-              <Flex key={movie?.id} alignItems="center" width="266px">
+              <Flex
+                key={movie?.id}
+                alignItems="center"
+                width={{
+                  xl: '234px',
+                  '2xl': '266px',
+                }}>
                 <MovieCard movie={movie} />
               </Flex>
             ))

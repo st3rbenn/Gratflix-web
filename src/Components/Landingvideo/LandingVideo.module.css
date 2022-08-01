@@ -1,17 +1,7 @@
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
 .blockClick {
   pointer-events: none;
   width: 100% !important;
   height: 72% !important;
-  transition: all 0.5s fadeIn;
   overflow: hidden;
 }
 
@@ -58,4 +48,21 @@
   opacity: 1;
   overflow: hidden;
   background: linear-gradient(0deg, #181818, transparent 50%)
+}
+
+.fadeInContainer {
+	opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 150ms;
+}
+
+@keyframes fadeInOpacity {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
 }
