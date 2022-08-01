@@ -17,3 +17,13 @@ body {
   margin-top: 5px;
   max-width: 100% !important;
 }
+
+.searchContainer {
+  position: absolute;
+  top: 13%;
+  left: 5%;
+  width: 100%;
+  height: 100%;
+  margin-left: 55px;
+  margin-right: 55px;
+}

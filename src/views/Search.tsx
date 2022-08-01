@@ -1,13 +1,21 @@
 import React, {useEffect, useState} from 'react';
-import {Container} from '@chakra-ui/react';
+import {Box, Container, Flex, Grid, GridItem, Heading, Text} from '@chakra-ui/react';
 import {useLocation} from 'react-router-dom';
 import {fetcher} from '../api/fetcher';
 import {components} from '../api/typings/api';
+import MovieCard from 'src/Components/Cards/MovieCards';
+import styles from './GlobalStyle.module.css';
+import Loader from 'src/Components/Loader/loader';
+
+let resultSearch: string;
 
 function Search() {
   const [movies, setMovies] = useState<components['schemas']['MovieListResponse']>();
+  const [isLoaded, setIsLoaded] = useState(false);
   const location = useLocation();
-  const resultSearch = location.search.split('=')[1];
+  if (location.search.split('=')[0].includes('q')) {
+    resultSearch = decodeURI(location.search.split('=')[1]);
+  }
 
   const getSearchResult = async () => {
     const searchResult = fetcher.path('/movies').method('get').create();
@@ -27,7 +35,10 @@ function Search() {
       };
     }
     const {data: moviesArray} = await searchResult(querySearch);
-    setMovies(moviesArray);
+    if (moviesArray !== undefined) {
+      setIsLoaded(true);
+      setMovies(moviesArray);
+    }
   };
 
   useEffect(() => {
@@ -36,7 +47,23 @@ function Search() {
 
   return (
     <Container maxW="container.xxl" as="section" bgColor="#181818" color="white" minH="100vh">
-      <div>{resultSearch}</div>
+      <Box className={styles.searchContainer}>
+        <Heading size="md" color="gray.400">
+          Résultat de recherche pour:
+          <Text color="white">{resultSearch}</Text>
+        </Heading>
+        <Flex flexWrap="wrap" alignItems="center" gap={2} mt="4rem">
+          {isLoaded ? (
+            movies?.data?.map((movie: components['schemas']['MovieResponse']['data']) => (
+              <Flex key={movie?.id} alignItems="center" width="266px">
+                <MovieCard movie={movie} />
+              </Flex>
+            ))
+          ) : (
+            <Loader />
+          )}
+        </Flex>
+      </Box>
     </Container>
   );
 }

@@ -12,14 +12,15 @@ interface MovieCardProps {
 
 export default function MovieCard({movie, isModal}: MovieCardProps) {
   const [hover, setHover] = useState(false);
-  const [cardClicked, setCardClicked] = useState<boolean>(false);
+  const [cardClicked, setCardClicked] = useState(false);
   const location = useLocation();
   const Navigate = useNavigate();
 
   const handleMouseEnter = () => {
     if (!isModal)
-      if (!cardClicked)
-        Navigate(`?movie=${movie?.attributes?.title?.split(' ').join('-')}`, {state: {background: location, movie}});
+      if (cardClicked)
+        if (!location.search.split('=')[0].includes('q'))
+          Navigate(`?movie=${movie?.attributes?.title?.split(' ').join('-')}`, {state: {background: location, movie}});
   };
 
   const debounceHandleMouseEnter = useCallback(debounce(handleMouseEnter, 1000), []);
@@ -49,7 +50,7 @@ export default function MovieCard({movie, isModal}: MovieCardProps) {
             sm: '200px',
             md: '220px',
             lg: isModal ? '220px' : '244px',
-            '2xl': isModal ? '220px' : '334px',
+            '2xl': isModal ? '220px' : '320px',
           }}
         />
       </Link>

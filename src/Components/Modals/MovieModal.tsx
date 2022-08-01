@@ -12,7 +12,6 @@ import {
   ModalCloseButton,
   ModalContent,
   ModalOverlay,
-  Skeleton,
   Stack,
   Text,
 } from '@chakra-ui/react';
