@@ -61,16 +61,18 @@ export const LandingVideo = ({loadingData}: landingProps) => {
   }, []);
 
   useEffect(() => {
-    if (scrollPosition > 320) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      video?.pause();
-    } else {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      video?.play();
+    if (!videoEnd) {
+      if (scrollPosition > 320) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        video?.pause();
+      } else {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        video?.play();
+      }
     }
-  }, [scrollPosition && !videoEnd]);
+  }, [scrollPosition]);
 
   if (landing?.data?.attributes?.movie?.data?.attributes?.trailer !== undefined) {
     trailer = `${process.env.REACT_APP_GRATFLIX_UPLOAD_PROVIDER}${
@@ -85,10 +87,6 @@ export const LandingVideo = ({loadingData}: landingProps) => {
     landing?.data?.attributes?.movie?.data?.attributes?.bigposter?.data?.attributes?.url?.split('/')[3]
   }`;
 
-  const Blur = {
-    filter: 'contrast(88%) brightness(72%)',
-  };
-
   return (
     <Box as="section" className={styles.landingContainer}>
       {!loading ? (
@@ -98,14 +96,7 @@ export const LandingVideo = ({loadingData}: landingProps) => {
             {videoEnd ? (
               <>
                 <AspectRatio ratio={2.38} className={styles.blockClick}>
-                  <Image
-                    src={poster}
-                    style={{
-                      width: '100% !important',
-                      height: '72% !important',
-                      filter: 'brightness(0.8) invert(0.12) opacity(1)',
-                    }}
-                  />
+                  <Image src={poster} />
                 </AspectRatio>
               </>
             ) : (
@@ -158,16 +149,18 @@ export const LandingVideo = ({loadingData}: landingProps) => {
                   <BiErrorCircle height="35px" width="35px" />
                 </Button>
               </Link>
-              <Button
-                alignSelf="center"
-                variant="solid"
-                className={styles.BtnStyle}
-                w="max-content"
-                _hover={Blur}
-                style={{padding: '15px'}}
-                onClick={() => setVolumeMuted(!volumeMuted)}>
-                <Image src={volumeMuted ? volumeOn : volumeOff} width="24px" height="24px" />
-              </Button>
+              {!videoEnd && trailer !== undefined && (
+                <Button
+                  alignSelf="center"
+                  variant="solid"
+                  className={styles.BtnStyle}
+                  w="max-content"
+                  _hover={Blur}
+                  style={{padding: '15px'}}
+                  onClick={() => setVolumeMuted(!volumeMuted)}>
+                  <Image src={volumeMuted ? volumeOn : volumeOff} width="24px" height="24px" />
+                </Button>
+              )}
             </Flex>
           </Stack>
           <Outlet />
@@ -185,4 +178,8 @@ export const LandingVideo = ({loadingData}: landingProps) => {
       )}
     </Box>
   );
+};
+
+const Blur = {
+  filter: 'contrast(88%) brightness(72%)',
 };

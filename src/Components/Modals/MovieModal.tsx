@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import {
+  AspectRatio,
   Box,
   Button,
   Flex,
@@ -139,7 +140,9 @@ export const MovieModal = ({isOpen}: modalProps) => {
         <ModalCloseButton zIndex={1000} />
         <Box position="relative">
           <Box className={styles.image}></Box>
-          <Image src={bigPoster} w={850} h={422} maxW="100%" />
+          <AspectRatio ratio={2.12}>
+            <Image src={bigPoster} maxW="100%" />
+          </AspectRatio>
           <Stack className={styles.stackContainer}>
             <Img w="100%" src={logo} mb={7} />
             <Link to="/watch/" style={{width: 'fit-content'}}>
