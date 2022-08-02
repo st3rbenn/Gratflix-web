@@ -50,7 +50,7 @@ export default function MovieCard({movie, isModal}: MovieCardProps) {
             base: '100%',
             sm: '200px',
             md: '220px',
-            lg: isModal ? '220px' : isSearchP ? '300px' : '263px',
+            lg: isModal ? '220px' : isSearchP ? '300px' : '240px',
             '2xl': isModal ? '220px' : '320px',
           }}
         />

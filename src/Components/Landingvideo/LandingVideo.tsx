@@ -50,6 +50,11 @@ export const LandingVideo = ({loadingData}: landingProps) => {
     setScrollPosition(position);
   };
 
+  const handleEndVideo = () => {
+    setVideoEnd(true);
+    setVolumeMuted(true);
+  };
+
   useEffect(() => {
     window.addEventListener('scroll', handleScroll, {passive: true});
     result();
@@ -65,15 +70,7 @@ export const LandingVideo = ({loadingData}: landingProps) => {
       // @ts-ignore
       video?.play();
     }
-  }, [scrollPosition]);
-
-  useEffect(() => {
-    if (videoEnd) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      video?.pause();
-    }
-  }, [videoEnd]);
+  }, [scrollPosition && !videoEnd]);
 
   if (landing?.data?.attributes?.movie?.data?.attributes?.trailer !== undefined) {
     trailer = `${process.env.REACT_APP_GRATFLIX_UPLOAD_PROVIDER}${
@@ -121,7 +118,7 @@ export const LandingVideo = ({loadingData}: landingProps) => {
                     autoPlay
                     playsInline
                     onTimeUpdate={(ev) => setVideo(ev.target)}
-                    onEnded={() => setVideoEnd(true)}
+                    onEnded={handleEndVideo}
                   />
                 </AspectRatio>
               </>
