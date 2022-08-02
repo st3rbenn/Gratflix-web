@@ -29,7 +29,7 @@ jobs:
         uses: bahmutov/npm-install@v1
 
       - name: "🔍 run tests"
-        run: npm run test --if-present --passWithNoTests
+        run: --passWithNoTests
 
   lint:
     name: Code standards
