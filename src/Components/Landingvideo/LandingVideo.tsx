@@ -74,6 +74,20 @@ export const LandingVideo = ({loadingData}: landingProps) => {
     }
   }, [scrollPosition]);
 
+  useEffect(() => {
+    if (!videoEnd) {
+      if (location.state === null) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        video?.play();
+      } else {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        video?.pause();
+      }
+    }
+  }, [location.state]);
+
   if (landing?.data?.attributes?.movie?.data?.attributes?.trailer !== undefined) {
     trailer = `${process.env.REACT_APP_GRATFLIX_UPLOAD_PROVIDER}${
       landing?.data?.attributes?.movie?.data?.attributes?.trailer?.data?.attributes?.url?.split('/')[3]
