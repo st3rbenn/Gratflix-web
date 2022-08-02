@@ -28,9 +28,6 @@ jobs:
       - name: "📦 install dependencies"
         uses: bahmutov/npm-install@v1
 
-      - name: "🔍 run tests"
-        run: npm run test --passWithNoTests
-
   lint:
     name: Code standards
     runs-on: ubuntu-latest
