@@ -43,6 +43,9 @@ function Search() {
 
   useEffect(() => {
     getSearchResult();
+    return () => {
+      setIsLoaded(false);
+    };
   }, [resultSearch]);
 
   return (
@@ -61,7 +64,8 @@ function Search() {
                 width={{
                   xl: '234px',
                   '2xl': '266px',
-                }}>
+                }}
+                className={styles.fadeInContainer}>
                 <MovieCard movie={movie} />
               </Flex>
             ))
