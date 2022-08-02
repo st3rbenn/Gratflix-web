@@ -5,6 +5,7 @@ import {fetcher} from '../../api/fetcher';
 import {components} from '../../api/typings/api';
 import MovieCard from '../Cards/MovieCards';
 import arrow from '../../assets/img/arrow.svg';
+import styles from './carousel.module.css';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -112,7 +113,7 @@ export function Carousel({getMovieFromCategory, carouselTitle}: CarouselProps) {
         </Box>
       </div> */}
         {movies?.data?.map((movie: components['schemas']['MovieResponse']['data']) => (
-          <SwiperSlide key={movie?.id}>
+          <SwiperSlide key={movie?.id} className={styles.fadeInContainer}>
             <Flex justifyContent="center" alignItems="center">
               <MovieCard movie={movie} />
             </Flex>

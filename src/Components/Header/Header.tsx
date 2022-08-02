@@ -7,6 +7,8 @@ import {debounce} from 'lodash';
 
 export function Header() {
   const [scrollPosition, setScrollPosition] = useState(0);
+  const [homeClicked, setHomeClicked] = useState(false);
+  const [currentInputValue, setCurrentInputValue] = useState<string>();
 
   const Navigation = useNavigate();
   const pathNameUrl = window.location.pathname;
@@ -19,9 +21,11 @@ export function Header() {
   const handleWritting = (ev: ChangeEvent) => {
     if (ev.target instanceof HTMLInputElement) {
       if (ev.target.value.length > 0) {
+        setCurrentInputValue(ev.target.value);
         Navigation(`/search?q=${ev.target.value}`);
       } else {
-        Navigation('/Browse');
+        Navigation('/browse');
+        setCurrentInputValue('');
       }
     }
   };
@@ -45,7 +49,7 @@ export function Header() {
       <Flex as="nav" alignItems="center" ml="50px" mr="55px" justifyContent="space-between">
         <List display="flex" gap={5} alignItems="center" fontWeight="bold" fontSize="sm">
           <ListItem w="20%">
-            <Link to="/">
+            <Link to="/browse" onClick={() => setHomeClicked(!homeClicked)}>
               <Img src={Logo} />
             </Link>
           </ListItem>

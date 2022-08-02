@@ -7,6 +7,9 @@ import {fetcher} from '../../api/fetcher';
 import styles from './LandingVideo.module.css';
 import Loader from '../Loader/loader';
 
+import volumeOff from '../../assets/img/volume-mute-fill.svg';
+import volumeOn from '../../assets/img/volume-up-fill.svg';
+
 interface landingProps {
   loadingData?: () => void;
 }
@@ -19,6 +22,7 @@ export const LandingVideo = ({loadingData}: landingProps) => {
   const [loading, setLoading] = useState(true);
   const [landing, setLanding] = useState([] as components['schemas']['LandingResponse']);
   const [video, setVideo] = useState<EventTarget>();
+  const [volumeMuted, setVolumeMuted] = useState(false);
 
   const result = async () => {
     const getLanding = fetcher.path('/landing').method('get').create();
@@ -36,6 +40,7 @@ export const LandingVideo = ({loadingData}: landingProps) => {
     };
     const {data: landingResult} = await getLanding(queryLanding);
     if (landingResult !== undefined) {
+      setLoading(false);
       setLanding(landingResult as components['schemas']['LandingResponse']);
     }
   };
@@ -63,10 +68,12 @@ export const LandingVideo = ({loadingData}: landingProps) => {
   }, [scrollPosition]);
 
   useEffect(() => {
-    if (landing?.data?.attributes?.movie?.data?.attributes?.Logo !== undefined) {
-      setLoading(false);
+    if (videoEnd) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      video?.pause();
     }
-  }, [landing]);
+  }, [videoEnd]);
 
   if (landing?.data?.attributes?.movie?.data?.attributes?.trailer !== undefined) {
     trailer = `${process.env.REACT_APP_GRATFLIX_UPLOAD_PROVIDER}${
@@ -93,7 +100,7 @@ export const LandingVideo = ({loadingData}: landingProps) => {
             <Box className={styles.image} style={{zIndex: 1}}></Box>
             {videoEnd ? (
               <>
-                <AspectRatio ratio={1.72} className={styles.blockClick}>
+                <AspectRatio ratio={2.38} className={styles.blockClick}>
                   <Image
                     src={poster}
                     style={{
@@ -106,19 +113,14 @@ export const LandingVideo = ({loadingData}: landingProps) => {
               </>
             ) : (
               <>
-                <AspectRatio ratio={1.72} className={styles.blockClick}>
+                <AspectRatio ratio={2.38} className={styles.blockClick} style={{height: '72% !important'}}>
                   <video
                     poster={poster}
                     src={trailer}
-                    muted
+                    muted={!volumeMuted}
                     autoPlay
                     playsInline
                     onTimeUpdate={(ev) => setVideo(ev.target)}
-                    style={{
-                      filter: 'brightness(0.8) invert(0.12) opacity(1)',
-                      width: '100% !important',
-                      height: '72% !important',
-                    }}
                     onEnded={() => setVideoEnd(true)}
                   />
                 </AspectRatio>
@@ -159,6 +161,16 @@ export const LandingVideo = ({loadingData}: landingProps) => {
                   <BiErrorCircle height="35px" width="35px" />
                 </Button>
               </Link>
+              <Button
+                alignSelf="center"
+                variant="solid"
+                className={styles.BtnStyle}
+                w="max-content"
+                _hover={Blur}
+                style={{padding: '15px'}}
+                onClick={() => setVolumeMuted(!volumeMuted)}>
+                <Image src={volumeMuted ? volumeOn : volumeOff} width="24px" height="24px" />
+              </Button>
             </Flex>
           </Stack>
           <Outlet />
