@@ -110,12 +110,12 @@ export const LandingVideo = ({loadingData}: landingProps) => {
             {videoEnd ? (
               <>
                 <AspectRatio ratio={2.38} className={styles.blockClick}>
-                  <Image src={poster} />
+                  <Image src={poster} height="119% !important" />
                 </AspectRatio>
               </>
             ) : (
               <>
-                <AspectRatio ratio={2.38} className={styles.blockClick} style={{height: '72% !important'}}>
+                <AspectRatio ratio={2.38} className={styles.blockClick}>
                   <video
                     poster={poster}
                     src={trailer}
