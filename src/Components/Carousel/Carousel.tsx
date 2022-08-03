@@ -90,13 +90,6 @@ export function Carousel({getMovieFromCategory, carouselTitle}: CarouselProps) {
           </Heading>
         </>
       )}
-      {/* : (
-        <>
-          <Grid gridTemplateColumns="repeat(4, 1fr)" width="fit-content" gap="2rem">
-            <Loader />
-          </Grid>
-        </>
-      ) */}
       <Swiper
         spaceBetween={10}
         style={{position: 'relative', overflow: 'visible'}}

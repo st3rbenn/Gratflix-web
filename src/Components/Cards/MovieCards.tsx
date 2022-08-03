@@ -24,7 +24,7 @@ export default function MovieCard({movie, isModal}: MovieCardProps) {
           Navigate(`?movie=${movie?.attributes?.title?.split(' ').join('-')}`, {state: {background: location, movie}});
   };
 
-  const debounceHandleMouseEnter = useCallback(debounce(handleMouseEnter, 1000), []);
+  const debounceHandleMouseEnter = useCallback(debounce(handleMouseEnter, 1500), []);
 
   return (
     <>

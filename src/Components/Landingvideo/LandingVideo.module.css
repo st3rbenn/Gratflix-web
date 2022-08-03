@@ -1,6 +1,5 @@
 .blockClick {
   pointer-events: none;
-  width: 100% !important;
   height: 72% !important;
   overflow: hidden;
 }
@@ -47,7 +46,7 @@
   height: 100% !important;
   opacity: 1;
   overflow: hidden;
-  background: linear-gradient(0deg, #181818, transparent 50%), linear-gradient(-90deg, #181818, transparent 25%), linear-gradient(90deg, #181818, transparent 25%);
+  background: linear-gradient(0deg, #181818, transparent 50%), linear-gradient(-90deg, #181818, transparent 10%), linear-gradient(90deg, #181818, transparent 10%);
 }
 
 .fadeInContainer {

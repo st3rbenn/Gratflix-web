@@ -10,6 +10,7 @@ fetcher.configure({
     headers: {
       accept: 'application/json',
       Authorization: 'Bearer ' + process.env.REACT_APP_GRATFLIX_API_KEY,
+      accessControlAllowOrigin: 'https://www.gratflix.site, https://gratflix.site, http://localhost:3000',
     },
   },
 });
