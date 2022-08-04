@@ -1,9 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Swiper, SwiperSlide} from 'swiper/react';
+import {Link, useLocation} from 'react-router-dom';
 import {Heading, Flex, Image, Box, Grid} from '@chakra-ui/react';
 import {fetcher} from '../../api/fetcher';
 import {components} from '../../api/typings/api';
-import MovieCard from '../Cards/MovieCards';
+import MovieCard from '../movie_cards/MovieCards';
 import arrow from '../../assets/img/arrow.svg';
 import styles from './carousel.module.css';
 
@@ -11,7 +12,6 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import 'swiper/css/lazy';
-import Loader from '../Loader/loader';
 
 interface CarouselProps {
   getMovieFromCategory?: number | string;
@@ -22,6 +22,7 @@ interface CarouselProps {
 export function Carousel({getMovieFromCategory, carouselTitle}: CarouselProps) {
   const [movies, setMovies] = useState<components['schemas']['MovieListResponse']>();
   const [listTitle, setListTitle] = useState<string>();
+  const location = useLocation();
 
   const getMovies = async () => {
     const getMovie = fetcher.path('/movies').method('get').create();
@@ -108,7 +109,11 @@ export function Carousel({getMovieFromCategory, carouselTitle}: CarouselProps) {
         {movies?.data?.map((movie: components['schemas']['MovieResponse']['data']) => (
           <SwiperSlide key={movie?.id} className={styles.fadeInContainer}>
             <Flex justifyContent="center" alignItems="center">
-              <MovieCard movie={movie} />
+              <Link
+                to={`?movie=${movie?.attributes?.title?.split(' ').join('-')}`}
+                state={{background: location, movie}}>
+                <MovieCard movie={movie} />
+              </Link>
             </Flex>
           </SwiperSlide>
         ))}

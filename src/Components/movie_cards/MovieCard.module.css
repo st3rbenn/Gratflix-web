@@ -1,0 +1,43 @@
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.scaleMovie {
+  transition: all 0.2s ease-in-out;
+  position: relative;
+  z-index: 1000;
+  animation: fadeOut 0.2s ease-in-out;
+  opacity: 0;
+}
+
+.unScaleMovie {
+  transform: scale(1, 1);
+  transition: all 0.2s ease-in-out;
+  position: relative;
+  z-index: 100;
+}
+
+.scaleInMovieDetailsContainer {
+  
+  /* z-index: 10000;
+  animation: fadeIn 0.2s ease-in-out;
+  background: #181818;
+  box-shadow: black 0px 0px 15px;
+  border-radius: 5px; */
+}

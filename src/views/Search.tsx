@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {Box, Container, Flex, Grid, GridItem, Heading, Text} from '@chakra-ui/react';
+import {Box, Container, Flex, Heading, Text} from '@chakra-ui/react';
 import {useLocation} from 'react-router-dom';
 import {fetcher} from '../api/fetcher';
 import {components} from '../api/typings/api';
-import MovieCard from 'src/Components/Cards/MovieCards';
+import MovieCard from 'src/Components/movie_cards/MovieCards';
 import styles from './GlobalStyle.module.css';
-import Loader from 'src/Components/Loader/loader';
+import Loader from 'src/Components/loader/loader';
 
 let resultSearch: string;
 
