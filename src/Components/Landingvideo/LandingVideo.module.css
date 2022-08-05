@@ -21,19 +21,6 @@
   z-index: 1;
 }
 
-.btnStyle {
-  justify-content: center;
-  align-items: center;
-  margin-top: 0 !important;
-  height: 10%;
-  width: 20%;
-  padding: 1rem;
-  width: max-content !important;
-  background-color: #181818;
-  color: white;
-  max-width: 100%;
-}
-
 .blur {
   filter: contrast(88%) brightness(72%);
 }
@@ -46,7 +33,7 @@
   height: 100% !important;
   opacity: 1;
   overflow: hidden;
-  background: linear-gradient(0deg, #181818, transparent 50%), linear-gradient(-90deg, #181818, transparent 10%), linear-gradient(90deg, #181818, transparent 10%);
+  background: linear-gradient(0deg, #181818, transparent 50%);
 }
 
 .fadeInContainer {
@@ -64,4 +51,9 @@
 	100% {
 		opacity: 1;
 	}
+}
+
+.currentLanding {
+  animation: fadeInOpacity 0.5s ease-in;
+  animation-duration: 300ms;
 }

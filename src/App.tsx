@@ -18,6 +18,7 @@ function App() {
   const location = useLocation();
   const {background} = (location.state as locationState) || {};
   const {preview} = (location.state as locationState) || {};
+
   useEffect(() => {
     document.body.style.overflowX = 'hidden';
   }, []);

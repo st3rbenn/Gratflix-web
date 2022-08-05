@@ -132,13 +132,16 @@ const breakpoint = {
   630: {
     slidesPerView: 4,
   },
-  900: {
+  768: {
     slidesPerView: 5,
   },
-  1000: {
+  900: {
     slidesPerView: 6,
   },
-  1200: {
+  1000: {
     slidesPerView: 7,
+  },
+  1720: {
+    slidesPerView: 8,
   },
 };
