@@ -1,5 +1,5 @@
 import {AspectRatio, Box, Button, Flex, Grid, Image, Img, Stack, Text} from '@chakra-ui/react';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Link, Outlet, useLocation} from 'react-router-dom';
 import {BiErrorCircle, BiRightArrow} from 'react-icons/bi';
 import {components} from '../../api/typings/api';
@@ -9,24 +9,20 @@ import Loader from '../loader/loader';
 
 import volumeOff from '../../assets/img/volume-mute-fill.svg';
 import volumeOn from '../../assets/img/volume-up-fill.svg';
+import reload from '../../assets/img/reload.svg';
 
-interface landingProps {
-  loadingData?: () => void;
-}
-
-let trailer: string;
-export const LandingVideo = ({loadingData}: landingProps) => {
+let getLanding = fetcher.path('/landing').method('get').create();
+export const LandingVideo = () => {
   const location = useLocation();
   const [scrollPosition, setScrollPosition] = useState(0);
   const [videoEnd, setVideoEnd] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [landing, setLanding] = useState([] as components['schemas']['LandingResponse']);
+  const [landing, setLanding] = useState<components['schemas']['LandingResponse']>();
   const [video, setVideo] = useState<EventTarget>();
   const [volumeMuted, setVolumeMuted] = useState(false);
 
   const result = async () => {
-    const getLanding = fetcher.path('/landing').method('get').create();
-
+    getLanding = fetcher.path('/landing').method('get').create();
     const queryLanding = {
       populate: 'movie',
       'populate[1]': 'movie.Logo',
@@ -40,7 +36,6 @@ export const LandingVideo = ({loadingData}: landingProps) => {
     };
     const {data: landingResult} = await getLanding(queryLanding);
     if (landingResult !== undefined) {
-      setLoading(false);
       setLanding(landingResult as components['schemas']['LandingResponse']);
     }
   };
@@ -53,12 +48,51 @@ export const LandingVideo = ({loadingData}: landingProps) => {
   const handleEndVideo = () => {
     setVideoEnd(true);
     setVolumeMuted(true);
+
+    const landingData = JSON.parse(sessionStorage.getItem('landingData') as string);
+    landingData.videoEnd = true;
+    sessionStorage.setItem('landingData', JSON.stringify(landingData));
+  };
+
+  const handleRestartVideo = () => {
+    setVideoEnd(false);
+    setVolumeMuted(false);
+
+    const landingData = JSON.parse(sessionStorage.getItem('landingData') as string);
+    landingData.videoEnd = false;
+    sessionStorage.setItem('landingData', JSON.stringify(landingData));
   };
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll, {passive: true});
-    result();
+    if (sessionStorage.getItem('landingData') === null) {
+      result();
+    } else {
+      setLanding(JSON.parse(sessionStorage.getItem('landingData') as string).LandingMovieData);
+      setVideoEnd(JSON.parse(sessionStorage.getItem('landingData') as string).videoEnd);
+      setLoading(false);
+    }
   }, []);
+
+  useEffect(() => {
+    if (sessionStorage.getItem('landingData') === null && landing) {
+      const storedData = {
+        trailer: `${process.env.REACT_APP_GRATFLIX_UPLOAD_PROVIDER}${
+          landing?.data?.attributes?.movie?.data?.attributes?.trailer?.data?.attributes?.url?.split('/')[3]
+        }`,
+        logo: `${process.env.REACT_APP_GRATFLIX_UPLOAD_PROVIDER}${
+          landing?.data?.attributes?.movie?.data?.attributes?.Logo?.data?.attributes?.url?.split('/')[3]
+        }`,
+        poster: `${process.env.REACT_APP_GRATFLIX_UPLOAD_PROVIDER}${
+          landing?.data?.attributes?.movie?.data?.attributes?.bigposter?.data?.attributes?.url?.split('/')[3]
+        }`,
+        LandingMovieData: landing,
+        videoEnd: false,
+      };
+      sessionStorage.setItem('landingData', JSON.stringify(storedData));
+      setLoading(false);
+    }
+  }, [landing]);
 
   useEffect(() => {
     if (!videoEnd) {
@@ -72,7 +106,7 @@ export const LandingVideo = ({loadingData}: landingProps) => {
         video?.play();
       }
     }
-  }, [scrollPosition]);
+  }, [scrollPosition, videoEnd]);
 
   useEffect(() => {
     if (!videoEnd) {
@@ -88,19 +122,6 @@ export const LandingVideo = ({loadingData}: landingProps) => {
     }
   }, [location.state]);
 
-  if (landing?.data?.attributes?.movie?.data?.attributes?.trailer !== undefined) {
-    trailer = `${process.env.REACT_APP_GRATFLIX_UPLOAD_PROVIDER}${
-      landing?.data?.attributes?.movie?.data?.attributes?.trailer?.data?.attributes?.url?.split('/')[3]
-    }`;
-  }
-  const logo = `${process.env.REACT_APP_GRATFLIX_UPLOAD_PROVIDER}${
-    landing?.data?.attributes?.movie?.data?.attributes?.Logo?.data?.attributes?.url?.split('/')[3]
-  }`;
-
-  const poster = `${process.env.REACT_APP_GRATFLIX_UPLOAD_PROVIDER}${
-    landing?.data?.attributes?.movie?.data?.attributes?.bigposter?.data?.attributes?.url?.split('/')[3]
-  }`;
-
   return (
     <Box as="section" className={styles.landingContainer}>
       {!loading ? (
@@ -109,16 +130,23 @@ export const LandingVideo = ({loadingData}: landingProps) => {
             <Box className={styles.image} style={{zIndex: 1}}></Box>
             {videoEnd ? (
               <>
-                <AspectRatio ratio={2.38} className={styles.blockClick}>
-                  <Image src={poster} height="119% !important" />
+                <AspectRatio ratio={2.38} className={`${styles.blockClick} ${styles.currentLanding}`}>
+                  <Image
+                    src={JSON.parse(sessionStorage.getItem('landingData') as string).poster}
+                    height="119% !important"
+                  />
                 </AspectRatio>
               </>
             ) : (
               <>
-                <AspectRatio ratio={2.38} className={styles.blockClick}>
+                <AspectRatio
+                  ratio={2.38}
+                  className={`${styles.blockClick} ${
+                    !JSON.parse(sessionStorage.getItem('landingData') as string).videoEnd ? '' : styles.currentLanding
+                  }`}>
                   <video
-                    poster={poster}
-                    src={trailer}
+                    poster={JSON.parse(sessionStorage.getItem('landingData') as string).poster}
+                    src={JSON.parse(sessionStorage.getItem('landingData') as string).trailer}
                     muted={!volumeMuted}
                     autoPlay
                     playsInline
@@ -130,7 +158,7 @@ export const LandingVideo = ({loadingData}: landingProps) => {
             )}
           </Box>
           <Stack className={`${styles.stackContainer} ${styles.fadeInContainer}`}>
-            <Img w="100%" src={logo} mb={7} />
+            <Img w="100%" src={JSON.parse(sessionStorage.getItem('landingData') as string).logo} mb={7} />
             <Flex alignItems="center" gap={6}>
               <Link to={'/watch/'}>
                 <Button
@@ -139,8 +167,7 @@ export const LandingVideo = ({loadingData}: landingProps) => {
                   bgColor="#181818"
                   color="white"
                   className={styles.BtnStyle}
-                  _hover={Blur}
-                  p={5}>
+                  _hover={Blur}>
                   <Text alignSelf="center" mr="15px" fontWeight="semibold">
                     Regarder
                   </Text>
@@ -150,29 +177,32 @@ export const LandingVideo = ({loadingData}: landingProps) => {
               <Link
                 to={`?movie=${landing?.data?.attributes?.movie?.data?.attributes?.title?.split(' ').join('-')}`}
                 state={{background: location, landing}}>
-                <Button
-                  alignSelf="center"
-                  variant="solid"
-                  className={styles.BtnStyle}
-                  w="max-content"
-                  _hover={Blur}
-                  p={5}>
-                  <Text alignSelf="center" mr="15" fontWeight="semibold">
+                <Button alignSelf="center" variant="solid" w="max-content" _hover={Blur}>
+                  <Text alignSelf="center" mr="15" fontWeight="semibold" size="md">
                     Plus d&apos;infos
                   </Text>
                   <BiErrorCircle height="35px" width="35px" />
                 </Button>
               </Link>
-              {!videoEnd && trailer !== undefined && (
+              {!videoEnd ? (
                 <Button
                   alignSelf="center"
                   variant="solid"
-                  className={styles.BtnStyle}
                   w="max-content"
                   _hover={Blur}
                   style={{padding: '15px'}}
                   onClick={() => setVolumeMuted(!volumeMuted)}>
                   <Image src={volumeMuted ? volumeOn : volumeOff} width="24px" height="24px" />
+                </Button>
+              ) : (
+                <Button
+                  alignSelf="center"
+                  variant="solid"
+                  w="max-content"
+                  _hover={Blur}
+                  style={{padding: '15px'}}
+                  onClick={handleRestartVideo}>
+                  <Image src={reload} width="24px" height="24px" />
                 </Button>
               )}
             </Flex>
@@ -190,6 +220,7 @@ export const LandingVideo = ({loadingData}: landingProps) => {
           <Loader />
         </Grid>
       )}
+      ;
     </Box>
   );
 };

@@ -17,6 +17,7 @@ export default function MovieCard({movie, isModal}: MovieCardProps) {
   const location = useLocation();
   const Navigate = useNavigate();
   const isSearchP = location.search.split('=')[0].includes('q');
+  const isPreview = location.search.split('=')[0].includes('preview');
 
   const handleMouseEnter = () => {
     setCurrentHoverState(true);
@@ -27,25 +28,35 @@ export default function MovieCard({movie, isModal}: MovieCardProps) {
     //       Navigate(`?movie=${movie?.attributes?.title?.split(' ').join('-')}`, {state: {background: location, movie}});
   };
 
-  useEffect(() => {
-    if (hover) {
-      Navigate(`?preview=${movie?.attributes?.title?.split(' ').join('-')}`, {state: {preview: location, movie}});
+  const handleMouselLeave = () => {
+    if (!hover) {
+      debounceHandleMouseEnter.cancel();
+    } else {
+      setHover(false);
+      setCurrentHoverState(false);
     }
-  });
+  };
+
+  // useEffect(() => {
+  //   if (hover) {
+  //     Navigate(`?preview=${movie?.attributes?.title?.split(' ').join('-')}`, {state: {preview: movie}});
+  //   }
+  // }, [hover]);
 
   const debounceHandleMouseEnter = useCallback(debounce(handleMouseEnter, 1000), []);
   const bigPoster = movie?.attributes?.bigposter?.data?.attributes?.url?.split('/')[3];
   return (
     <>
+      {isPreview && <Outlet />}
       <Image
         src={`${process.env.REACT_APP_GRATFLIX_UPLOAD_PROVIDER}medium_${
           movie?.attributes?.poster?.data?.attributes?.url?.split('/')[3]
         }`}
         alt={movie?.attributes?.title}
         onDragOver={() => setHover(!hover)}
-        className={currentHoverState ? styles.scaleMovie : styles.unScaleMovie}
+        // className={currentHoverState ? styles.scaleMovie : styles.unScaleMovie}
         onMouseEnter={debounceHandleMouseEnter}
-        onMouseLeave={() => debounceHandleMouseEnter.cancel()}
+        onMouseLeave={handleMouselLeave}
         borderRadius="5px"
         w={{base: '100%', sm: '240px', md: '260px', lg: '263px'}}
         h={{
@@ -56,7 +67,6 @@ export default function MovieCard({movie, isModal}: MovieCardProps) {
           '2xl': isModal ? '220px' : '320px',
         }}
       />
-      <Outlet />
     </>
   );
 }
