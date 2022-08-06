@@ -1,7 +1,7 @@
 .blockClick {
   pointer-events: none;
-  height: 72% !important;
   overflow: hidden;
+  min-height: 100vh;
 }
 
 .landingContainer {

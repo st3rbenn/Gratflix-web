@@ -167,8 +167,9 @@ export const LandingVideo = () => {
                   bgColor="#181818"
                   color="white"
                   className={styles.BtnStyle}
-                  _hover={Blur}>
-                  <Text alignSelf="center" mr="15px" fontWeight="semibold">
+                  _hover={Blur}
+                  p="25px">
+                  <Text alignSelf="center" mr="15px" fontWeight="semibold" fontSize="1.2rem">
                     Regarder
                   </Text>
                   <BiRightArrow height="35px" width="35px" />
@@ -177,8 +178,8 @@ export const LandingVideo = () => {
               <Link
                 to={`?movie=${landing?.data?.attributes?.movie?.data?.attributes?.title?.split(' ').join('-')}`}
                 state={{background: location, landing}}>
-                <Button alignSelf="center" variant="solid" w="max-content" _hover={Blur}>
-                  <Text alignSelf="center" mr="15" fontWeight="semibold" size="md">
+                <Button alignSelf="center" variant="solid" _hover={Blur} p="25px">
+                  <Text alignSelf="center" mr="15" fontWeight="semibold" fontSize="1.2rem">
                     Plus d&apos;infos
                   </Text>
                   <BiErrorCircle height="35px" width="35px" />
@@ -199,10 +200,10 @@ export const LandingVideo = () => {
                   alignSelf="center"
                   variant="solid"
                   w="max-content"
+                  style={{padding: 15}}
                   _hover={Blur}
-                  style={{padding: '15px'}}
                   onClick={handleRestartVideo}>
-                  <Image src={reload} width="24px" height="24px" />
+                  <Image src={reload} width="50px" height="50px" />
                 </Button>
               )}
             </Flex>
@@ -220,7 +221,6 @@ export const LandingVideo = () => {
           <Loader />
         </Grid>
       )}
-      ;
     </Box>
   );
 };

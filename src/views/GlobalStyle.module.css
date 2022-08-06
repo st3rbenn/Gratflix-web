@@ -4,11 +4,10 @@ body {
 }
 
 .swiperContainer {
-  margin-left: 55px;
-  margin-right: 55px;
+  padding-left: 55px;
   position: absolute;
   max-width: 92.3612%;
-  top: 100%;
+  top: 85%;
   z-index: 100;
 }
 
