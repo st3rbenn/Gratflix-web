@@ -64,7 +64,9 @@ export function Carousel({getMovieFromCategory, carouselTitle}: CarouselProps) {
   };
 
   useEffect(() => {
-    getMovies();
+    if (sessionStorage.getItem('CarouselData') === null) {
+      getMovies();
+    }
   }, []);
 
   useEffect(() => {
@@ -108,7 +110,7 @@ export function Carousel({getMovieFromCategory, carouselTitle}: CarouselProps) {
       </div> */}
         {movies?.data?.map((movie: components['schemas']['MovieResponse']['data']) => (
           <SwiperSlide key={movie?.id} className={styles.fadeInContainer}>
-            <Flex justifyContent="center" alignItems="center">
+            <Flex justifyContent="center" alignItems="center" style={{width: '225.125px !important'}}>
               <Link
                 to={`?movie=${movie?.attributes?.title?.split(' ').join('-')}`}
                 state={{background: location, movie}}>
@@ -140,8 +142,5 @@ const breakpoint = {
   },
   1000: {
     slidesPerView: 7,
-  },
-  1720: {
-    slidesPerView: 8,
   },
 };

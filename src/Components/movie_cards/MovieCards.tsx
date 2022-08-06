@@ -58,7 +58,7 @@ export default function MovieCard({movie, isModal}: MovieCardProps) {
         onMouseEnter={debounceHandleMouseEnter}
         onMouseLeave={handleMouselLeave}
         borderRadius="5px"
-        w={{base: '100%', sm: '240px', md: '260px', lg: '263px'}}
+        w={{base: '100%', sm: '240px', md: '260px', lg: '275px'}}
         h={{
           base: '100%',
           sm: '200px',
