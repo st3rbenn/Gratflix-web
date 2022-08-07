@@ -126,15 +126,16 @@ export const LandingVideo = () => {
     <Box as="section" className={styles.landingContainer}>
       {!loading ? (
         <>
-          <Box position="relative" className={styles.fadeInContainer}>
-            <Box className={styles.image} style={{zIndex: 1}}></Box>
+          <Box position="relative">
+            <Box className={`${styles.image}`} style={{zIndex: 1}}></Box>
             {videoEnd ? (
               <>
-                <AspectRatio ratio={2.38} className={`${styles.blockClick} ${styles.currentLanding}`}>
-                  <Image
-                    src={JSON.parse(sessionStorage.getItem('landingData') as string).poster}
-                    height="119% !important"
-                  />
+                <AspectRatio
+                  ratio={2.38}
+                  className={`${styles.blockClick} ${
+                    JSON.parse(sessionStorage.getItem('landingData') as string).videoEnd ? styles.currentLanding : ''
+                  }`}>
+                  <Image src={JSON.parse(sessionStorage.getItem('landingData') as string).poster} />
                 </AspectRatio>
               </>
             ) : (
