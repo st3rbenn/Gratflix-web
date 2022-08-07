@@ -1,5 +1,5 @@
 import {AspectRatio, Box, Button, Flex, Grid, Image, Img, Stack, Text} from '@chakra-ui/react';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState, VideoHTMLAttributes} from 'react';
 import {Link, Outlet, useLocation} from 'react-router-dom';
 import {BiErrorCircle, BiRightArrow} from 'react-icons/bi';
 import {components} from '../../api/typings/api';
@@ -19,7 +19,8 @@ export const LandingVideo = () => {
   const [loading, setLoading] = useState(true);
   const [landing, setLanding] = useState<components['schemas']['LandingResponse']>();
   const [video, setVideo] = useState<EventTarget>();
-  const [volumeMuted, setVolumeMuted] = useState(false);
+  const [volumeMuted, setVolumeMuted] = useState(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   const result = async () => {
     getLanding = fetcher.path('/landing').method('get').create();
@@ -35,9 +36,7 @@ export const LandingVideo = () => {
       'populate[8]': 'movie.age',
     };
     const {data: landingResult} = await getLanding(queryLanding);
-    if (landingResult !== undefined) {
-      setLanding(landingResult as components['schemas']['LandingResponse']);
-    }
+    setLanding(landingResult as components['schemas']['LandingResponse']);
   };
 
   const handleScroll = () => {
@@ -47,7 +46,6 @@ export const LandingVideo = () => {
 
   const handleEndVideo = () => {
     setVideoEnd(true);
-    setVolumeMuted(true);
 
     const landingData = JSON.parse(sessionStorage.getItem('landingData') as string);
     landingData.videoEnd = true;
@@ -56,11 +54,17 @@ export const LandingVideo = () => {
 
   const handleRestartVideo = () => {
     setVideoEnd(false);
-    setVolumeMuted(false);
 
     const landingData = JSON.parse(sessionStorage.getItem('landingData') as string);
     landingData.videoEnd = false;
     sessionStorage.setItem('landingData', JSON.stringify(landingData));
+  };
+
+  const handleVolumeStatue = () => {
+    setVolumeMuted(!volumeMuted);
+    const muv = JSON.parse(sessionStorage.getItem('landingData') as string);
+    muv.vs = !volumeMuted;
+    sessionStorage.setItem('landingData', JSON.stringify(muv));
   };
 
   useEffect(() => {
@@ -70,8 +74,12 @@ export const LandingVideo = () => {
     } else {
       setLanding(JSON.parse(sessionStorage.getItem('landingData') as string).LandingMovieData);
       setVideoEnd(JSON.parse(sessionStorage.getItem('landingData') as string).videoEnd);
+      setVolumeMuted(JSON.parse(sessionStorage.getItem('landingData') as string).vs);
       setLoading(false);
     }
+    // setTimeout(() => {
+    //   result();
+    // }, 5000);
   }, []);
 
   useEffect(() => {
@@ -87,7 +95,8 @@ export const LandingVideo = () => {
           landing?.data?.attributes?.movie?.data?.attributes?.bigposter?.data?.attributes?.url?.split('/')[3]
         }`,
         LandingMovieData: landing,
-        videoEnd: false,
+        videoEnd: videoEnd,
+        vs: volumeMuted,
       };
       sessionStorage.setItem('landingData', JSON.stringify(storedData));
       setLoading(false);
@@ -131,27 +140,20 @@ export const LandingVideo = () => {
             {videoEnd ? (
               <>
                 <AspectRatio ratio={2.38} className={`${styles.blockClick} ${styles.currentLanding}`}>
-                  <Image
-                    src={JSON.parse(sessionStorage.getItem('landingData') as string).poster}
-                    height="119% !important"
-                  />
+                  <Image src={JSON.parse(sessionStorage.getItem('landingData') as string).poster} />
                 </AspectRatio>
               </>
             ) : (
               <>
-                <AspectRatio
-                  ratio={2.38}
-                  className={`${styles.blockClick} ${
-                    !JSON.parse(sessionStorage.getItem('landingData') as string).videoEnd ? '' : styles.currentLanding
-                  }`}>
+                <AspectRatio ratio={2.38} className={`${styles.blockClick} ${!videoEnd ? '' : styles.currentLanding}`}>
                   <video
                     poster={JSON.parse(sessionStorage.getItem('landingData') as string).poster}
                     src={JSON.parse(sessionStorage.getItem('landingData') as string).trailer}
-                    muted={!volumeMuted}
                     autoPlay
                     playsInline
                     onTimeUpdate={(ev) => setVideo(ev.target)}
                     onEnded={handleEndVideo}
+                    ref={videoRef}
                   />
                 </AspectRatio>
               </>
@@ -159,7 +161,7 @@ export const LandingVideo = () => {
           </Box>
           <Stack className={`${styles.stackContainer} ${styles.fadeInContainer}`}>
             <Img w="100%" src={JSON.parse(sessionStorage.getItem('landingData') as string).logo} mb={7} />
-            <Flex alignItems="center" gap={6}>
+            <Flex alignItems="center" gap={6} maxW="max-content">
               <Link to={'/watch/'}>
                 <Button
                   alignSelf="center"
@@ -185,26 +187,32 @@ export const LandingVideo = () => {
                   <BiErrorCircle height="35px" width="35px" />
                 </Button>
               </Link>
-              {!videoEnd ? (
-                <Button
-                  alignSelf="center"
-                  variant="solid"
-                  w="max-content"
-                  _hover={Blur}
-                  style={{padding: '15px'}}
-                  onClick={() => setVolumeMuted(!volumeMuted)}>
-                  <Image src={volumeMuted ? volumeOn : volumeOff} width="24px" height="24px" />
-                </Button>
-              ) : (
-                <Button
-                  alignSelf="center"
-                  variant="solid"
-                  w="max-content"
-                  style={{padding: 15}}
-                  _hover={Blur}
-                  onClick={handleRestartVideo}>
-                  <Image src={reload} width="50px" height="50px" />
-                </Button>
+              {!videoEnd && (
+                <a className={styles.restartBtn}>
+                  <Button
+                    alignSelf="center"
+                    variant="ghost"
+                    w="max-content"
+                    _hover={Blur}
+                    style={{padding: 5, border: 'none'}}
+                    onClick={handleVolumeStatue}>
+                    <Image src={volumeMuted ? volumeOn : volumeOff} />
+                  </Button>
+                </a>
+              )}
+              {videoEnd && (
+                <a className={styles.restartBtn}>
+                  <Button
+                    alignSelf="center"
+                    variant="ghost"
+                    w="max-content"
+                    style={{padding: 5, border: 'none'}}
+                    _hover={Blur}
+                    onClick={handleRestartVideo}
+                    className={styles.restartBtn}>
+                    <Image src={reload} />
+                  </Button>
+                </a>
               )}
             </Flex>
           </Stack>

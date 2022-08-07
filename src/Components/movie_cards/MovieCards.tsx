@@ -49,7 +49,7 @@ export default function MovieCard({movie, isModal}: MovieCardProps) {
     <>
       {isPreview && <Outlet />}
       <Image
-        src={`${process.env.REACT_APP_GRATFLIX_UPLOAD_PROVIDER}medium_${
+        src={`${process.env.REACT_APP_GRATFLIX_UPLOAD_PROVIDER}${
           movie?.attributes?.poster?.data?.attributes?.url?.split('/')[3]
         }`}
         alt={movie?.attributes?.title}
