@@ -1,14 +1,18 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
-import { Flex, Container, List, ListItem, Img, Input, Stack, Button } from '@chakra-ui/react';
-import Logo from '../../../src/assets/img/Logo.png';
-import { useNavigate, Link } from 'react-router-dom';
-import { CSSObject } from '@emotion/react';
+import React, {ChangeEvent, useCallback, useEffect, useState} from 'react';
+import {Flex, Container, List, ListItem, Img, Input, Stack, Button} from '@chakra-ui/react';
+import Logo from './Logo.png';
+import {useNavigate, Link} from 'react-router-dom';
+import styles from './Header.module.css';
+import {debounce} from 'lodash';
 
 export function Header() {
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const [homeClicked, setHomeClicked] = useState(false);
+  const [currentInputValue, setCurrentInputValue] = useState<string>();
+
   const Navigation = useNavigate();
   const pathNameUrl = window.location.pathname;
 
-  const [scrollPosition, setScrollPosition] = useState(0);
   const handleScroll = () => {
     const position = window.scrollY;
     setScrollPosition(position);
@@ -16,36 +20,36 @@ export function Header() {
 
   const handleWritting = (ev: ChangeEvent) => {
     if (ev.target instanceof HTMLInputElement) {
-      // eslint-disable-next-line no-constant-condition
-      window.history.replaceState(null, typeof null == null ? '' : '', `/search?q=${ev.target.value}`);
       if (ev.target.value.length > 0) {
+        setCurrentInputValue(ev.target.value);
         Navigation(`/search?q=${ev.target.value}`);
       } else {
-        // eslint-disable-next-line no-constant-condition
-        window.history.replaceState(null, typeof null == null ? '' : '', '/home');
-        Navigation('/Browse');
+        Navigation('/browse');
+        setCurrentInputValue('');
       }
     }
   };
 
+  const debounceChangeHandler = useCallback(debounce(handleWritting, 500), []);
+
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('scroll', handleScroll, {passive: true});
   }, []);
 
   return (
     <Container
-      as='header'
-      maxW='container.xxl'
+      as="header"
+      maxW="container.xxl"
       pb={3}
       pt={4}
-      position='fixed'
-      zIndex={100000}
-      className={scrollPosition > 50 ? 'HeaderFade' : ''}
-      color='white'>
-      <Flex as='nav' alignItems='center' ml='50px' mr='55px' justifyContent='space-between'>
-        <List display='flex' gap={5} alignItems='center' fontWeight={600} fontSize='sm'>
-          <ListItem w='20%'>
-            <Link to='/'>
+      position="fixed"
+      zIndex={1000}
+      className={`${styles.headerContainer} ${scrollPosition > 0 ? styles.HeaderFade : styles.HeaderFadeOut}`}
+      color="white">
+      <Flex as="nav" alignItems="center" ml="50px" mr="55px" justifyContent="space-between">
+        <List display="flex" gap={5} alignItems="center" fontWeight="bold" fontSize="sm">
+          <ListItem w="20%">
+            <Link to="/browse" onClick={() => setHomeClicked(!homeClicked)}>
               <Img src={Logo} />
             </Link>
           </ListItem>
@@ -54,32 +58,34 @@ export function Header() {
             ml={10}
             fontSize={pathNameUrl === '/browse' ? 'md' : ''}
             color={pathNameUrl === '/browse' ? 'gray.100' : 'gray.300'}
-            _hover={pathNameUrl === '/browse' ? ({ color: '' } as CSSObject) : ({ color: 'gray.300' } as CSSObject)}>
-            <Link to='/browse'>Accueil</Link>
+            _hover={pathNameUrl === '/browse' ? {color: ''} : {color: 'gray.300'}}>
+            <Link to="/browse">Accueil</Link>
           </ListItem>
 
-          <ListItem color='gray.500' _hover={{ color: 'white' }}>
-            <Link to='/search'>Films</Link>
+          <ListItem
+            fontSize={pathNameUrl === '/ma-liste' ? 'md' : ''}
+            color={pathNameUrl === '/ma-liste' ? 'gray.100' : 'gray.300'}
+            _hover={pathNameUrl === '/ma-liste' ? {color: ''} : {color: 'gray.300'}}>
+            <Link to="/ma-liste">Ma liste</Link>
           </ListItem>
 
-          <ListItem color='gray.500' _hover={{ color: 'white' }}>
-            <Link to='/test'>Ma liste</Link>
-          </ListItem>
-
-          <ListItem color='gray.500' _hover={{ color: 'white' }}>
-            <Link to='/test2'>Catégories</Link>
+          <ListItem
+            fontSize={pathNameUrl === '/categorie' ? 'md' : ''}
+            color={pathNameUrl === '/categorie' ? 'gray.100' : 'gray.300'}
+            _hover={pathNameUrl === '/categorie' ? {color: ''} : {color: 'gray.300'}}>
+            <Link to="/categorie">Catégories</Link>
           </ListItem>
         </List>
 
-        <Stack flexDir='row' justifyContent='center' alignItems='center' gap={6}>
+        <Stack flexDir="row" justifyContent="center" alignItems="center" gap={6}>
           <Input
-            placeholder='Rechercher un film, par acteur...'
-            _placeholder={{ opacity: 1, color: 'white', fontWeight: 600, fontSize: 'sm' }}
+            placeholder="Rechercher un film, par acteur..."
+            _placeholder={{opacity: 1, color: 'white', fontWeight: 600, fontSize: 'sm'}}
             htmlSize={20}
-            onChange={(e) => handleWritting(e)}
+            onChange={debounceChangeHandler}
           />
-          <Button width='auto' mt='0 !important' bgColor='#e50914' pl={7} pr={7}>
-            S'enregistrer
+          <Button width="auto" mt="0 !important" bgColor="#e50914" pl={7} pr={7}>
+            S&apos;enregistrer
           </Button>
         </Stack>
       </Flex>

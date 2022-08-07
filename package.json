@@ -1,36 +1,41 @@
 {
-  "name": "boilerplate-react-typescript",
-  "version": "0.1.0",
+  "name": "gratflix",
+  "version": "0.3.0",
   "private": true,
   "dependencies": {
-    "@chakra-ui/react": "^2.2.1",
+    "@chakra-ui/react": "^2.0.0",
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16.11.41",
-    "@types/react": "^18.0.14",
-    "@types/react-dom": "^18.0.5",
+    "cross-env": "^7.0.3",
+    "css-modules-typescript-loader": "^4.0.1",
+    "dotenv": "^16.0.1",
     "framer-motion": "^6.3.11",
+    "fs": "^0.0.1-security",
+    "nth-check": "^2.1.1",
+    "openapi-typescript-fetch": "^1.1.3",
+    "os-browserify": "^0.3.0",
+    "path": "^0.12.7",
+    "postcss": "^8.4.14",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",
     "react-router-dom": "^6.3.0",
-    "react-scripts": "5.0.1",
-    "swiper": "^8.2.4",
-    "typescript": "^4.7.4",
-    "web-vitals": "^2.1.4"
+    "react-scripts": ">=5.0.1 <6.0.0",
+    "swiper": "^8.1.1",
+    "web-vitals": "^2.1.4",
+    "webpack": "^5.73.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "dev": "cross-env NODE_OPTIONS='--inspect' react-scripts start",
+    "build": "cross-env PROCESS_ENV=production react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
+    "start": "react-scripts start",
     "lint": "eslint '**/*.{js,jsx,ts,tsx,json}'",
     "lint:fix": "eslint --fix '**/*.{js,jsx,ts,tsx,json}'",
-    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json}\" --config ./.prettierrc"
+    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json}\" --config ./.prettierrc",
+    "sync": "npx openapi-typescript ../gratflix-back/src/extensions/documentation/documentation/1.0.0/full_documentation.json --output src/api/typings/api.ts"
   },
   "eslintConfig": {
     "extends": [
@@ -51,7 +56,11 @@
     ]
   },
   "devDependencies": {
+    "@types/jest": "^28.1.5",
     "@types/lodash": "^4.14.182",
+    "@types/node": "^18.0.4",
+    "@types/react": "^18.0.15",
+    "@types/react-dom": "^18.0.6",
     "@typescript-eslint/eslint-plugin": "^5.28.0",
     "@typescript-eslint/parser": "^5.28.0",
     "eslint": "^8.18.0",
@@ -61,6 +70,10 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.30.0",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "prettier": "^2.7.1"
+    "prettier": "^2.7.1",
+    "react-app-rewired": "^2.2.1",
+    "react-dom": ">=18.0.0 <19.0.0",
+    "typescript": "^4.7.4",
+    "typescript-plugin-css-modules": "^3.4.0"
   }
 }

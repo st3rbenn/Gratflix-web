@@ -1,0 +1,26 @@
+body {
+  background-color: #181818 !important;
+  scroll-behavior: auto;
+}
+
+.swiperContainer {
+  padding-left: 55px;
+  position: absolute;
+  max-width: 92.3612%;
+  top: 85%;
+  z-index: 100;
+}
+
+.galerie {
+  margin-bottom: 5px;
+  margin-top: 5px;
+  max-width: 100% !important;
+}
+
+.searchContainer {
+  position: absolute;
+  top: 13%;
+  margin-left: 55px;
+  margin-right: 55px;
+  left: 4%;
+}

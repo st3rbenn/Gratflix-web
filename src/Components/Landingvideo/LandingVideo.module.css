@@ -1,0 +1,71 @@
+.blockClick {
+  pointer-events: none;
+  overflow: hidden;
+  min-height: 100vh;
+}
+
+.landingContainer {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 100;
+}
+
+.stackContainer {
+  position: absolute;
+  top: 48%;
+  left: 5%;
+  width: 23%;
+  justify-content: center;
+  height: auto;
+  z-index: 1;
+}
+
+.blur {
+  filter: contrast(88%) brightness(72%);
+}
+
+.image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100% !important;
+  overflow: hidden;
+  background: linear-gradient(0deg, #181818, transparent 50%);
+}
+
+.fadeInContainer {
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 150ms;
+}
+
+@keyframes fadeInOpacity {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes fadeOutOpacity {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.currentLanding {
+  animation: fadeInOpacity 0.5s ease-in;
+  animation-duration: 1500ms;
+}
+
+.notCurrentLanding {
+  animation: fadeOutOpacity 0.5s ease-out;
+  animation-duration: 300ms;
+}
