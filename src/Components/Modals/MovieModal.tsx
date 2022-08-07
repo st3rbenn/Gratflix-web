@@ -146,7 +146,7 @@ export const MovieModal = ({isOpen}: modalProps) => {
           <Stack className={styles.stackContainer}>
             <Img w="100%" src={logo} mb={7} />
             <Link to="/watch/" style={{width: 'fit-content'}}>
-              <Button className={styles.btn} variant="solid">
+              <Button className={styles.btn} variant="solid" bgColor="#181818">
                 <Text alignSelf="center" mr="15px" fontWeight="semibold">
                   Regarder
                 </Text>
