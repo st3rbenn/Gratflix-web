@@ -18,9 +18,8 @@ export const LandingVideo = () => {
   const [videoEnd, setVideoEnd] = useState(false);
   const [loading, setLoading] = useState(true);
   const [landing, setLanding] = useState<components['schemas']['LandingResponse']>();
-  const [video, setVideo] = useState<EventTarget>();
+  const video = useRef<HTMLVideoElement>(null);
   const [volumeMuted, setVolumeMuted] = useState(true);
-  const videoRef = useRef<HTMLVideoElement>(null);
 
   const result = async () => {
     getLanding = fetcher.path('/landing').method('get').create();
@@ -46,6 +45,7 @@ export const LandingVideo = () => {
 
   const handleEndVideo = () => {
     setVideoEnd(true);
+    setVolumeMuted(true);
 
     const landingData = JSON.parse(sessionStorage.getItem('landingData') as string);
     landingData.videoEnd = true;
@@ -54,17 +54,10 @@ export const LandingVideo = () => {
 
   const handleRestartVideo = () => {
     setVideoEnd(false);
-
-    const landingData = JSON.parse(sessionStorage.getItem('landingData') as string);
-    landingData.videoEnd = false;
-    sessionStorage.setItem('landingData', JSON.stringify(landingData));
   };
 
   const handleVolumeStatue = () => {
     setVolumeMuted(!volumeMuted);
-    const muv = JSON.parse(sessionStorage.getItem('landingData') as string);
-    muv.vs = !volumeMuted;
-    sessionStorage.setItem('landingData', JSON.stringify(muv));
   };
 
   useEffect(() => {
@@ -74,12 +67,8 @@ export const LandingVideo = () => {
     } else {
       setLanding(JSON.parse(sessionStorage.getItem('landingData') as string).LandingMovieData);
       setVideoEnd(JSON.parse(sessionStorage.getItem('landingData') as string).videoEnd);
-      setVolumeMuted(JSON.parse(sessionStorage.getItem('landingData') as string).vs);
       setLoading(false);
     }
-    // setTimeout(() => {
-    //   result();
-    // }, 5000);
   }, []);
 
   useEffect(() => {
@@ -96,40 +85,45 @@ export const LandingVideo = () => {
         }`,
         LandingMovieData: landing,
         videoEnd: videoEnd,
-        vs: volumeMuted,
       };
       sessionStorage.setItem('landingData', JSON.stringify(storedData));
       setLoading(false);
     }
   }, [landing]);
 
-  useEffect(() => {
-    if (!videoEnd) {
-      if (scrollPosition > 320) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        video?.pause();
-      } else {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        video?.play();
-      }
-    }
-  }, [scrollPosition, videoEnd]);
+  // useEffect(() => {
+  //   if (!videoEnd) {
+  //     if (scrollPosition > 320) {
+  //       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //       // @ts-ignore
+  //       video?.pause();
+  //     } else {
+  //       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //       // @ts-ignore
+  //       video?.play();
+
+  //       //poster={JSON.parse(sessionStorage.getItem('landingData') as string).poster}
+  //     }
+  //   }
+  // }, [scrollPosition, videoEnd]);
 
   useEffect(() => {
-    if (!videoEnd) {
-      if (location.state === null) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        video?.play();
-      } else {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        video?.pause();
-      }
-    }
-  }, [location.state]);
+    video?.current?.play();
+  }, [video]);
+
+  // useEffect(() => {
+  //   if (!videoEnd) {
+  //     if (location.state === null) {
+  //       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //       // @ts-ignore
+  //       video?.play();
+  //     } else {
+  //       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //       // @ts-ignore
+  //       video?.pause();
+  //     }
+  //   }
+  // }, [location.state]);
 
   return (
     <Box as="section" className={styles.landingContainer}>
@@ -144,19 +138,17 @@ export const LandingVideo = () => {
                 </AspectRatio>
               </>
             ) : (
-              <>
-                <AspectRatio ratio={2.38} className={`${styles.blockClick} ${!videoEnd ? '' : styles.currentLanding}`}>
-                  <video
-                    poster={JSON.parse(sessionStorage.getItem('landingData') as string).poster}
-                    src={JSON.parse(sessionStorage.getItem('landingData') as string).trailer}
-                    autoPlay
-                    playsInline
-                    onTimeUpdate={(ev) => setVideo(ev.target)}
-                    onEnded={handleEndVideo}
-                    ref={videoRef}
-                  />
-                </AspectRatio>
-              </>
+              <AspectRatio ratio={2.38} className={`${styles.blockClick} ${!videoEnd ? '' : styles.currentLanding}`}>
+                <video
+                  poster={JSON.parse(sessionStorage.getItem('landingData') as string).poster}
+                  src={JSON.parse(sessionStorage.getItem('landingData') as string).trailer}
+                  autoPlay
+                  muted={volumeMuted}
+                  playsInline
+                  ref={video}
+                  onEnded={handleEndVideo}
+                />
+              </AspectRatio>
             )}
           </Box>
           <Stack className={`${styles.stackContainer} ${styles.fadeInContainer}`}>
@@ -194,7 +186,7 @@ export const LandingVideo = () => {
                     variant="ghost"
                     w="max-content"
                     _hover={Blur}
-                    style={{padding: 5, border: 'none'}}
+                    style={{padding: 0, border: 'none'}}
                     onClick={handleVolumeStatue}>
                     <Image src={volumeMuted ? volumeOn : volumeOff} />
                   </Button>
@@ -206,7 +198,7 @@ export const LandingVideo = () => {
                     alignSelf="center"
                     variant="ghost"
                     w="max-content"
-                    style={{padding: 5, border: 'none'}}
+                    style={{padding: 0, border: 'none'}}
                     _hover={Blur}
                     onClick={handleRestartVideo}
                     className={styles.restartBtn}>
