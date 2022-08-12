@@ -12,14 +12,19 @@ import volumeOn from '../../assets/img/volume-up-fill.svg';
 import reload from '../../assets/img/reload.svg';
 
 let getLanding = fetcher.path('/landing').method('get').create();
-export const LandingVideo = () => {
-  const location = useLocation();
-  const [scrollPosition, setScrollPosition] = useState(0);
+export default function LandingVideo() {
   const [videoEnd, setVideoEnd] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [volumeMuted, setVolumeMuted] = useState(true);
+  const [scrollPosition, setScrollPosition] = useState(0);
   const [landing, setLanding] = useState<components['schemas']['LandingResponse']>();
   const video = useRef<HTMLVideoElement>(null);
-  const [volumeMuted, setVolumeMuted] = useState(true);
+
+  const [bigPoster, setBigPoster] = useState<string>();
+  const [trailer, setTrailer] = useState<string>();
+  const [logo, setLogo] = useState<string>();
+
+  const location = useLocation();
 
   const result = async () => {
     getLanding = fetcher.path('/landing').method('get').create();
@@ -67,6 +72,9 @@ export const LandingVideo = () => {
     } else {
       setLanding(JSON.parse(sessionStorage.getItem('landingData') as string).LandingMovieData);
       setVideoEnd(JSON.parse(sessionStorage.getItem('landingData') as string).videoEnd);
+      setBigPoster(JSON.parse(sessionStorage.getItem('landingData') as string).bigPoster);
+      setTrailer(JSON.parse(sessionStorage.getItem('landingData') as string).trailer);
+      setLogo(JSON.parse(sessionStorage.getItem('landingData') as string).logo);
       setLoading(false);
     }
   }, []);
@@ -80,50 +88,46 @@ export const LandingVideo = () => {
         logo: `${process.env.REACT_APP_GRATFLIX_UPLOAD_PROVIDER}${
           landing?.data?.attributes?.movie?.data?.attributes?.Logo?.data?.attributes?.url?.split('/')[3]
         }`,
-        poster: `${process.env.REACT_APP_GRATFLIX_UPLOAD_PROVIDER}${
+        bigPoster: `${process.env.REACT_APP_GRATFLIX_UPLOAD_PROVIDER}${
           landing?.data?.attributes?.movie?.data?.attributes?.bigposter?.data?.attributes?.url?.split('/')[3]
         }`,
         LandingMovieData: landing,
         videoEnd: videoEnd,
       };
       sessionStorage.setItem('landingData', JSON.stringify(storedData));
+
+      setBigPoster(storedData.bigPoster);
+      setTrailer(storedData.trailer);
+      setLogo(storedData.logo);
+      setLanding(storedData.LandingMovieData);
+      setVideoEnd(storedData.videoEnd);
       setLoading(false);
     }
   }, [landing]);
 
-  // useEffect(() => {
-  //   if (!videoEnd) {
-  //     if (scrollPosition > 320) {
-  //       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  //       // @ts-ignore
-  //       video?.pause();
-  //     } else {
-  //       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  //       // @ts-ignore
-  //       video?.play();
-
-  //       //poster={JSON.parse(sessionStorage.getItem('landingData') as string).poster}
-  //     }
-  //   }
-  // }, [scrollPosition, videoEnd]);
+  useEffect(() => {
+    if (!videoEnd) {
+      if (scrollPosition > 500) {
+        video?.current?.pause();
+      } else {
+        video?.current?.play();
+      }
+    }
+  }, [scrollPosition, videoEnd]);
 
   useEffect(() => {
     video?.current?.play();
   }, [video]);
 
-  // useEffect(() => {
-  //   if (!videoEnd) {
-  //     if (location.state === null) {
-  //       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  //       // @ts-ignore
-  //       video?.play();
-  //     } else {
-  //       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  //       // @ts-ignore
-  //       video?.pause();
-  //     }
-  //   }
-  // }, [location.state]);
+  useEffect(() => {
+    if (!videoEnd) {
+      if (location.state === null) {
+        video?.current?.play();
+      } else {
+        video?.current?.pause();
+      }
+    }
+  }, [location.state]);
 
   return (
     <Box as="section" className={styles.landingContainer}>
@@ -134,14 +138,14 @@ export const LandingVideo = () => {
             {videoEnd ? (
               <>
                 <AspectRatio ratio={2.38} className={`${styles.blockClick} ${styles.currentLanding}`}>
-                  <Image src={JSON.parse(sessionStorage.getItem('landingData') as string).poster} />
+                  <Image src={bigPoster} />
                 </AspectRatio>
               </>
             ) : (
               <AspectRatio ratio={2.38} className={`${styles.blockClick} ${!videoEnd ? '' : styles.currentLanding}`}>
                 <video
-                  poster={JSON.parse(sessionStorage.getItem('landingData') as string).poster}
-                  src={JSON.parse(sessionStorage.getItem('landingData') as string).trailer}
+                  poster={bigPoster}
+                  src={trailer}
                   autoPlay
                   muted={volumeMuted}
                   playsInline
@@ -152,7 +156,7 @@ export const LandingVideo = () => {
             )}
           </Box>
           <Stack className={`${styles.stackContainer} ${styles.fadeInContainer}`}>
-            <Img w="100%" src={JSON.parse(sessionStorage.getItem('landingData') as string).logo} mb={7} />
+            <Img w="100%" src={logo} mb={7} />
             <Flex alignItems="center" gap={6} maxW="max-content">
               <Link to={'/watch/'}>
                 <Button
@@ -223,7 +227,7 @@ export const LandingVideo = () => {
       )}
     </Box>
   );
-};
+}
 
 const Blur = {
   filter: 'contrast(88%) brightness(72%)',
