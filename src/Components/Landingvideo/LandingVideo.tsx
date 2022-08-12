@@ -23,6 +23,7 @@ export default function LandingVideo() {
   const [bigPoster, setBigPoster] = useState<string>();
   const [trailer, setTrailer] = useState<string>();
   const [logo, setLogo] = useState<string>();
+  const [movieUrl, setMovieUrl] = useState<string>();
 
   const location = useLocation();
 
@@ -75,6 +76,7 @@ export default function LandingVideo() {
       setBigPoster(JSON.parse(sessionStorage.getItem('landingData') as string).bigPoster);
       setTrailer(JSON.parse(sessionStorage.getItem('landingData') as string).trailer);
       setLogo(JSON.parse(sessionStorage.getItem('landingData') as string).logo);
+      setMovieUrl(JSON.parse(sessionStorage.getItem('landingData') as string).movieUrl);
       setLoading(false);
     }
   }, []);
@@ -91,6 +93,9 @@ export default function LandingVideo() {
         bigPoster: `${process.env.REACT_APP_GRATFLIX_UPLOAD_PROVIDER}${
           landing?.data?.attributes?.movie?.data?.attributes?.bigposter?.data?.attributes?.url?.split('/')[3]
         }`,
+        movieUrl: `${process.env.REACT_APP_GRATFLIX_UPLOAD_PROVIDER}${
+          landing?.data?.attributes?.movie?.data?.attributes?.URL?.split('/')[3]
+        }`,
         LandingMovieData: landing,
         videoEnd: videoEnd,
       };
@@ -100,6 +105,7 @@ export default function LandingVideo() {
       setTrailer(storedData.trailer);
       setLogo(storedData.logo);
       setLanding(storedData.LandingMovieData);
+      setMovieUrl(storedData.movieUrl);
       setVideoEnd(storedData.videoEnd);
       setLoading(false);
     }
@@ -158,7 +164,7 @@ export default function LandingVideo() {
           <Stack className={`${styles.stackContainer} ${styles.fadeInContainer}`}>
             <Img w="100%" src={logo} mb={7} />
             <Flex alignItems="center" gap={6} maxW="max-content">
-              <Link to={'/watch/'}>
+              <Link to={`/watch/${landing?.data?.attributes?.movie?.data?.id}`} state={{MoviePath: location, landing}}>
                 <Button
                   alignSelf="center"
                   variant="solid"

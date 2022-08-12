@@ -24,3 +24,8 @@ body {
   margin-right: 55px;
   left: 4%;
 }
+
+.watchMovie {
+  width: 100% !important;
+  min-height: 100vh !important;
+}
