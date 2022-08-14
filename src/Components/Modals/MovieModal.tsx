@@ -41,6 +41,9 @@ interface locationState {
 export const MovieModal = ({isOpen}: modalProps) => {
   const location = useLocation();
   const {movie, landing} = (location.state as locationState) || {};
+  const [currentMovie, setCurrentMovie] = useState<
+    components['schemas']['MovieResponse']['data'] | components['schemas']['LandingResponse']
+  >();
   const [isModal, setIsModal] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [bigPoster, setBigPoster] = useState<string | undefined>();
@@ -53,6 +56,7 @@ export const MovieModal = ({isOpen}: modalProps) => {
   const [releaseDate, setReleaseDate] = useState<string | undefined>();
   const [viewTime, setViewTime] = useState<string | undefined>();
   const [age, setAge] = useState<string | undefined>();
+  const [movieLink, setMovieLink] = useState<string | undefined>();
   const Navigate = useNavigate();
 
   const date = (date: string | undefined) => () => {
@@ -62,37 +66,6 @@ export const MovieModal = ({isOpen}: modalProps) => {
     const day = dateSplit?.[2];
     return `${day}-${month}-${year}`;
   };
-
-  useEffect(() => {
-    setLogo(
-      movie?.attributes?.Logo?.data?.attributes?.url ||
-        landing?.data?.attributes?.movie?.data?.attributes?.Logo?.data?.attributes?.url,
-    );
-    setBigPoster(
-      movie?.attributes?.bigposter?.data?.attributes?.url ||
-        landing?.data?.attributes?.movie?.data?.attributes?.bigposter?.data?.attributes?.url,
-    );
-    setSynopsis(movie?.attributes?.Synopsis || landing?.data?.attributes?.movie?.data?.attributes?.Synopsis);
-    setCategories(
-      movie?.attributes?.categories?.data || landing?.data?.attributes?.movie?.data?.attributes?.categories?.data,
-    );
-    setActors(movie?.attributes?.actors?.data || landing?.data?.attributes?.movie?.data?.attributes?.actors?.data);
-    setRealisators(
-      movie?.attributes?.realisators?.data || landing?.data?.attributes?.movie?.data?.attributes?.realisators?.data,
-    );
-    if (landing?.data?.attributes?.movie?.data?.attributes?.releasedate !== undefined) {
-      setReleaseDate(date(landing?.data?.attributes?.movie?.data?.attributes?.releasedate));
-    } else {
-      setReleaseDate(date(movie?.attributes?.releasedate));
-    }
-    setViewTime(movie?.attributes?.viewtime || landing?.data?.attributes?.movie?.data?.attributes?.viewtime);
-    setAge(
-      // @ts-ignore
-      movie?.attributes?.age?.data?.attributes?.age ||
-        landing?.data?.attributes?.movie?.data?.attributes?.age?.data?.attributes?.age,
-    );
-    setIsModal(true);
-  }, []);
 
   const seeMoreMovie = async () => {
     const getMoreMovie = fetcher.path('/movies').method('get').create();
@@ -128,6 +101,41 @@ export const MovieModal = ({isOpen}: modalProps) => {
 
   useEffect(() => {
     seeMoreMovie();
+    if (movie !== undefined) {
+      setCurrentMovie(movie);
+    } else if (landing !== undefined) {
+      setCurrentMovie(landing);
+    }
+
+    setLogo(
+      movie?.attributes?.Logo?.data?.attributes?.url ||
+        landing?.data?.attributes?.movie?.data?.attributes?.Logo?.data?.attributes?.url,
+    );
+    setBigPoster(
+      movie?.attributes?.bigposter?.data?.attributes?.url ||
+        landing?.data?.attributes?.movie?.data?.attributes?.bigposter?.data?.attributes?.url,
+    );
+    setSynopsis(movie?.attributes?.Synopsis || landing?.data?.attributes?.movie?.data?.attributes?.Synopsis);
+    setCategories(
+      movie?.attributes?.categories?.data || landing?.data?.attributes?.movie?.data?.attributes?.categories?.data,
+    );
+    setActors(movie?.attributes?.actors?.data || landing?.data?.attributes?.movie?.data?.attributes?.actors?.data);
+    setRealisators(
+      movie?.attributes?.realisators?.data || landing?.data?.attributes?.movie?.data?.attributes?.realisators?.data,
+    );
+    if (landing?.data?.attributes?.movie?.data?.attributes?.releasedate !== undefined) {
+      setReleaseDate(date(landing?.data?.attributes?.movie?.data?.attributes?.releasedate));
+    } else {
+      setReleaseDate(date(movie?.attributes?.releasedate));
+    }
+    setViewTime(movie?.attributes?.viewtime || landing?.data?.attributes?.movie?.data?.attributes?.viewtime);
+    setAge(
+      // @ts-ignore
+      movie?.attributes?.age?.data?.attributes?.age ||
+        landing?.data?.attributes?.movie?.data?.attributes?.age?.data?.attributes?.age,
+    );
+    setMovieLink(movie?.attributes?.URL || landing?.data?.attributes?.movie?.data?.attributes?.URL);
+    setIsModal(true);
   }, []);
 
   const handleClose = () => {
@@ -145,8 +153,8 @@ export const MovieModal = ({isOpen}: modalProps) => {
           </AspectRatio>
           <Stack className={styles.stackContainer}>
             <Img w="100%" src={logo} mb={7} />
-            <Link to="/watch/" style={{width: 'fit-content'}}>
-              <Button className={styles.btn} variant="solid" bgColor="#181818">
+            <Link to={`/watch/${movie?.id}`} state={{MoviePath: location, currentMovie}}>
+              <Button alignSelf="center" variant="solid" _hover={Blur} p="25px" bgColor="#181818">
                 <Text alignSelf="center" mr="15px" fontWeight="semibold">
                   Regarder
                 </Text>
@@ -230,4 +238,7 @@ export const MovieModal = ({isOpen}: modalProps) => {
       </ModalContent>
     </Modal>
   );
+};
+const Blur = {
+  filter: 'contrast(88%) brightness(72%)',
 };

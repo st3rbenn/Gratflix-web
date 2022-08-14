@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 import {Navigate, Route, Routes, useLocation} from 'react-router-dom';
 import {MovieModal} from './Components/modals/MovieModal';
-import Preview from './Components/modal_preview/Preview';
 import Home from './views/Home';
 import Search from './views/Search';
 import Movie from './views/Movie';
