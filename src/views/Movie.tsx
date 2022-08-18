@@ -1,8 +1,7 @@
-import {Box} from '@chakra-ui/react';
-import React, {SyntheticEvent, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useLocation} from 'react-router-dom';
 import {components} from 'src/api/typings/api';
-import Loader from 'src/Components/loader/loader';
+import Loader from 'src/Components/Loader/loader';
 import styles from './GlobalStyle.module.css';
 
 interface moviePath {
@@ -23,7 +22,6 @@ function Movie() {
   const {currentMovie} = (location.state as moviePath) || {};
 
   useEffect(() => {
-    console.log(location);
     if (landing) {
       setMovieLanding(landing);
       setIsMovieLoaded(true);

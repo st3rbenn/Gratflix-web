@@ -79,13 +79,15 @@ export function Header() {
 
         <Stack flexDir="row" justifyContent="center" alignItems="center" gap={6}>
           <Input
-            placeholder="Rechercher un film, par acteur..."
+            placeholder="Rechercher un film, acteur..."
             _placeholder={{opacity: 1, color: 'white', fontWeight: 600, fontSize: 'sm'}}
             htmlSize={20}
             onChange={debounceChangeHandler}
+            borderColor="#181818"
+            borderWidth={2}
           />
           <Button width="auto" mt="0 !important" bgColor="#e50914" pl={7} pr={7}>
-            S&apos;enregistrer
+            <Link to="/register">S&apos;enregistrer</Link>
           </Button>
         </Stack>
       </Flex>

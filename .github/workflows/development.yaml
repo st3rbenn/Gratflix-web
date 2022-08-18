@@ -11,7 +11,7 @@ on:
 
 jobs:
   test:
-    name: Test application
+    name: Test environnement Gratflix-web
     runs-on: ubuntu-latest
     steps:
       - name: "☁️ checkout repository"
@@ -22,11 +22,11 @@ jobs:
         with:
           node-version: 16
 
-      - name: "🔧 install npm@latest"
-        run: npm i -g npm@latest
+      - name: "🔧 install yarn"
+        run: npm i -g yarn
 
       - name: "📦 install dependencies"
-        uses: bahmutov/npm-install@v1
+        uses: yarn install frozen-lockfile
 
   lint:
     name: Code standards
@@ -40,11 +40,11 @@ jobs:
         with:
           node-version: 16
 
-      - name: "🔧 install npm@latest"
+      - name: "🔧 install yarn"
         run: npm i -g npm@latest
 
       - name: "📦 install dependencies"
-        uses: bahmutov/npm-install@v1
+        uses: yarn install frozen-lockfile
 
       - name: "🔍 lint code"
         run: npm run lint --if-present

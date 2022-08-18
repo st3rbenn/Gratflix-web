@@ -65,11 +65,11 @@ jobs:
         with:
           node-version: 16
 
-      - name: "🔧 install npm@latest"
-        run: npm i -g npm@latest
+      - name: "🔧 install yarn"
+        run: npm i -g yarn
 
       - name: "📦 install dependencies"
-        uses: bahmutov/npm-install@v1
+        uses: yarn install frozen-lockfile
 
       - name: "📊 repository visualizer"
         id: diagram
