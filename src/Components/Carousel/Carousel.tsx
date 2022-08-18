@@ -7,6 +7,7 @@ import {components} from '../../api/typings/api';
 import MovieCard from '../movie_cards/MovieCards';
 import arrow from '../../assets/img/arrow.svg';
 import styles from './carousel.module.css';
+import {isMobile} from 'react-device-detect';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -23,6 +24,12 @@ export function Carousel({getMovieFromCategory, carouselTitle}: CarouselProps) {
   const [movies, setMovies] = useState<components['schemas']['MovieListResponse']>();
   const [listTitle, setListTitle] = useState<string>();
   const location = useLocation();
+
+  useEffect(() => {
+    if (isMobile) {
+      console.log('is mobile');
+    }
+  }, [isMobile]);
 
   const getMovies = async () => {
     const getMovie = fetcher.path('/movies').method('get').create();
@@ -100,14 +107,6 @@ export function Carousel({getMovieFromCategory, carouselTitle}: CarouselProps) {
         slidesPerView={7}
         breakpoints={breakpoint}
         allowTouchMove>
-        {/* <div style={{display: 'flex', justifyContent: 'space-between', position: 'relative'}}>
-        <Box style={{position: 'absolute', top: 0, right: 0}}>
-          <Image src={arrow} w="50px" h="50px" background="hsla(0,0%,8%,.5)" />
-        </Box>
-        <Box style={{position: 'absolute', top: 0, left: 0}}>
-          <Image src={arrow} w="50px" h="50px" transform="rotate(180deg)" background="hsla(0,0%,8%,.5)" />
-        </Box>
-      </div> */}
         {movies?.data?.map((movie: components['schemas']['MovieResponse']['data']) => (
           <SwiperSlide key={movie?.id} className={styles.fadeInContainer}>
             <Flex justifyContent="center" alignItems="center" style={{width: '225.125px !important'}}>
@@ -143,4 +142,18 @@ const breakpoint = {
   1000: {
     slidesPerView: 7,
   },
+  1200: {
+    slidesPerView: 8,
+  },
 };
+
+{
+  /* <div style={{display: 'flex', justifyContent: 'space-between', position: 'relative'}}>
+        <Box style={{position: 'absolute', top: 0, right: 0}}>
+          <Image src={arrow} w="50px" h="50px" background="hsla(0,0%,8%,.5)" />
+        </Box>
+        <Box style={{position: 'absolute', top: 0, left: 0}}>
+          <Image src={arrow} w="50px" h="50px" transform="rotate(180deg)" background="hsla(0,0%,8%,.5)" />
+        </Box>
+      </div> */
+}

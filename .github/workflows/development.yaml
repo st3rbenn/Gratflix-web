@@ -11,7 +11,7 @@ on:
 
 jobs:
   test:
-    name: Test application
+    name: Test environnement Gratflix-web
     runs-on: ubuntu-latest
     steps:
       - name: "☁️ checkout repository"

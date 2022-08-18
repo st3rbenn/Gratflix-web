@@ -1,8 +1,11 @@
 .blockClick {
   pointer-events: none;
   overflow: hidden;
-  min-height: 100vh;
 }
+
+.blockClick::before {
+  padding-bottom: 50.016807% !important;
+}   
 
 .landingContainer {
   width: 100%;
@@ -74,11 +77,28 @@
 
 .restartBtn {
   border-radius: 50%;
-  border: 2px solid #444;
+  border: 2px solid #181818;
   text-align: center;
   display: inline-block;
   vertical-align: middle;
   position: relative;
   z-index: 10;
+  color: #333;
+}
+
+.muteBtn {
+  border-radius: 50%;
+  border: 2px solid #181818;
+  text-align: center;
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  z-index: 10;
+  color: #333;
+}
+
+.muteBtn:focus {
+  border-radius: 50%;
+  border: 2px solid #181818;
   color: #333;
 }

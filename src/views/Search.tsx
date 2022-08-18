@@ -5,7 +5,7 @@ import {fetcher} from '../api/fetcher';
 import {components} from '../api/typings/api';
 import MovieCard from 'src/Components/movie_cards/MovieCards';
 import styles from './GlobalStyle.module.css';
-import Loader from 'src/Components/loader/loader';
+import Loader from 'src/Components/Loader/loader';
 
 let resultSearch: string;
 

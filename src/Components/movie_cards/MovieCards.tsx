@@ -15,7 +15,6 @@ export default function MovieCard({movie, isModal}: MovieCardProps) {
   const [currentHoverState, setCurrentHoverState] = useState(false);
   const [cardClicked, setCardClicked] = useState(false);
   const location = useLocation();
-  const Navigate = useNavigate();
   const isSearchP = location.search.split('=')[0].includes('q');
   const isPreview = location.search.split('=')[0].includes('preview');
 

@@ -5,7 +5,7 @@ import {BiErrorCircle, BiRightArrow} from 'react-icons/bi';
 import {components} from '../../api/typings/api';
 import {fetcher} from '../../api/fetcher';
 import styles from './LandingVideo.module.css';
-import Loader from '../loader/loader';
+import Loader from '../Loader/loader';
 
 import volumeOff from '../../assets/img/volume-mute-fill.svg';
 import volumeOn from '../../assets/img/volume-up-fill.svg';
@@ -143,22 +143,16 @@ export default function LandingVideo() {
               </>
             ) : (
               <AspectRatio ratio={2.38} className={`${styles.blockClick} ${!videoEnd ? '' : styles.currentLanding}`}>
-                <video
-                  poster={bigPoster}
-                  src={trailer}
-                  autoPlay
-                  muted={volumeMuted}
-                  playsInline
-                  ref={video}
-                  onEnded={handleEndVideo}
-                />
+                <video poster={bigPoster} autoPlay muted={volumeMuted} playsInline ref={video} onEnded={handleEndVideo}>
+                  <source src={trailer} type="video/mp4" />
+                </video>
               </AspectRatio>
             )}
           </Box>
           <Stack className={`${styles.stackContainer} ${styles.fadeInContainer}`}>
             <Img w="100%" src={logo} mb={7} />
             <Flex alignItems="center" gap={6} maxW="max-content">
-              <Link to={'/watch/'}>
+              <Link to={`/watch/${landing?.data?.attributes?.movie?.data?.id}`} state={{MoviePath: location, landing}}>
                 <Button
                   alignSelf="center"
                   variant="solid"
