@@ -22,7 +22,7 @@ import {Link, useLocation, useNavigate} from 'react-router-dom';
 import {fetcher} from '../../api/fetcher';
 import {components} from '../../api/typings/api';
 import MovieCard from '../movie_cards/MovieCards';
-import Loader from '../loader/loader';
+import Loader from '../Loader/loader';
 import styles from './modal.module.css';
 
 interface modalProps {
@@ -141,6 +141,7 @@ export const MovieModal = ({isOpen}: modalProps) => {
   const handleClose = () => {
     Navigate(-1);
   };
+
   return (
     <Modal isOpen={isOpen} onClose={handleClose} size="3xl">
       <ModalOverlay />
