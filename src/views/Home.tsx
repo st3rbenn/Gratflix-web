@@ -11,7 +11,7 @@ function Home() {
     <>
       <Box position="relative" as="main" bgColor="#181818">
         <LandingVideo />
-        <Box className={styles.swiperContainer} as="section" style={!userAgent ? {overflow: 'auto'} : {}}>
+        <Box className={styles.swiperContainer} as="section" style={userAgent ? {overflow: 'auto'} : {}}>
           <Container className={styles.galerie} as="article">
             <Carousel carouselTitle="recent" />
           </Container>
