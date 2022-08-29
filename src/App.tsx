@@ -18,7 +18,6 @@ interface locationState {
 function App() {
   const location = useLocation();
   const {background} = (location.state as locationState) || {};
-  const {MoviePath} = (location.state as locationState) || {};
 
   useEffect(() => {
     document.body.style.overflowX = 'hidden';
