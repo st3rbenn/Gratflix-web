@@ -4,9 +4,8 @@ body {
 }
 
 .swiperContainer {
-  padding-left: 55px;
   position: absolute;
-  max-width: 92.3612%;
+  max-width: 100%;
   top: 85%;
   z-index: 100;
 }

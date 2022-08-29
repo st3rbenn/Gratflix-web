@@ -1,11 +1,11 @@
-import {AspectRatio, Box, Button, Flex, Grid, Image, Img, Stack, Text} from '@chakra-ui/react';
-import React, {useEffect, useRef, useState, VideoHTMLAttributes} from 'react';
+import {AspectRatio, Box, Button, ButtonGroup, Grid, Image, Img, Stack, Text} from '@chakra-ui/react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Link, Outlet, useLocation} from 'react-router-dom';
 import {BiErrorCircle, BiRightArrow} from 'react-icons/bi';
 import {components} from '../../api/typings/api';
 import {fetcher} from '../../api/fetcher';
 import styles from './LandingVideo.module.css';
-import Loader from '../Loader/loader';
+import Loader from '../loader/Loader';
 
 import volumeOff from '../../assets/img/volume-mute-fill.svg';
 import volumeOn from '../../assets/img/volume-up-fill.svg';
@@ -151,27 +151,41 @@ export default function LandingVideo() {
           </Box>
           <Stack className={`${styles.stackContainer} ${styles.fadeInContainer}`}>
             <Img w="100%" src={logo} mb={7} />
-            <Flex alignItems="center" gap={6} maxW="max-content">
-              <Link to={`/watch/${landing?.data?.attributes?.movie?.data?.id}`} state={{MoviePath: location, landing}}>
-                <Button
+            <ButtonGroup alignItems="center" spacing={6}>
+              <Link
+                to={`/watch/${landing?.data?.attributes?.movie?.data?.id}`}
+                state={{MoviePath: location, landing}}
+                style={{
+                  backgroundColor: '#181818',
+                  color: '#fff',
+                }}
+                className={styles.btnStyle}>
+                <Text
                   alignSelf="center"
-                  variant="solid"
-                  bgColor="#181818"
-                  color="white"
-                  className={styles.BtnStyle}
-                  _hover={Blur}
-                  p="25px">
-                  <Text alignSelf="center" mr="15px" fontWeight="semibold" fontSize="1.2rem">
-                    Regarder
-                  </Text>
-                  <BiRightArrow height="35px" width="35px" />
-                </Button>
+                  mr="15px"
+                  fontWeight="semibold"
+                  fontSize={{
+                    base: '.875rem',
+                    sm: '1rem',
+                    xl: '1.2rem',
+                  }}>
+                  Regarder
+                </Text>
+                <BiRightArrow height="35px" width="35px" />
               </Link>
               <Link
                 to={`?movie=${landing?.data?.attributes?.movie?.data?.attributes?.title?.split(' ').join('-')}`}
                 state={{background: location, landing}}>
-                <Button alignSelf="center" variant="solid" _hover={Blur} p="25px">
-                  <Text alignSelf="center" mr="15" fontWeight="semibold" fontSize="1.2rem">
+                <Button alignSelf="center" variant="solid" _hover={Blur}>
+                  <Text
+                    alignSelf="center"
+                    mr="15"
+                    fontWeight="semibold"
+                    fontSize={{
+                      base: '.875rem',
+                      sm: '1rem',
+                      xl: '1.2rem',
+                    }}>
                     Plus d&apos;infos
                   </Text>
                   <BiErrorCircle height="35px" width="35px" />
@@ -204,7 +218,7 @@ export default function LandingVideo() {
                   </Button>
                 </a>
               )}
-            </Flex>
+            </ButtonGroup>
           </Stack>
           <Outlet />
         </>
