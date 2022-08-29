@@ -1,7 +1,7 @@
 import React from 'react';
 import {Box, Container} from '@chakra-ui/react';
-import LandingVideo from '../Components/Landingvideo/LandingVideo';
-import {Carousel} from '../Components/Carousel/Carousel';
+import LandingVideo from '../Components/landingvideo/LandingVideo';
+import {Carousel} from '../Components/carousel/Carousel';
 import styles from './GlobalStyle.module.css';
 import {Outlet} from 'react-router-dom';
 
@@ -21,12 +21,6 @@ function Home() {
           <Container className={styles.galerie} as="article" mb={50}>
             <Carousel getMovieFromCategory={3} />
           </Container>
-          {/* <Container className={styles.galerie} as='article' mb={50}>
-              <Galerie list={2} listTitle={'oeoe'}/>
-            </Container>
-            <Container className={styles.galerie} as='article' mb={50}>
-              <Galerie list={8} listTitle={'test'}/>
-            </Container> */}
         </Box>
       </Box>
       <Outlet />

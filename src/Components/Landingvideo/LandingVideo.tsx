@@ -1,11 +1,11 @@
-import {AspectRatio, Box, Button, ButtonGroup, Flex, Grid, Image, Img, Stack, Text} from '@chakra-ui/react';
-import React, {useEffect, useRef, useState, VideoHTMLAttributes} from 'react';
+import {AspectRatio, Box, Button, ButtonGroup, Grid, Image, Img, Stack, Text} from '@chakra-ui/react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Link, Outlet, useLocation} from 'react-router-dom';
 import {BiErrorCircle, BiRightArrow} from 'react-icons/bi';
 import {components} from '../../api/typings/api';
 import {fetcher} from '../../api/fetcher';
 import styles from './LandingVideo.module.css';
-import Loader from '../Loader/loader';
+import Loader from '../loader/Loader';
 
 import volumeOff from '../../assets/img/volume-mute-fill.svg';
 import volumeOn from '../../assets/img/volume-up-fill.svg';
