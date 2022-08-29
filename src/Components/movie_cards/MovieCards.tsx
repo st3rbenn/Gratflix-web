@@ -62,10 +62,36 @@ export default function MovieCard({movie, isModal}: MovieCardProps) {
           base: '100%',
           sm: '200px',
           md: '220px',
-          lg: isModal ? '220px' : isSearchP ? '300px' : '240px',
-          '2xl': isModal ? '220px' : '320px',
+          lg: isModal ? '220px' : isSearchP ? '300px' : '280px',
         }}
       />
     </>
   );
 }
+
+const widthBreakpoint = {
+  200: {
+    width: '200px',
+  },
+  480: {
+    slidesPerView: 2,
+  },
+  520: {
+    slidesPerView: 3,
+  },
+  630: {
+    slidesPerView: 4,
+  },
+  676: {
+    slidesPerView: 5,
+  },
+  900: {
+    slidesPerView: 6,
+  },
+  1000: {
+    slidesPerView: 7,
+  },
+  1200: {
+    slidesPerView: 8,
+  },
+};
