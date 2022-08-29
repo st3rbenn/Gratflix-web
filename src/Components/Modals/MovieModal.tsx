@@ -21,8 +21,8 @@ import {BiRightArrow} from 'react-icons/bi';
 import {Link, useLocation, useNavigate} from 'react-router-dom';
 import {fetcher} from '../../api/fetcher';
 import {components} from '../../api/typings/api';
+import Loader from 'src/Components/Loader/loader';
 import MovieCard from '../movie_cards/MovieCards';
-import Loader from '../loader/Loader';
 import styles from './modal.module.css';
 
 interface modalProps {

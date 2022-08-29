@@ -5,7 +5,7 @@ import {useNavigate, Link} from 'react-router-dom';
 import styles from './Header.module.css';
 import {debounce} from 'lodash';
 
-export function Header() {
+export default function Header() {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [homeClicked, setHomeClicked] = useState(false);
   const [currentInputValue, setCurrentInputValue] = useState<string>();
