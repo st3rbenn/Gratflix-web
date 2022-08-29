@@ -100,16 +100,10 @@ export function Carousel({getMovieFromCategory, carouselTitle}: CarouselProps) {
           </Heading>
         </>
       )}
-      <Swiper
-        spaceBetween={10}
-        style={{position: 'relative', overflow: 'visible'}}
-        lazy
-        slidesPerView={7}
-        breakpoints={breakpoint}
-        allowTouchMove>
+      <Swiper spaceBetween={10} style={{position: 'relative'}} lazy={true} slidesPerView={7} breakpoints={breakpoint}>
         {movies?.data?.map((movie: components['schemas']['MovieResponse']['data']) => (
           <SwiperSlide key={movie?.id} className={styles.fadeInContainer}>
-            <Flex justifyContent="center" alignItems="center" style={{width: '225.125px !important'}}>
+            <Flex justifyContent="center" alignItems="center">
               <Link
                 to={`?movie=${movie?.attributes?.title?.split(' ').join('-')}`}
                 state={{background: location, movie}}>
@@ -124,8 +118,11 @@ export function Carousel({getMovieFromCategory, carouselTitle}: CarouselProps) {
 }
 
 const breakpoint = {
+  200: {
+    slidesPerView: 3,
+  },
   480: {
-    slidesPerView: 2,
+    slidesPerView: 3,
   },
   520: {
     slidesPerView: 3,
@@ -133,7 +130,7 @@ const breakpoint = {
   630: {
     slidesPerView: 4,
   },
-  768: {
+  676: {
     slidesPerView: 5,
   },
   900: {
