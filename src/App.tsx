@@ -1,10 +1,10 @@
 import React, {useEffect} from 'react';
 import {Navigate, Route, Routes, useLocation} from 'react-router-dom';
-import {MovieModal} from './Components/Modals/MovieModal';
+import {MovieModal} from './Components/modals/MovieModal';
 import Home from './views/Home';
 import Search from './views/Search';
 import Movie from './views/Movie';
-import {Header} from './Components/Header/Header';
+import {Header} from './Components/header/Header';
 
 interface locationState {
   background: {
@@ -18,7 +18,6 @@ interface locationState {
 function App() {
   const location = useLocation();
   const {background} = (location.state as locationState) || {};
-  const {MoviePath} = (location.state as locationState) || {};
 
   useEffect(() => {
     document.body.style.overflowX = 'hidden';

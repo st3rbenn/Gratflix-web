@@ -1,7 +1,7 @@
 import React from 'react';
 import {Box, Container} from '@chakra-ui/react';
-import LandingVideo from '../Components/Landingvideo/LandingVideo';
-import {Carousel} from '../Components/Carousel/Carousel';
+import LandingVideo from '../Components/landingvideo/LandingVideo';
+import {Carousel} from '../Components/carousel/Carousel';
 import styles from './GlobalStyle.module.css';
 import {Outlet} from 'react-router-dom';
 
