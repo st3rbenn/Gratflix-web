@@ -6,13 +6,12 @@ import styles from './GlobalStyle.module.css';
 import {Outlet} from 'react-router-dom';
 
 function Home() {
-  const userAgent = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   console.log(window);
   return (
     <>
       <Box position="relative" as="main" bgColor="#181818">
         <LandingVideo />
-        <Box className={styles.swiperContainer} as="section" marginLeft={55}>
+        <Box className={styles.swiperContainer} as="section">
           <Container className={styles.galerie} as="article">
             <Carousel carouselTitle="recent" />
           </Container>
