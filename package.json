@@ -3,8 +3,9 @@
   "version": "0.3.0",
   "private": true,
   "engines" : { 
-    "npm" : ">=7.0.0",
-    "node" : ">=16.0.0"
+    "npm": "8.5.0",
+    "node": "16.14.2",
+    "yarn": "1.22.19"
   },
   "dependencies": {
     "@chakra-ui/react": "^2.0.0",
