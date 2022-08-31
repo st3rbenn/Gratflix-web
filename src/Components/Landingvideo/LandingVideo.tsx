@@ -5,7 +5,7 @@ import {BiErrorCircle, BiRightArrow} from 'react-icons/bi';
 import {components} from '../../api/typings/api';
 import {fetcher} from '../../api/fetcher';
 import styles from './LandingVideo.module.css';
-import Loader from '../Loader/loader';
+import Loader from '../loader/Loader';
 
 import volumeOff from '../../assets/img/volume-mute-fill.svg';
 import volumeOn from '../../assets/img/volume-up-fill.svg';
@@ -152,26 +152,28 @@ export default function LandingVideo() {
           <Stack className={`${styles.stackContainer} ${styles.fadeInContainer}`}>
             <Img w="100%" src={logo} mb={7} />
             <ButtonGroup alignItems="center" spacing={6}>
-              <Link
-                to={`/watch/${landing?.data?.attributes?.movie?.data?.id}`}
-                state={{MoviePath: location, landing}}
-                style={{
-                  backgroundColor: '#181818',
-                  color: '#fff',
-                }}
-                className={styles.btnStyle}>
-                <Text
+              <Link to={`/watch/${landing?.data?.attributes?.movie?.data?.id}`} state={{MoviePath: location, landing}}>
+                <Button
                   alignSelf="center"
-                  mr="15px"
-                  fontWeight="semibold"
-                  fontSize={{
-                    base: '.875rem',
-                    sm: '1rem',
-                    xl: '1.2rem',
+                  variant="solid"
+                  _hover={Blur}
+                  style={{
+                    backgroundColor: '#181818',
+                    color: '#fff',
                   }}>
-                  Regarder
-                </Text>
-                <BiRightArrow height="35px" width="35px" />
+                  <Text
+                    alignSelf="center"
+                    mr="15"
+                    fontWeight="semibold"
+                    fontSize={{
+                      base: '.875rem',
+                      sm: '1rem',
+                      xl: '1.2rem',
+                    }}>
+                    Regarder
+                  </Text>
+                  <BiRightArrow height="35px" width="35px" />
+                </Button>
               </Link>
               <Link
                 to={`?movie=${landing?.data?.attributes?.movie?.data?.attributes?.title?.split(' ').join('-')}`}

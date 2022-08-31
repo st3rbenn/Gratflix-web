@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useLocation} from 'react-router-dom';
 import {components} from 'src/api/typings/api';
-import Loader from 'src/Components/Loader/loader';
+import Loader from '../Components/loader/Loader';
 import styles from './GlobalStyle.module.css';
 
 interface moviePath {
