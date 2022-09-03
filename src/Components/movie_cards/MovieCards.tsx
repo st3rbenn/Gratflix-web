@@ -43,7 +43,6 @@ export default function MovieCard({movie, isModal}: MovieCardProps) {
   // }, [hover]);
 
   const debounceHandleMouseEnter = useCallback(debounce(handleMouseEnter, 1000), []);
-  const bigPoster = movie?.attributes?.bigposter?.data?.attributes?.url?.split('/')[3];
   return (
     <>
       {isPreview && <Outlet />}
@@ -59,7 +58,7 @@ export default function MovieCard({movie, isModal}: MovieCardProps) {
         borderRadius="5px"
         w={{base: '100%', sm: '240px', md: '260px', lg: '275px'}}
         h={{
-          base: '100%',
+          base: isModal ? '100%' : '150px',
           sm: '200px',
           md: '220px',
           lg: isModal ? '220px' : isSearchP ? '300px' : '280px',

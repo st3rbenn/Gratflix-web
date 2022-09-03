@@ -18,6 +18,7 @@ export default function LandingVideo() {
   const [volumeMuted, setVolumeMuted] = useState(true);
   const [scrollPosition, setScrollPosition] = useState(0);
   const [landing, setLanding] = useState<components['schemas']['LandingResponse']>();
+  const [currentUserAgent, setCurrentUserAgent] = useState('');
   const video = useRef<HTMLVideoElement>(null);
 
   const [bigPoster, setBigPoster] = useState<string>();
@@ -128,6 +129,12 @@ export default function LandingVideo() {
       }
     }
   }, [location.state]);
+
+  useEffect(() => {
+    setCurrentUserAgent(navigator.userAgent);
+  }, []);
+
+  console.log(currentUserAgent);
 
   return (
     <Box as="section" className={styles.landingContainer}>

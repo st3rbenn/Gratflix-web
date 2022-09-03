@@ -25,12 +25,6 @@ export function Carousel({getMovieFromCategory, carouselTitle}: CarouselProps) {
   const [listTitle, setListTitle] = useState<string>();
   const location = useLocation();
 
-  useEffect(() => {
-    if (isMobile) {
-      console.log('is mobile');
-    }
-  }, [isMobile]);
-
   const getMovies = async () => {
     const getMovie = fetcher.path('/movies').method('get').create();
     let queryMovie: object = {};
@@ -71,6 +65,12 @@ export function Carousel({getMovieFromCategory, carouselTitle}: CarouselProps) {
   };
 
   useEffect(() => {
+    if (isMobile) {
+      console.log('is mobile');
+    }
+  }, [isMobile]);
+
+  useEffect(() => {
     if (sessionStorage.getItem('CarouselData') === null) {
       getMovies();
     }
@@ -95,7 +95,7 @@ export function Carousel({getMovieFromCategory, carouselTitle}: CarouselProps) {
     <>
       {movies !== undefined && (
         <>
-          <Heading size="md" mt={7} ml={3} mb={2} color="white">
+          <Heading size="md" mt={10} ml={3} mb={3} color="white">
             {listTitle}
           </Heading>
         </>
