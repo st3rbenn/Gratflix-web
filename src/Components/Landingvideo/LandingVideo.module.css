@@ -16,9 +16,9 @@
 
 .stackContainer {
   position: absolute;
-  top: 60%;
   left: 5%;
   width: 23%;
+  max-width: 100%;
   justify-content: center;
   height: auto;
   z-index: 1;

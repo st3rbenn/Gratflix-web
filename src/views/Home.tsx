@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Box, Container} from '@chakra-ui/react';
 import LandingVideo from '../Components/landingvideo/LandingVideo';
 import {Carousel} from '../Components/carousel/Carousel';
@@ -6,12 +6,16 @@ import styles from './GlobalStyle.module.css';
 import {Outlet} from 'react-router-dom';
 
 function Home() {
-  console.log(window);
+  const [currentWidth, setCurrentWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    window.addEventListener('resize', () => setCurrentWidth(window.innerWidth));
+  }, []);
   return (
     <>
       <Box position="relative" as="main" bgColor="#181818">
         <LandingVideo />
-        <Box className={styles.swiperContainer} as="section">
+        <Box className={styles.swiperContainer} as="section" top={currentWidth > 768 ? '80%' : '100%'}>
           <Container className={styles.galerie} as="article">
             <Carousel carouselTitle="recent" />
           </Container>

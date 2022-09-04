@@ -1,14 +1,16 @@
 import React, {ChangeEvent, useCallback, useEffect, useState} from 'react';
-import {Flex, Container, List, ListItem, Img, Input, Stack, Button} from '@chakra-ui/react';
+import {Flex, Container, List, ListItem, Img, Input, Stack, Box} from '@chakra-ui/react';
 import Logo from './Logo.png';
 import {useNavigate, Link} from 'react-router-dom';
 import styles from './Header.module.css';
 import {debounce} from 'lodash';
+import MenuHeader from '../menu/MenuHeader';
 
 export default function Header() {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [homeClicked, setHomeClicked] = useState(false);
   const [currentInputValue, setCurrentInputValue] = useState<string>();
+  const [currentWidth, setCurrentWidth] = useState(window.innerWidth);
 
   const Navigation = useNavigate();
   const pathNameUrl = window.location.pathname;
@@ -34,6 +36,7 @@ export default function Header() {
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll, {passive: true});
+    window.addEventListener('resize', () => setCurrentWidth(window.innerWidth));
   }, []);
 
   return (
@@ -46,50 +49,70 @@ export default function Header() {
       zIndex={1000}
       className={`${styles.headerContainer} ${scrollPosition > 0 ? styles.HeaderFade : styles.HeaderFadeOut}`}
       color="white">
-      <Flex as="nav" alignItems="center" ml="50px" mr="55px" justifyContent="space-between">
-        <List display="flex" gap={5} alignItems="center" fontWeight="bold" fontSize="sm">
-          <ListItem w="20%">
-            <Link to="/browse" onClick={() => setHomeClicked(!homeClicked)}>
-              <Img src={Logo} />
-            </Link>
-          </ListItem>
+      <Flex
+        as="nav"
+        alignItems="center"
+        mb="10px"
+        mt="10px"
+        ml={currentWidth > 768 ? '50px' : '0'}
+        mr={currentWidth > 768 ? '50px' : '0'}
+        justifyContent={currentWidth < 768 ? 'space-between' : 'initial'}>
+        <Link to="/browse" onClick={() => setHomeClicked(!homeClicked)}>
+          <Img src={Logo} maxWidth="100%" width="100px" />
+        </Link>
+        <Flex
+          gap={5}
+          alignItems="center"
+          width={currentWidth > 768 ? '100%' : 'auto'}
+          justifyContent="space-between"
+          fontWeight="bold"
+          fontSize="sm"
+          ml={10}>
+          {currentWidth < 768 ? (
+            <>
+              <MenuHeader />
+            </>
+          ) : (
+            <>
+              <List display="flex" justifyContent="center" alignItems="center" gap={5}>
+                <ListItem
+                  fontSize={pathNameUrl === '/browse' ? 'md' : ''}
+                  color={pathNameUrl === '/browse' ? 'gray.100' : 'gray.300'}
+                  _hover={pathNameUrl === '/browse' ? {color: ''} : {color: 'gray.300'}}>
+                  <Link to="/browse">Accueil</Link>
+                </ListItem>
 
-          <ListItem
-            ml={10}
-            fontSize={pathNameUrl === '/browse' ? 'md' : ''}
-            color={pathNameUrl === '/browse' ? 'gray.100' : 'gray.300'}
-            _hover={pathNameUrl === '/browse' ? {color: ''} : {color: 'gray.300'}}>
-            <Link to="/browse">Accueil</Link>
-          </ListItem>
+                {/* <ListItem
+                  fontSize={pathNameUrl === '/ma-liste' ? 'md' : ''}
+                  color={pathNameUrl === '/ma-liste' ? 'gray.100' : 'gray.300'}
+                  _hover={pathNameUrl === '/ma-liste' ? {color: ''} : {color: 'gray.300'}}>
+                  <Link to="/ma-liste">Ma liste</Link>
+                </ListItem> */}
 
-          <ListItem
-            fontSize={pathNameUrl === '/ma-liste' ? 'md' : ''}
-            color={pathNameUrl === '/ma-liste' ? 'gray.100' : 'gray.300'}
-            _hover={pathNameUrl === '/ma-liste' ? {color: ''} : {color: 'gray.300'}}>
-            <Link to="/ma-liste">Ma liste</Link>
-          </ListItem>
-
-          <ListItem
-            fontSize={pathNameUrl === '/categorie' ? 'md' : ''}
-            color={pathNameUrl === '/categorie' ? 'gray.100' : 'gray.300'}
-            _hover={pathNameUrl === '/categorie' ? {color: ''} : {color: 'gray.300'}}>
-            <Link to="/categorie">Catégories</Link>
-          </ListItem>
-        </List>
-
-        <Stack flexDir="row" justifyContent="center" alignItems="center" gap={6}>
-          <Input
-            placeholder="Rechercher un film, acteur..."
-            _placeholder={{opacity: 1, color: 'white', fontWeight: 600, fontSize: 'sm'}}
-            htmlSize={20}
-            onChange={debounceChangeHandler}
-            borderColor="#181818"
-            borderWidth={2}
-          />
-          <Button width="auto" mt="0 !important" bgColor="#e50914" pl={7} pr={7}>
-            <Link to="/register">S&apos;enregistrer</Link>
-          </Button>
-        </Stack>
+                <ListItem
+                  fontSize={pathNameUrl === '/categorie' ? 'md' : ''}
+                  color={pathNameUrl === '/categorie' ? 'gray.100' : 'gray.300'}
+                  _hover={pathNameUrl === '/categorie' ? {color: ''} : {color: 'gray.300'}}>
+                  <Link to="/categorie">Catégories</Link>
+                </ListItem>
+              </List>
+            </>
+          )}
+          <Stack>
+            {currentWidth > 768 && (
+              <>
+                <Input
+                  placeholder="Rechercher un film, acteur..."
+                  _placeholder={{opacity: 1, color: 'white', fontWeight: 600, fontSize: 'sm'}}
+                  onChange={debounceChangeHandler}
+                  borderColor="#181818"
+                  borderWidth={2}
+                  width="100%"
+                />
+              </>
+            )}
+          </Stack>
+        </Flex>
       </Flex>
     </Container>
   );

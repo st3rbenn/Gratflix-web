@@ -2,12 +2,13 @@
   "name": "gratflix",
   "version": "0.3.0",
   "private": true,
-  "engines" : { 
+  "engines": {
     "npm": "8.5.0",
-    "node": "16.14.2",
+    "node": ">=16.14.2",
     "yarn": "1.22.19"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^2.0.9",
     "@chakra-ui/react": "^2.0.0",
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
