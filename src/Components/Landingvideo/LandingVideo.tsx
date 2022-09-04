@@ -157,7 +157,8 @@ export default function LandingVideo() {
             )}
           </Box>
           <Stack className={`${styles.stackContainer} ${styles.fadeInContainer}`}>
-            <Img w="100%" src={logo} mb={7} />
+            <Img src={logo} mb={3} sizes="" />
+            {/* currentWidth > 768 ? */}
             <ButtonGroup alignItems="center" spacing={6}>
               <Link to={`/watch/${landing?.data?.attributes?.movie?.data?.id}`} state={{MoviePath: location, landing}}>
                 <Button
