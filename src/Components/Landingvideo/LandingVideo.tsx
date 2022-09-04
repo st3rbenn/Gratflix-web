@@ -17,9 +17,13 @@ export default function LandingVideo() {
   const [loading, setLoading] = useState(true);
   const [volumeMuted, setVolumeMuted] = useState(true);
   const [scrollPosition, setScrollPosition] = useState(0);
+  const [currentWidth, setCurrentWidth] = useState(window.innerWidth);
   const [landing, setLanding] = useState<components['schemas']['LandingResponse']>();
   const [currentUserAgent, setCurrentUserAgent] = useState('');
   const video = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    window.addEventListener('resize', () => setCurrentWidth(window.innerWidth));
+  }, []);
 
   const [bigPoster, setBigPoster] = useState<string>();
   const [trailer, setTrailer] = useState<string>();
@@ -67,6 +71,11 @@ export default function LandingVideo() {
   };
 
   useEffect(() => {
+    window.addEventListener('resize', () => setCurrentWidth(window.innerWidth));
+  }, []);
+
+  useEffect(() => {
+    setCurrentUserAgent(navigator.userAgent);
     window.addEventListener('scroll', handleScroll, {passive: true});
     if (sessionStorage.getItem('landingData') === null) {
       result();
@@ -130,10 +139,6 @@ export default function LandingVideo() {
     }
   }, [location.state]);
 
-  useEffect(() => {
-    setCurrentUserAgent(navigator.userAgent);
-  }, []);
-
   console.log(currentUserAgent);
 
   return (
@@ -156,9 +161,10 @@ export default function LandingVideo() {
               </AspectRatio>
             )}
           </Box>
-          <Stack className={`${styles.stackContainer} ${styles.fadeInContainer}`}>
-            <Img src={logo} mb={3} sizes="" />
-            {/* currentWidth > 768 ? */}
+          <Stack
+            className={`${styles.stackContainer} ${styles.fadeInContainer}`}
+            top={currentWidth > 768 ? '45%' : '60%'}>
+            <Img src={logo} mb={3} />
             <ButtonGroup alignItems="center" spacing={6}>
               <Link to={`/watch/${landing?.data?.attributes?.movie?.data?.id}`} state={{MoviePath: location, landing}}>
                 <Button
