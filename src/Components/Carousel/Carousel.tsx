@@ -1,7 +1,7 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Swiper, SwiperSlide} from 'swiper/react';
 import {Link, useLocation} from 'react-router-dom';
-import {Heading, Flex, Image, Box, Grid} from '@chakra-ui/react';
+import {Heading, Flex} from '@chakra-ui/react';
 import {fetcher} from '../../api/fetcher';
 import {components} from '../../api/typings/api';
 import MovieCard from '../movie_cards/MovieCards';
@@ -132,6 +132,9 @@ const breakpoint = {
   },
   1440: {
     slidesPerView: 7,
+  },
+  1600: {
+    slidesPerView: 8,
   },
 };
 

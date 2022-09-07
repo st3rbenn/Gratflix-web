@@ -1,10 +1,10 @@
 import React, {useEffect} from 'react';
 import {Navigate, Route, Routes, useLocation} from 'react-router-dom';
-import {MovieModal} from '../src/Components/modals/MovieModal';
+import {MovieModal} from 'src/Components/modals/MovieModal';
 import Home from './views/Home';
 import Search from './views/Search';
 import Movie from './views/Movie';
-import Header from '../src/Components/header/Header';
+import Header from 'src/Components/header/Header';
 
 interface locationState {
   background: {

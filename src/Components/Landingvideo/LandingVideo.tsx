@@ -6,24 +6,18 @@ import {components} from '../../api/typings/api';
 import {fetcher} from '../../api/fetcher';
 import styles from './LandingVideo.module.css';
 import Loader from '../loader/Loader';
-
-import volumeOff from '../../assets/img/volume-mute-fill.svg';
-import volumeOn from '../../assets/img/volume-up-fill.svg';
-import reload from '../../assets/img/reload.svg';
+import ButtonStack from './ButtonStack';
 
 let getLanding = fetcher.path('/landing').method('get').create();
+
 export default function LandingVideo() {
   const [videoEnd, setVideoEnd] = useState(false);
   const [loading, setLoading] = useState(true);
   const [volumeMuted, setVolumeMuted] = useState(true);
   const [scrollPosition, setScrollPosition] = useState(0);
-  const [currentWidth, setCurrentWidth] = useState(window.innerWidth);
   const [landing, setLanding] = useState<components['schemas']['LandingResponse']>();
   const [currentUserAgent, setCurrentUserAgent] = useState('');
   const video = useRef<HTMLVideoElement>(null);
-  useEffect(() => {
-    window.addEventListener('resize', () => setCurrentWidth(window.innerWidth));
-  }, []);
 
   const [bigPoster, setBigPoster] = useState<string>();
   const [trailer, setTrailer] = useState<string>();
@@ -69,10 +63,6 @@ export default function LandingVideo() {
   const handleVolumeStatue = () => {
     setVolumeMuted(!volumeMuted);
   };
-
-  useEffect(() => {
-    window.addEventListener('resize', () => setCurrentWidth(window.innerWidth));
-  }, []);
 
   useEffect(() => {
     setCurrentUserAgent(navigator.userAgent);
@@ -161,81 +151,14 @@ export default function LandingVideo() {
               </AspectRatio>
             )}
           </Box>
-          <Stack
-            className={`${styles.stackContainer} ${styles.fadeInContainer}`}
-            top={currentWidth > 768 ? '45%' : '60%'}>
-            <Img src={logo} mb={3} />
-            <ButtonGroup alignItems="center" spacing={6}>
-              <Link to={`/watch/${landing?.data?.attributes?.movie?.data?.id}`} state={{MoviePath: location, landing}}>
-                <Button
-                  alignSelf="center"
-                  variant="solid"
-                  _hover={Blur}
-                  style={{
-                    backgroundColor: '#181818',
-                    color: '#fff',
-                  }}>
-                  <Text
-                    alignSelf="center"
-                    mr="15"
-                    fontWeight="semibold"
-                    fontSize={{
-                      base: '.875rem',
-                      sm: '1rem',
-                      xl: '1.2rem',
-                    }}>
-                    Regarder
-                  </Text>
-                  <BiRightArrow height="35px" width="35px" />
-                </Button>
-              </Link>
-              <Link
-                to={`?movie=${landing?.data?.attributes?.movie?.data?.attributes?.title?.split(' ').join('-')}`}
-                state={{background: location, landing}}>
-                <Button alignSelf="center" variant="solid" _hover={Blur}>
-                  <Text
-                    alignSelf="center"
-                    mr="15"
-                    fontWeight="semibold"
-                    fontSize={{
-                      base: '.875rem',
-                      sm: '1rem',
-                      xl: '1.2rem',
-                    }}>
-                    Plus d&apos;infos
-                  </Text>
-                  <BiErrorCircle height="35px" width="35px" />
-                </Button>
-              </Link>
-              {!videoEnd && (
-                <a className={styles.restartBtn}>
-                  <Button
-                    alignSelf="center"
-                    variant="ghost"
-                    w="max-content"
-                    _hover={Blur}
-                    style={{padding: 0, border: 'none'}}
-                    onClick={handleVolumeStatue}>
-                    <Image src={volumeMuted ? volumeOn : volumeOff} />
-                  </Button>
-                </a>
-              )}
-              {videoEnd && (
-                <a className={styles.restartBtn}>
-                  <Button
-                    alignSelf="center"
-                    variant="ghost"
-                    w="max-content"
-                    style={{padding: 0, border: 'none'}}
-                    _hover={Blur}
-                    onClick={handleRestartVideo}
-                    className={styles.restartBtn}>
-                    <Image src={reload} />
-                  </Button>
-                </a>
-              )}
-            </ButtonGroup>
-          </Stack>
+          <ButtonStack
+            landingData={landing}
+            onRestartVideo={handleRestartVideo}
+            onVideoEnd={videoEnd}
+            videoSound={volumeMuted}
+            soundStatus={handleVolumeStatue}
+            logo={logo}
+          />
           <Outlet />
         </>
       ) : (
@@ -252,7 +175,3 @@ export default function LandingVideo() {
     </Box>
   );
 }
-
-const Blur = {
-  filter: 'contrast(88%) brightness(72%)',
-};
