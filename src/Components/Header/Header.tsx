@@ -48,6 +48,7 @@ export default function Header() {
       position="fixed"
       zIndex={1000}
       className={`${styles.headerContainer} ${scrollPosition > 0 ? styles.HeaderFade : styles.HeaderFadeOut}`}
+      flexShrink={0}
       color="white">
       <Flex
         as="nav"
@@ -98,20 +99,14 @@ export default function Header() {
               </List>
             </>
           )}
-          <Stack>
-            {currentWidth > 768 && (
-              <>
-                <Input
-                  placeholder="Rechercher un film, acteur..."
-                  _placeholder={{opacity: 1, color: 'white', fontWeight: 600, fontSize: 'sm'}}
-                  onChange={debounceChangeHandler}
-                  borderColor="#181818"
-                  borderWidth={2}
-                  width="100%"
-                />
-              </>
-            )}
-          </Stack>
+          {currentWidth > 768 && (
+            <Input
+              placeholder="Rechercher un film, acteur..."
+              _placeholder={{opacity: 1, color: 'white', fontWeight: 600, fontSize: 'sm'}}
+              onChange={debounceChangeHandler}
+              width="20%"
+            />
+          )}
         </Flex>
       </Flex>
     </Container>

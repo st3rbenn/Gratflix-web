@@ -1,93 +1,102 @@
-import React, {useCallback, useEffect, useState} from 'react';
-import {Swiper, SwiperSlide} from 'swiper/react';
+import {Flex, Heading} from '@chakra-ui/react';
+import {useEffect, useState} from 'react';
 import {Link, useLocation} from 'react-router-dom';
-import {Heading, Flex, Image, Box, Grid} from '@chakra-ui/react';
-import {fetcher} from '../../api/fetcher';
-import {components} from '../../api/typings/api';
+import {Swiper, SwiperSlide} from 'swiper/react';
 import MovieCard from '../movie_cards/MovieCards';
-import arrow from '../../assets/img/arrow.svg';
 import styles from './carousel.module.css';
-import {isMobile} from 'react-device-detect';
 
+import {fetcher} from 'src/plexAPI/api';
+import {Metadata, RecentlyAdded, Tag} from 'src/plexAPI/type';
 import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
 import 'swiper/css/lazy';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 interface CarouselProps {
-  getMovieFromCategory?: number | string;
   carouselTitle?: string;
   loadingData?: () => void;
 }
 
-export function Carousel({getMovieFromCategory, carouselTitle}: CarouselProps) {
-  const [movies, setMovies] = useState<components['schemas']['MovieListResponse']>();
+export function Carousel({carouselTitle}: CarouselProps) {
+  const [movies, setMovies] = useState<Metadata[]>();
   const [listTitle, setListTitle] = useState<string>();
   const location = useLocation();
 
-  const getMovies = async () => {
-    const getMovie = fetcher.path('/movies').method('get').create();
-    let queryMovie: object = {};
-    if (getMovieFromCategory !== undefined) {
-      queryMovie = {
-        populate: 'category',
-        'populate[0]': 'poster',
-        'populate[1]': 'bigposter',
-        'populate[2]': 'Logo',
-        'populate[3]': 'trailer',
-        'populate[4]': 'actors',
-        'populate[5]': 'categories',
-        'populate[6]': 'realisators',
-        'populate[7]': 'age',
-        'filters[categories]': getMovieFromCategory,
-        'pagination[pageSize]': 12,
-      };
-    }
-    if (carouselTitle !== undefined) {
-      if (carouselTitle === 'recent') {
-        queryMovie = {
-          populate: 'poster',
-          'populate[0]': 'bigposter',
-          'populate[1]': 'categories',
-          'populate[2]': 'Logo',
-          'populate[3]': 'trailer',
-          'populate[4]': 'actors',
-          'populate[5]': 'realisators',
-          'populate[6]': 'age',
-          sort: 'publishedAt:desc',
-          'pagination[pageSize]': 12,
-        };
-      }
-    }
+  const handleGetRecentlyAdded = async () => {
+    const {data: result} = await fetcher.path('/library/recentlyAdded').method('get').create()({});
+    setMovies((result as RecentlyAdded).MediaContainer.Metadata);
+    sessionStorage.setItem(
+      `CarouselData_${carouselTitle}`,
+      JSON.stringify((result as RecentlyAdded).MediaContainer.Metadata),
+    );
+  };
 
-    const {data: moviesArray} = await getMovie(queryMovie);
-    setMovies(moviesArray);
+  const handleGetPerCategory = async (category: string) => {
+    let categoryUrl = '';
+    const {data: result} = await fetcher.path(`/library/sections/3/${Tag.Genre}`).method('get').create()({});
+
+    (result as any).MediaContainer.Directory.map((item: any) => {
+      if (item.title.toLowerCase() === category) {
+        categoryUrl = item.fastKey;
+      }
+    });
+
+    const {data: resultCategoryMovies} = await fetcher.path(categoryUrl).method('get').create()({});
+    setMovies((resultCategoryMovies as any).MediaContainer.Metadata);
+    sessionStorage.setItem(
+      `CarouselData_${carouselTitle}`,
+      JSON.stringify((resultCategoryMovies as any).MediaContainer.Metadata),
+    );
+  };
+
+  const getMovies = async () => {
+    switch (carouselTitle?.toLowerCase()) {
+      case 'recent':
+        await handleGetRecentlyAdded();
+        break;
+      case 'action':
+        await handleGetPerCategory(carouselTitle?.toLowerCase());
+        // await handleGetAllLibraries();
+        break;
+      case 'adventure':
+        await handleGetPerCategory(carouselTitle?.toLowerCase());
+        break;
+      case 'continue':
+        break;
+      case 'for you':
+        break;
+      case 'trending':
+        break;
+      default:
+        break;
+    }
   };
 
   useEffect(() => {
-    if (isMobile) {
-      console.log('is mobile');
-    }
-  }, [isMobile]);
-
-  useEffect(() => {
-    if (sessionStorage.getItem('CarouselData') === null) {
+    if (sessionStorage.getItem(`CarouselData_${carouselTitle}`) != undefined) {
+      setMovies(JSON.parse(sessionStorage.getItem(`CarouselData_${carouselTitle}`) as string));
+    } else {
       getMovies();
     }
   }, []);
 
   useEffect(() => {
-    if (carouselTitle !== undefined) {
-      if (carouselTitle === 'recent') {
+    switch (carouselTitle?.toLowerCase()) {
+      case 'recent':
         setListTitle('Récemment ajoutés');
-      } else if (carouselTitle === 'trending') {
+        break;
+      case 'trending':
         setListTitle('Les plus populaires');
-      } else if (carouselTitle === 'for you') {
+        break;
+      case 'for you':
         setListTitle('Pour vous');
-      }
-    } else {
-      const title = movies?.data?.[0]?.attributes?.categories?.data?.[0]?.attributes?.categorie;
-      setListTitle(title);
+        break;
+      default:
+        break;
+    }
+
+    if (listTitle == undefined) {
+      setListTitle(carouselTitle);
     }
   }, [movies !== undefined, carouselTitle !== undefined]);
 
@@ -101,12 +110,10 @@ export function Carousel({getMovieFromCategory, carouselTitle}: CarouselProps) {
         </>
       )}
       <Swiper spaceBetween={10} style={{position: 'relative'}} lazy={true} slidesPerView={7} breakpoints={breakpoint}>
-        {movies?.data?.map((movie: components['schemas']['MovieResponse']['data']) => (
-          <SwiperSlide key={movie?.id} className={styles.fadeInContainer}>
+        {movies?.map((movie: Metadata) => (
+          <SwiperSlide key={movie?.guid} className={styles.fadeInContainer}>
             <Flex justifyContent="center" alignItems="center">
-              <Link
-                to={`?movie=${movie?.attributes?.title?.split(' ').join('-')}`}
-                state={{background: location, movie}}>
+              <Link to={`?movie=${movie?.title}`} state={{background: location, movie}}>
                 <MovieCard movie={movie} />
               </Link>
             </Flex>

@@ -3,10 +3,6 @@
   overflow: hidden;
 }
 
-.blockClick::before {
-  padding-bottom: 50.016807% !important;
-}   
-
 .landingContainer {
   width: 100%;
   height: 100%;
@@ -17,7 +13,7 @@
 .stackContainer {
   position: absolute;
   left: 5%;
-  width: 23%;
+  width: 100%;
   max-width: 100%;
   justify-content: center;
   height: auto;
@@ -114,3 +110,9 @@
   color: #333;
   padding: 0.8rem;
 }
+
+
+
+/* .blockClick::before {
+  padding-bottom: 50.016807% !important;
+}    */

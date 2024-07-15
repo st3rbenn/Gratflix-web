@@ -1,12 +1,12 @@
-import React, {useCallback, useEffect, useState} from 'react';
-import {Link, useLocation, useNavigate, Outlet} from 'react-router-dom';
+import {Image} from '@chakra-ui/react';
 import {debounce} from 'lodash';
-import {AspectRatio, Box, Image, Text} from '@chakra-ui/react';
-import {components} from '../../api/typings/api';
-import styles from './MovieCard.module.css';
+import {useCallback, useEffect, useState} from 'react';
+import {Outlet, useLocation} from 'react-router-dom';
+import {fetcher, imageFetcher} from 'src/plexAPI/api';
+import {Metadata} from 'src/plexAPI/type';
 
 interface MovieCardProps {
-  movie: components['schemas']['MovieResponse']['data'];
+  movie: Metadata;
   isModal?: boolean;
 }
 
@@ -14,6 +14,7 @@ export default function MovieCard({movie, isModal}: MovieCardProps) {
   const [hover, setHover] = useState(false);
   const [currentHoverState, setCurrentHoverState] = useState(false);
   const [cardClicked, setCardClicked] = useState(false);
+  const [movieArt, setMovieArt] = useState<string>();
   const location = useLocation();
   const isSearchP = location.search.split('=')[0].includes('q');
   const isPreview = location.search.split('=')[0].includes('preview');
@@ -36,27 +37,42 @@ export default function MovieCard({movie, isModal}: MovieCardProps) {
     }
   };
 
-  // useEffect(() => {
-  //   if (hover) {
-  //     Navigate(`?preview=${movie?.attributes?.title?.split(' ').join('-')}`, {state: {preview: movie}});
-  //   }
-  // }, [hover]);
+  const handleGetMovieArt = async (artPath: string) => {
+    try {
+      const response = await imageFetcher({
+        url: artPath,
+      });
+      if (response) {
+        const blob = new Blob([response.data], {type: 'image/jpeg'});
+        const url = URL.createObjectURL(blob);
+        setMovieArt(url);
+      } else {
+        console.warn('No data returned from API');
+      }
+    } catch (error) {
+      console.error('Error fetching movie art:', error);
+    }
+  };
+
+  useEffect(() => {
+    if (movie?.art !== undefined) {
+      handleGetMovieArt(movie?.thumb);
+    }
+  }, [movie?.art]);
 
   const debounceHandleMouseEnter = useCallback(debounce(handleMouseEnter, 1000), []);
   return (
     <>
       {isPreview && <Outlet />}
       <Image
-        src={`${process.env.REACT_APP_GRATFLIX_UPLOAD_PROVIDER}${
-          movie?.attributes?.poster?.data?.attributes?.url?.split('/')[3]
-        }`}
-        alt={movie?.attributes?.title}
+        src={movieArt}
+        alt={movie?.title}
         onDragOver={() => setHover(!hover)}
         // className={currentHoverState ? styles.scaleMovie : styles.unScaleMovie}
         onMouseEnter={debounceHandleMouseEnter}
         onMouseLeave={handleMouselLeave}
         borderRadius="5px"
-        w={{base: '100%', sm: '240px', md: '260px', lg: '275px'}}
+        w={{base: '100%'}}
         h={{
           base: isModal ? '100%' : '150px',
           sm: '200px',
